@@ -9,6 +9,4 @@ type Logger interface {
 // defaultLogger is a no-op logger that discards all log messages.
 type defaultLogger struct{}
 
-func (defaultLogger) Printf(format string, v ...any) {
-	// No-op: discard logs by default
-}
+func (defaultLogger) Printf(format string, v ...any) {}

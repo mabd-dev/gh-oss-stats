@@ -5,6 +5,14 @@ import (
 	"time"
 )
 
+var (
+	DefaultIncludeLOC       bool          = false
+	DefaultIncludePRDetails bool          = false
+	DefaultMinStars         int           = 0
+	DefaultMaxPRS           int           = 500
+	DefaultTimeout          time.Duration = 5 * time.Minute
+)
+
 // Client represents a GitHub OSS stats client.
 // It is safe for concurrent use by multiple goroutines.
 type Client struct {
@@ -39,13 +47,13 @@ type Client struct {
 func New(opts ...Option) *Client {
 	// Create client with default values
 	client := &Client{
-		includeLOC:       true,            // Include LOC metrics by default
-		includePRDetails: false,           // Don't include PR details by default
-		minStars:         0,               // No star filtering by default
-		maxPRs:           500,             // Limit to 500 PRs by default
-		timeout:          5 * time.Minute, // 5 minute timeout by default
-		httpClient:       &http.Client{},  // Default HTTP client
-		logger:           defaultLogger{}, // No-op logger by default
+		includeLOC:       DefaultIncludeLOC,
+		includePRDetails: DefaultIncludePRDetails,
+		minStars:         DefaultMinStars,
+		maxPRs:           DefaultMaxPRS,
+		timeout:          DefaultTimeout,
+		httpClient:       &http.Client{},
+		logger:           defaultLogger{},
 	}
 
 	// Apply all provided options

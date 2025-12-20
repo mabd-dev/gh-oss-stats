@@ -15,28 +15,26 @@ import (
 const version = "1.0.0"
 
 func main() {
-	// Define CLI flags
 	var (
 		username     = flag.String("user", "", "GitHub username (required)")
 		userShort    = flag.String("u", "", "GitHub username (short)")
 		token        = flag.String("token", os.Getenv("GITHUB_TOKEN"), "GitHub token (default: $GITHUB_TOKEN)")
 		tokenShort   = flag.String("t", "", "GitHub token (short)")
-		includeLOC   = flag.Bool("include-loc", false, "Include LOC metrics")
-		includePRs   = flag.Bool("include-prs", false, "Include PR details")
-		minStars     = flag.Int("min-stars", 0, "Minimum repo stars")
-		maxPRs       = flag.Int("max-prs", 500, "Max PRs to fetch")
+		includeLOC   = flag.Bool("include-loc", ossstats.DefaultIncludeLOC, "Include LOC metrics")
+		includePRs   = flag.Bool("include-prs", ossstats.DefaultIncludePRDetails, "Include PR details")
+		minStars     = flag.Int("min-stars", ossstats.DefaultMinStars, "Minimum repo stars")
+		maxPRs       = flag.Int("max-prs", ossstats.DefaultMaxPRS, "Max PRs to fetch")
 		output       = flag.String("output", "", "Output file (default: stdout)")
 		outputShort  = flag.String("o", "", "Output file (short)")
 		pretty       = flag.Bool("pretty", true, "Pretty-print JSON")
 		verbose      = flag.Bool("verbose", false, "Verbose logging to stderr")
 		verboseShort = flag.Bool("v", false, "Verbose logging (short)")
-		timeoutSec   = flag.Int("timeout", 300, "Timeout in seconds")
+		timeoutSec   = flag.Int("timeout", int(ossstats.DefaultTimeout.Seconds()), "Timeout in seconds")
 		showVersion  = flag.Bool("version", false, "Print version")
 	)
 
 	flag.Parse()
 
-	// Handle version flag
 	if *showVersion {
 		fmt.Printf("gh-oss-stats v%s\n", version)
 		os.Exit(0)
@@ -72,7 +70,6 @@ func main() {
 	// Create client with options
 	opts := []ossstats.Option{
 		ossstats.WithLOC(*includeLOC),
-
 		ossstats.WithPRDetails(*includePRs),
 		ossstats.WithMinStars(*minStars),
 		ossstats.WithMaxPRs(*maxPRs),
