@@ -13,8 +13,8 @@
 ## Architecture
 
 ```
-oss-stats/
-├── cmd/gh-oss-stats/main.go      # CLI entry point (thin wrapper)
+gh-oss-stats/
+├── cmd/gh-oss-stats/main.go   # CLI entry point (thin wrapper)
 ├── pkg/ossstats/              # PUBLIC API - importable by external projects
 │   ├── client.go              # Client struct + New() constructor
 │   ├── contributions.go       # Core logic: GetContributions()
@@ -37,32 +37,32 @@ oss-stats/
 
 type Stats struct {
     Username      string         `json:"username"`
-    GeneratedAt   time.Time      `json:"generatedAt"`
+    GeneratedAt   time.Time      `json:"generated_at"`
     Summary       Summary        `json:"summary"`
     Contributions []Contribution `json:"contributions"`
 }
 
 type Summary struct {
-    TotalProjects  int `json:"totalProjects"`
-    TotalPRsMerged int `json:"totalPrsMerged"`
-    TotalCommits   int `json:"totalCommits"`
-    TotalAdditions int `json:"totalAdditions"`
-    TotalDeletions int `json:"totalDeletions"`
+    TotalProjects  int `json:"total_projects"`
+    TotalPRsMerged int `json:"total_prs_merged"`
+    TotalCommits   int `json:"total_commits"`
+    TotalAdditions int `json:"total_additions"`
+    TotalDeletions int `json:"total_deletions"`
 }
 
 type Contribution struct {
     Repo              string    `json:"repo"`
     Owner             string    `json:"owner"`
-    RepoName          string    `json:"repoName"`
+    RepoName          string    `json:"repo_name"`
     Description       string    `json:"description"`
-    RepoURL           string    `json:"repoUrl"`
+    RepoURL           string    `json:"repo_url"`
     Stars             int       `json:"stars"`
-    PRsMerged         int       `json:"prsMerged"`
+    PRsMerged         int       `json:"prs_merged"`
     Commits           int       `json:"commits"`
     Additions         int       `json:"additions"`
     Deletions         int       `json:"deletions"`
-    FirstContribution time.Time `json:"firstContribution"`
-    LastContribution  time.Time `json:"lastContribution"`
+    FirstContribution time.Time `json:"first_contribution"`
+    LastContribution  time.Time `json:"last_contribution"`
 }
 ```
 
