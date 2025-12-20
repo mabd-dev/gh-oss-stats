@@ -34,13 +34,13 @@ Basic usage:
 
 ```bash
 # Fetch contributions for a user
-gh-oss-stats --user octocat --token $GITHUB_TOKEN
+gh-oss-stats --user github-username --token $GITHUB_TOKEN
 
 # Filter by stars and limit PRs
-gh-oss-stats -u octocat -t $GITHUB_TOKEN --min-stars 100 --max-prs 200
+gh-oss-stats -u github-username -t $GITHUB_TOKEN --min-stars 100 --max-prs 200
 
 # Save to file with verbose logging
-gh-oss-stats -u octocat -t $GITHUB_TOKEN -o output.json -v
+gh-oss-stats -u github-username -t $GITHUB_TOKEN -o output.json -v
 
 # Show version
 gh-oss-stats --version
@@ -84,7 +84,7 @@ func main() {
     )
     
     // Fetch contributions
-    stats, err := client.GetContributions(context.Background(), "octocat")
+    stats, err := client.GetContributions(context.Background(), "github-username")
     if err != nil {
         log.Fatal(err)
     }
@@ -98,7 +98,7 @@ func main() {
 
 ```json
 {
-  "username": "octocat",
+  "username": "github-username",
   "generatedAt": "2025-01-15T10:30:00Z",
   "summary": {
     "totalProjects": 42,
