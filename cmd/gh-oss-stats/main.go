@@ -60,6 +60,13 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Warn if no token provided (not an error, but rate limits will be severe)
+	if *token == "" {
+		fmt.Fprintf(os.Stderr, "Warning: No GitHub token provided. You'll hit rate limits quickly (60 requests/hour).\n")
+		fmt.Fprintf(os.Stderr, "Hint: Set GITHUB_TOKEN environment variable or use --token flag\n")
+		fmt.Fprintf(os.Stderr, "      Create a token at: https://github.com/settings/tokens\n\n")
+	}
+
 	// Set up logger
 	var logger ossstats.Logger
 	if *verbose {
