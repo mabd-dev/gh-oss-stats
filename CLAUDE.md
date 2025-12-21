@@ -72,6 +72,7 @@ type Contribution struct {
 ```
 GET /search/issues?q=author:{username}+type:pr+is:merged+-user:{username}&per_page=100
 ```
+*Note: Organizations can be excluded by appending `-org:{orgname}` to the query for each excluded org.*
 
 **Step 2: Get PR details (commits, additions, deletions)**
 ```
@@ -92,6 +93,7 @@ client := ossstats.New(
     ossstats.WithToken(token),
     ossstats.WithLOC(true),
     ossstats.WithMinStars(100),
+    ossstats.WithExcludeOrgs([]string{"my-org", "my-company"}),
 )
 ```
 
@@ -101,6 +103,7 @@ Required options to implement:
 - `WithPRDetails(bool)` - Include detailed PR list (default: false)
 - `WithMinStars(int)` - Filter repos by minimum stars (default: 0)
 - `WithMaxPRs(int)` - Limit PRs fetched (default: 500)
+- `WithExcludeOrgs([]string)` - Exclude organizations from the report (default: none)
 - `WithTimeout(time.Duration)` - Overall timeout (default: 5m)
 - `WithLogger(Logger)` - Custom logger interface
 - `WithHTTPClient(*http.Client)` - Custom HTTP client
@@ -114,6 +117,7 @@ Required options to implement:
 --include-prs    bool      Include PR details (default: false)
 --min-stars      int       Minimum repo stars (default: 0)
 --max-prs        int       Max PRs to fetch (default: 500)
+--exclude-orgs   string    Comma-separated list of organizations to exclude
 --output, -o     string    Output file (default: stdout)
 --verbose, -v    bool      Verbose logging to stderr
 --timeout        duration  Timeout (default: 5m)

@@ -25,6 +25,7 @@ type Client struct {
 	minStars         int
 	maxPRs           int
 	timeout          time.Duration
+	excludeOrgs      []string
 
 	// HTTP client
 	httpClient *http.Client

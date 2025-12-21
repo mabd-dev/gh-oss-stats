@@ -39,6 +39,9 @@ gh-oss-stats --user github-username --token $GITHUB_TOKEN
 # Filter by stars and limit PRs
 gh-oss-stats -u github-username -t $GITHUB_TOKEN --min-stars 100 --max-prs 200
 
+# Exclude your own organizations
+gh-oss-stats -u github-username -t $GITHUB_TOKEN --exclude-orgs "my-org,my-company"
+
 # Save to file with verbose logging
 gh-oss-stats -u github-username -t $GITHUB_TOKEN -o output.json -v
 
@@ -55,6 +58,7 @@ gh-oss-stats --version
 --include-prs    Include PR details (default: false)
 --min-stars      Minimum repo stars (default: 0)
 --max-prs        Max PRs to fetch (default: 500)
+--exclude-orgs   Comma-separated list of organizations to exclude
 --output, -o     Output file (default: stdout)
 --verbose, -v    Verbose logging to stderr
 --timeout        Timeout in seconds (default: 300)
@@ -79,6 +83,7 @@ func main() {
     client := ossstats.New(
         ossstats.WithToken("your-github-token"),
         ossstats.WithMinStars(100),
+        ossstats.WithExcludeOrgs([]string{"my-org", "my-company"}),
         ossstats.WithVerbose(),
     )
     
