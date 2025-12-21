@@ -56,7 +56,6 @@ gh-oss-stats --version
 --min-stars      Minimum repo stars (default: 0)
 --max-prs        Max PRs to fetch (default: 500)
 --output, -o     Output file (default: stdout)
---pretty         Pretty-print JSON (default: true)
 --verbose, -v    Verbose logging to stderr
 --timeout        Timeout in seconds (default: 300)
 --version        Print version

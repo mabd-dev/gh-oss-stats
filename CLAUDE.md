@@ -115,7 +115,6 @@ Required options to implement:
 --min-stars      int       Minimum repo stars (default: 0)
 --max-prs        int       Max PRs to fetch (default: 500)
 --output, -o     string    Output file (default: stdout)
---pretty         bool      Pretty-print JSON (default: true)
 --verbose, -v    bool      Verbose logging to stderr
 --timeout        duration  Timeout (default: 5m)
 --version        bool      Print version

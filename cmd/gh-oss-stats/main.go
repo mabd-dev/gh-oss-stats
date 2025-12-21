@@ -26,7 +26,6 @@ func main() {
 		maxPRs       = flag.Int("max-prs", ossstats.DefaultMaxPRS, "Max PRs to fetch")
 		output       = flag.String("output", "", "Output file (default: stdout)")
 		outputShort  = flag.String("o", "", "Output file (short)")
-		pretty       = flag.Bool("pretty", true, "Pretty-print JSON")
 		verbose      = flag.Bool("verbose", false, "Verbose logging to stderr")
 		verboseShort = flag.Bool("v", false, "Verbose logging (short)")
 		timeoutSec   = flag.Int("timeout", int(ossstats.DefaultTimeout.Seconds()), "Timeout in seconds")
@@ -120,13 +119,15 @@ func main() {
 	}
 
 	// Encode JSON
-	var jsonData []byte
-	var encodeErr error
-	if *pretty {
-		jsonData, encodeErr = json.MarshalIndent(stats, "", "  ")
-	} else {
-		jsonData, encodeErr = json.Marshal(stats)
-	}
+	writeStats(output, verbose, stats)
+}
+
+func writeStats(
+	output *string,
+	verbose *bool,
+	stats *ossstats.Stats,
+) {
+	jsonData, encodeErr := json.MarshalIndent(stats, "", "  ")
 
 	if encodeErr != nil {
 		fmt.Fprintf(os.Stderr, "Error encoding JSON: %v\n", encodeErr)

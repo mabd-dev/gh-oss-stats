@@ -48,7 +48,7 @@ func (c *Client) GetContributions(ctx context.Context, username string) (*Stats,
 
 	// Step 2: Fetch PR details and aggregate by repository
 	c.logger.Printf("Fetching PR details...")
-	contributions, errors := c.fetchPRDetails(ctx, apiClient, issues, username)
+	contributions, errors := c.fetchPRDetails(ctx, apiClient, issues)
 
 	// Step 3: Fetch repository metadata
 	c.logger.Printf("Fetching repository metadata...")
@@ -150,7 +150,7 @@ func (c *Client) searchMergedPRs(ctx context.Context, api *github.APIClient, use
 }
 
 // fetchPRDetails fetches detailed information for each PR and aggregates by repository.
-func (c *Client) fetchPRDetails(ctx context.Context, api *github.APIClient, issues []github.Issue, username string) ([]Contribution, []error) {
+func (c *Client) fetchPRDetails(ctx context.Context, api *github.APIClient, issues []github.Issue) ([]Contribution, []error) {
 	// Map to aggregate PRs by repository
 	repoMap := make(map[string]*Contribution)
 	var mu sync.Mutex
