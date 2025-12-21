@@ -95,6 +95,13 @@ func (c *Client) GetContributions(ctx context.Context, username string) (*Stats,
 func (c *Client) searchMergedPRs(ctx context.Context, api *github.APIClient, username string) ([]github.Issue, error) {
 	// Build search query: merged PRs by user, excluding their own repos
 	query := fmt.Sprintf("author:%s type:pr is:merged -user:%s", username, username)
+	
+	// Exclude specified organizations
+	for _, org := range c.excludeOrgs {
+		if org != "" {
+			query += fmt.Sprintf(" -org:%s", org)
+		}
+	}
 
 	var allIssues []github.Issue
 	page := 1

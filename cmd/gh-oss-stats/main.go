@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats"
@@ -24,6 +25,7 @@ func main() {
 		includePRs   = flag.Bool("include-prs", ossstats.DefaultIncludePRDetails, "Include PR details")
 		minStars     = flag.Int("min-stars", ossstats.DefaultMinStars, "Minimum repo stars")
 		maxPRs       = flag.Int("max-prs", ossstats.DefaultMaxPRS, "Max PRs to fetch")
+		excludeOrgs  = flag.String("exclude-orgs", "", "Comma-separated list of organizations to exclude")
 		output       = flag.String("output", "", "Output file (default: stdout)")
 		outputShort  = flag.String("o", "", "Output file (short)")
 		verbose      = flag.Bool("verbose", false, "Verbose logging to stderr")
@@ -84,6 +86,15 @@ func main() {
 
 	if *token != "" {
 		opts = append(opts, ossstats.WithToken(*token))
+	}
+
+	if *excludeOrgs != "" {
+		orgs := strings.Split(*excludeOrgs, ",")
+		// Trim whitespace from each org name
+		for i, org := range orgs {
+			orgs[i] = strings.TrimSpace(org)
+		}
+		opts = append(opts, ossstats.WithExcludeOrgs(orgs))
 	}
 
 	if logger != nil {

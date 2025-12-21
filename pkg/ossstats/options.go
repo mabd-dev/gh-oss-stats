@@ -60,6 +60,14 @@ func WithTimeout(timeout time.Duration) Option {
 	}
 }
 
+// WithExcludeOrgs excludes contributions to repositories owned by the specified organizations.
+// This is useful for excluding your own organizations from the report.
+func WithExcludeOrgs(orgs []string) Option {
+	return func(c *Client) {
+		c.excludeOrgs = orgs
+	}
+}
+
 // WithLogger sets a custom logger for the client.
 // The logger will receive informational messages about the operation progress.
 // Default: no-op logger that discards all messages
