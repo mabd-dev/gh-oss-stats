@@ -31,7 +31,7 @@ This directory contains preview badges for documentation purposes.
 ## Sample Data
 
 All preview badges use the following sample data:
-- **Username**: octocat
+- **Username**: mabd-dev
 - **Projects**: 42
 - **PRs Merged**: 1,567
 - **Commits**: 3,284
