@@ -18,7 +18,7 @@
   
   <!-- Header -->
   <text class="text title" x="20" y="30">Open Source Contributions</text>
-  <text class="label" x="20" y="50">@octocat</text>
+  <text class="label" x="20" y="50">@mabd-dev</text>
   
   <!-- Summary Stats -->
   <g transform="translate(20, 75)">
