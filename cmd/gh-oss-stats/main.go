@@ -11,9 +11,35 @@ import (
 	"time"
 
 	"github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats"
+	"github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats/badge"
 )
 
 const version = "1.0.0"
+
+func init() {
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage: gh-oss-stats [options]\n\n")
+		fmt.Fprintf(os.Stderr, "Fetch GitHub OSS contribution statistics and optionally generate SVG badges.\n\n")
+		fmt.Fprintf(os.Stderr, "Options:\n")
+		flag.PrintDefaults()
+		fmt.Fprintf(os.Stderr, "\nExamples:\n")
+		fmt.Fprintf(os.Stderr, "  # Basic usage\n")
+		fmt.Fprintf(os.Stderr, "  gh-oss-stats --user mabd-dev\n\n")
+		fmt.Fprintf(os.Stderr, "  # Save JSON output\n")
+		fmt.Fprintf(os.Stderr, "  gh-oss-stats --user mabd-dev -o stats.json\n\n")
+		fmt.Fprintf(os.Stderr, "  # Generate summary badge\n")
+		fmt.Fprintf(os.Stderr, "  gh-oss-stats --user mabd-dev --badge --badge-output badge.svg\n\n")
+		fmt.Fprintf(os.Stderr, "  # Generate detailed dark theme badge with top 10 by stars\n")
+		fmt.Fprintf(os.Stderr, "  gh-oss-stats --user mabd-dev --badge --badge-style detailed --badge-theme dark --badge-sort stars --badge-limit 10\n\n")
+		fmt.Fprintf(os.Stderr, "  # Generate compact light theme badge\n")
+		fmt.Fprintf(os.Stderr, "  gh-oss-stats --user mabd-dev --badge --badge-style compact --badge-theme light\n\n")
+		fmt.Fprintf(os.Stderr, "Badge Styles:\n")
+		fmt.Fprintf(os.Stderr, "  summary  - 400x200px with key metrics (default)\n")
+		fmt.Fprintf(os.Stderr, "  compact  - 280x28px shields.io style\n")
+		fmt.Fprintf(os.Stderr, "  detailed - 400x320px with top contributions\n")
+		fmt.Fprintf(os.Stderr, "  minimal  - 120x28px project count only\n\n")
+	}
+}
 
 func main() {
 	var (
@@ -32,6 +58,14 @@ func main() {
 		verboseShort = flag.Bool("v", false, "Verbose logging (short)")
 		timeoutSec   = flag.Int("timeout", int(ossstats.DefaultTimeout.Seconds()), "Timeout in seconds")
 		showVersion  = flag.Bool("version", false, "Print version")
+
+		// Badge generation flags
+		generateBadge = flag.Bool("badge", false, "Generate SVG badge")
+		badgeStyle    = flag.String("badge-style", "summary", "Badge style: summary, compact, detailed, minimal")
+		badgeTheme    = flag.String("badge-theme", "dark", "Badge theme: dark, light")
+		badgeOutput   = flag.String("badge-output", "", "Badge output file (default: badge.svg)")
+		badgeSort     = flag.String("badge-sort", "prs", "Sort contributions by: prs, stars, commits (for detailed badge)")
+		badgeLimit    = flag.Int("badge-limit", 5, "Number of contributions to show (for detailed badge)")
 	)
 
 	flag.Parse()
@@ -129,8 +163,16 @@ func main() {
 		}
 	}
 
-	// Encode JSON
+	// Write JSON output
 	writeStats(output, verbose, stats)
+
+	// Generate badge if requested
+	if *generateBadge {
+		if err := writeBadge(badgeStyle, badgeTheme, badgeOutput, badgeSort, badgeLimit, verbose, stats); err != nil {
+			fmt.Fprintf(os.Stderr, "Error generating badge: %v\n", err)
+			os.Exit(1)
+		}
+	}
 }
 
 func writeStats(
@@ -157,4 +199,84 @@ func writeStats(
 	} else {
 		fmt.Println(string(jsonData))
 	}
+}
+
+func writeBadge(
+	styleStr *string,
+	themeStr *string,
+	output *string,
+	sortStr *string,
+	limit *int,
+	verbose *bool,
+	stats *ossstats.Stats,
+) error {
+	// Parse badge style
+	var style badge.BadgeStyle
+	switch strings.ToLower(*styleStr) {
+	case "summary":
+		style = badge.StyleSummary
+	case "compact":
+		style = badge.StyleCompact
+	case "detailed":
+		style = badge.StyleDetailed
+	case "minimal":
+		style = badge.StyleMinimal
+	default:
+		return fmt.Errorf("invalid badge style: %s (must be: summary, compact, detailed, minimal)", *styleStr)
+	}
+
+	// Parse badge theme
+	var theme badge.BadgeTheme
+	switch strings.ToLower(*themeStr) {
+	case "dark":
+		theme = badge.ThemeDark
+	case "light":
+		theme = badge.ThemeLight
+	default:
+		return fmt.Errorf("invalid badge theme: %s (must be: dark, light)", *themeStr)
+	}
+
+	// Parse sort option
+	var sortBy badge.SortBy
+	switch strings.ToLower(*sortStr) {
+	case "prs":
+		sortBy = badge.SortByPRs
+	case "stars":
+		sortBy = badge.SortByStars
+	case "commits":
+		sortBy = badge.SortByCommits
+	default:
+		return fmt.Errorf("invalid badge sort: %s (must be: prs, stars, commits)", *sortStr)
+	}
+
+	// Create badge options
+	opts := badge.BadgeOptions{
+		Style:  style,
+		Theme:  theme,
+		SortBy: sortBy,
+		Limit:  *limit,
+	}
+
+	// Generate SVG
+	svg, err := badge.RenderSVG(stats, opts)
+	if err != nil {
+		return fmt.Errorf("failed to render badge: %w", err)
+	}
+
+	// Determine output file
+	outputFile := *output
+	if outputFile == "" {
+		outputFile = "badge.svg"
+	}
+
+	// Write badge to file
+	if err := os.WriteFile(outputFile, []byte(svg), 0644); err != nil {
+		return fmt.Errorf("failed to write badge: %w", err)
+	}
+
+	if *verbose {
+		fmt.Fprintf(os.Stderr, "Badge written to %s (%s/%s)\n", outputFile, style, theme)
+	}
+
+	return nil
 }
