@@ -6,6 +6,7 @@ A Go library + CLI tool that fetches a GitHub user's open source contributions t
 
 - 🔍 **Find External Contributions**: Discovers merged PRs to repositories you don't own
 - 📊 **Aggregate Statistics**: Calculates total PRs, commits, lines of code changed
+- 🎨 **SVG Badge Generation**: Create beautiful badges in 4 styles (summary, compact, detailed, minimal)
 - ⭐ **Repository Filtering**: Filter by minimum star count
 - 🚦 **Rate Limit Handling**: Smart rate limit detection with exponential backoff
 - 📦 **Library-First Design**: Use as a Go library or standalone CLI
@@ -51,6 +52,7 @@ gh-oss-stats --version
 
 ### CLI Flags
 
+**Data Fetching:**
 ```
 --user, -u       GitHub username (required)
 --token, -t      GitHub token (default: $GITHUB_TOKEN)
@@ -63,6 +65,58 @@ gh-oss-stats --version
 --verbose, -v    Verbose logging to stderr
 --timeout        Timeout in seconds (default: 300)
 --version        Print version
+```
+
+**Badge Generation:**
+```
+--badge              Generate SVG badge
+--badge-style        Badge style: summary, compact, detailed, minimal (default: summary)
+--badge-theme        Badge theme: dark, light (default: dark)
+--badge-output       Badge output file (default: badge.svg)
+--badge-sort         Sort contributions by: prs, stars, commits (default: prs)
+--badge-limit        Number of contributions to show in detailed badge (default: 5)
+```
+
+### Badge Generation
+
+Generate beautiful SVG badges from your contribution stats:
+
+```bash
+# Generate a summary badge (400x200)
+gh-oss-stats --user mabd-dev --badge
+
+# Generate a compact shields.io style badge (280x28)
+gh-oss-stats --user mabd-dev --badge --badge-style compact --badge-theme light
+
+# Generate a detailed badge with top 10 repos sorted by stars (400x320)
+gh-oss-stats --user mabd-dev --badge --badge-style detailed --badge-sort stars --badge-limit 10
+
+# Generate a minimal badge (120x28)
+gh-oss-stats --user mabd-dev --badge --badge-style minimal
+```
+
+**Badge Styles:**
+
+| Style | Dimensions | Description |
+|-------|-----------|-------------|
+| `summary` | 400×200 | Key metrics: projects, PRs, commits, lines |
+| `compact` | 280×28 | Shields.io style: "42 projects \| 1.6K PRs" |
+| `detailed` | 400×320 | Summary + top N contributions with stars & PRs |
+| `minimal` | 120×28 | Simple project count badge |
+
+**Themes:**
+- `dark` - GitHub dark theme (default)
+- `light` - GitHub light theme
+
+**Example:**
+```bash
+# Fetch stats + generate both JSON and badge
+gh-oss-stats --user mabd-dev \
+  -o stats.json \
+  --badge \
+  --badge-style detailed \
+  --badge-theme dark \
+  --badge-output badge.svg
 ```
 
 ### As a Library

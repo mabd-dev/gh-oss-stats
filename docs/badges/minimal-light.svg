@@ -1,0 +1,14 @@
+<svg width="120" height="28" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #0969da; }
+      .text { fill: #ffffff; font-family: Verdana, Geneva, DejaVu Sans, sans-serif; font-size: 11px; font-weight: 600; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect class="bg" x="0" y="0" width="120" height="28" rx="3"/>
+  
+  <!-- Text -->
+  <text class="text" x="60" y="18" text-anchor="middle">42 Projects</text>
+</svg>
