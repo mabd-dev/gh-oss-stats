@@ -212,43 +212,20 @@ func writeBadge(
 	verbose *bool,
 	stats *ossstats.Stats,
 ) error {
-	// Parse badge style
 	var style badge.BadgeStyle
-	switch strings.ToLower(*styleStr) {
-	case "summary":
-		style = badge.StyleSummary
-	case "compact":
-		style = badge.StyleCompact
-	case "detailed":
-		style = badge.StyleDetailed
-	case "minimal":
-		style = badge.StyleMinimal
-	default:
-		return fmt.Errorf("invalid badge style: %s (must be: summary, compact, detailed, minimal)", *styleStr)
+	style, err := badge.BadgeStyleFromName(*styleStr)
+	if err != nil {
+		return err
 	}
 
-	// Parse badge theme
-	var theme badge.BadgeTheme
-	switch strings.ToLower(*themeStr) {
-	case "dark":
-		theme = badge.ThemeDark
-	case "light":
-		theme = badge.ThemeLight
-	default:
-		return fmt.Errorf("invalid badge theme: %s (must be: dark, light)", *themeStr)
+	theme, err := badge.BadgeThemeFromName(*themeStr)
+	if err != nil {
+		return err
 	}
 
-	// Parse sort option
-	var sortBy badge.SortBy
-	switch strings.ToLower(*sortStr) {
-	case "prs":
-		sortBy = badge.SortByPRs
-	case "stars":
-		sortBy = badge.SortByStars
-	case "commits":
-		sortBy = badge.SortByCommits
-	default:
-		return fmt.Errorf("invalid badge sort: %s (must be: prs, stars, commits)", *sortStr)
+	sortBy, err := badge.SortByFromName(*sortStr)
+	if err != nil {
+		return err
 	}
 
 	// Create badge options

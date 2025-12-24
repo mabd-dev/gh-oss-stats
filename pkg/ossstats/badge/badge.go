@@ -38,7 +38,7 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 
 	// Set defaults
 	if opts.SortBy == "" {
-		opts.SortBy = SortByPRs
+		opts.SortBy = DefaultSortBy
 	}
 	if opts.Limit == 0 {
 		opts.Limit = 5
@@ -60,23 +60,14 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 	}
 
 	// Add top contributions for detailed view
-	if opts.Style == StyleDetailed {
+	if opts.Style == StyleDetailed || opts.Style == StyleShit {
 		data.TopContributions = getTopContributions(stats, opts.SortBy, opts.Limit)
 	}
 
 	// Select template based on style
-	var tmplStr string
-	switch opts.Style {
-	case StyleSummary:
-		tmplStr = summaryTemplate
-	case StyleCompact:
-		tmplStr = compactTemplate
-	case StyleDetailed:
-		tmplStr = detailedTemplate
-	case StyleMinimal:
-		tmplStr = minimalTemplate
-	default:
-		return "", fmt.Errorf("unsupported badge style: %s", opts.Style)
+	tmplStr, err := opts.Style.TemplateStr()
+	if err != nil {
+		return "", err
 	}
 
 	// Parse and execute template with custom functions
