@@ -1,15 +1,18 @@
 # gh-oss-stats
 
-A Go library + CLI tool that fetches a GitHub user's open source contributions to external repositories (repos they don't own) and outputs structured JSON.
+> **Showcase your open source contributions with auto-updating GitHub profile badges**
 
-## Features
+Track and display your merged PRs, commits, and contributions to external repositories with beautiful, auto-updating SVG badges. Perfect for GitHub profiles, portfolios, and resumes.
 
-- 🔍 **Find External Contributions**: Discovers merged PRs to repositories you don't own
-- 📊 **Aggregate Statistics**: Calculates total PRs, commits, lines of code changed
-- 🎨 **SVG Badge Generation**: Create beautiful badges in 4 styles (summary, compact, detailed, minimal)
-- ⭐ **Repository Filtering**: Filter by minimum star count
-- 🚦 **Rate Limit Handling**: Smart rate limit detection with exponential backoff
-- 📦 **Library-First Design**: Use as a Go library or standalone CLI
+## ✨ Features
+
+- 🎨 **Auto-Updating Profile Badges** - Beautiful SVG badges in 4 styles (summary, compact, detailed, minimal)
+- 🤖 **GitHub Actions Integration** - Set it and forget it, updates weekly automatically
+- 🔍 **External Contribution Tracking** - Discovers all your merged PRs to repos you don't own
+- 📊 **Comprehensive Stats** - Total PRs, commits, lines of code, and repository stars
+- ⭐ **Smart Filtering** - Filter by minimum stars, exclude organizations
+- 🎭 **Dark & Light Themes** - Match your profile's aesthetic
+- 📦 **Developer-Friendly** - Use as a Go library or standalone CLI, outputs JSON
 
 
 | Style |  Output  |
@@ -31,6 +34,7 @@ If you don't have one already, create a repository named `USERNAME/USERNAME` (re
 ### 2. Set Up the Workflow
 1. In your profile repository, create a new file: `.github/workflows/generate-oss-badge.yaml`
 2. Copy the content from [this sample workflow](.github/workflows/generate-oss-badge-sample.yaml) and paste it into the file
+3. Create an `images/` directory in your repository root (or use a different path in step 4)
 
 ### 3. Commit and Wait
 Commit the workflow file. The badge will be generated automatically:
@@ -41,7 +45,7 @@ Commit the workflow file. The badge will be generated automatically:
 Add this line to your profile `README.md` where you want the badge to appear:
 
 ```markdown
-![OSS Contributions](oss-badge.svg)
+![OSS Contributions](images/oss-badge.svg)
 ```
 
 **Done!** Your badge will auto-update weekly. 🎉
@@ -63,7 +67,7 @@ See all badge styles and examples in the [Badge Gallery](docs/badges/README.md).
 
 ### Change Output Location
 
-In the workflow file, update the path `oss-badge.svg` in two places:
+In the workflow file, update the path `images/oss-badge.svg` in two places:
 1. The `gh-oss-stats` command's `--badge-output` flag
 2. The `git add` command
 
@@ -91,8 +95,17 @@ schedule:
 For filtering, sorting, and other advanced options, see [docs/BADGES.md](docs/BADGES.md) and [docs/TECHNICAL.md](docs/TECHNICAL.md)
 
 
-## Technical Documentation
-📖 **Full docs:** See [docs/TECHNICAL.md](docs/TECHNICAL.md)
+---
+
+## 👨‍💻 For Developers
+
+While this tool is optimized for GitHub profile badges, it's also a **full-featured Go library and CLI** for programmatic access to contribution data:
+
+- **CLI Usage:** Fetch contribution stats as JSON for your own tools
+- **Go Library:** Import `github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats` in your projects
+- **Local Testing:** `--debug` flag for instant testing with mock data
+
+📖 **Full technical docs:** See [docs/TECHNICAL.md](docs/TECHNICAL.md)
 
 ## License
 
