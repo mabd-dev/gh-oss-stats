@@ -11,6 +11,16 @@ A Go library + CLI tool that fetches a GitHub user's open source contributions t
 - 🚦 **Rate Limit Handling**: Smart rate limit detection with exponential backoff
 - 📦 **Library-First Design**: Use as a Go library or standalone CLI
 
+
+| Style |  Output  |
+|------------|------------|
+| Summary | ![Summary Dark](docs/badges/summary-dark.svg) |
+| Detailed | ![Detailed Dark](docs/badges/detailed-dark.svg)  |
+| Compact | ![Compact Dark](docs/badges/compact-dark.svg)  |
+| Minimal | ![Minimal Dark](docs/badges/minimal-dark.svg)  |
+
+
+
 ## Usage
 Add OSS contribution badge to your github profile in few steps
 
@@ -22,16 +32,6 @@ Add OSS contribution badge to your github profile in few steps
 Done
 
 ### Workflow Configuration
-
-Samples
-
-| Style |  Output  |
-|------------|------------|
-| Summary | ![Summary Dark](docs/badges/summary-dark.svg) |
-| Detailed | ![Detailed Dark](docs/badges/detailed-dark.svg)  |
-| Compact | ![Compact Dark](docs/badges/compact-dark.svg)  |
-| Minimal | ![Minimal Dark](docs/badges/minimal-dark.svg)  |
-
 
 - Change Output Path
 You can change generated svg path in lines `39` and `43`
