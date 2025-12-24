@@ -15,81 +15,32 @@ gh-oss-stats --user YOUR_USERNAME --badge \
   --badge-output my-badge.svg
 ```
 
-## Badge Styles
+## Badge Previews
 
-### Summary (400×200)
+### Summary Badges (400×200)
 
-Comprehensive overview with 4 key metrics.
+| Dark Theme | Light Theme |
+|------------|-------------|
+| ![Summary Dark](summary-dark.svg) | ![Summary Light](summary-light.svg) |
 
-**Dark Theme:**
-![Summary Dark](badges/summary-dark.svg)
+### Compact Badges (280×28)
 
-**Light Theme:**
-![Summary Light](badges/summary-light.svg)
+| Dark Theme | Light Theme |
+|------------|-------------|
+| ![Compact Dark](compact-dark.svg) | ![Compact Light](compact-light.svg) |
 
-**CLI Command:**
-```bash
-gh-oss-stats --user mabd-dev --badge --badge-style summary --badge-theme dark
-```
+### Detailed Badges (400×320)
 
-**Use Case:** README headers, profile pages, portfolios
+| Dark Theme | Light Theme |
+|------------|-------------|
+| ![Detailed Dark](detailed-dark.svg) | ![Detailed Light](detailed-light.svg) |
 
----
+### Minimal Badges (120×28)
 
-### Compact (280×28)
+| Dark Theme | Light Theme |
+|------------|-------------|
+| ![Minimal Dark](minimal-dark.svg) | ![Minimal Light](minimal-light.svg) |
 
-Shields.io style horizontal badge - perfect for inline use.
-
-**Dark Theme:**
-![Compact Dark](badges/compact-dark.svg)
-
-**Light Theme:**
-![Compact Light](badges/compact-light.svg)
-
-**CLI Command:**
-```bash
-gh-oss-stats --user mabd-dev --badge --badge-style compact --badge-theme light
-```
-
-**Use Case:** Inline in README, status bars, small spaces
-
----
-
-### Detailed (400×320)
-
-Full statistics with top 5 contributions list.
-
-**Dark Theme:**
-![Detailed Dark](badges/detailed-dark.svg)
-
-**Light Theme:**
-![Detailed Light](badges/detailed-light.svg)
-
-**CLI Command:**
-```bash
-gh-oss-stats --user mabd-dev --badge --badge-style detailed --badge-theme dark
-```
-
-**Use Case:** Detailed portfolio sections, contribution showcases
-
----
-
-### Minimal (120×28)
-
-Simple project count badge.
-
-**Dark Theme:**
-![Minimal Dark](badges/minimal-dark.svg)
-
-**Light Theme:**
-![Minimal Light](badges/minimal-light.svg)
-
-**CLI Command:**
-```bash
-gh-oss-stats --user mabd-dev --badge --badge-style minimal --badge-theme light
-```
-
-**Use Case:** Minimalist designs, quick stats
 
 ---
 
