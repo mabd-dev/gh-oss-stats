@@ -25,7 +25,13 @@ func (c *Client) GetContributions(ctx context.Context, username string) (*Stats,
 	c.logger.Printf("Fetching contributions for user: %s", username)
 
 	// Initialize GitHub API client
-	apiClient := github.NewAPIClient(c.httpClient, c.token)
+	var apiClient github.GithubAPI
+	if c.debug {
+		c.logger.Printf("DEBUG MODE: Using mock API client")
+		apiClient = github.NewMockAPIClient()
+	} else {
+		apiClient = github.NewAPIClient(c.httpClient, c.token)
+	}
 
 	// Step 1: Search for merged PRs to external repos
 	c.logger.Printf("Searching for merged PRs...")
@@ -92,10 +98,10 @@ func (c *Client) GetContributions(ctx context.Context, username string) (*Stats,
 }
 
 // searchMergedPRs searches for all merged PRs authored by the user to external repos.
-func (c *Client) searchMergedPRs(ctx context.Context, api *github.APIClient, username string) ([]github.Issue, error) {
+func (c *Client) searchMergedPRs(ctx context.Context, api github.GithubAPI, username string) ([]github.Issue, error) {
 	// Build search query: merged PRs by user, excluding their own repos
 	query := fmt.Sprintf("author:%s type:pr is:merged -user:%s", username, username)
-	
+
 	// Exclude specified organizations
 	for _, org := range c.excludeOrgs {
 		if org != "" {
@@ -157,7 +163,7 @@ func (c *Client) searchMergedPRs(ctx context.Context, api *github.APIClient, use
 }
 
 // fetchPRDetails fetches detailed information for each PR and aggregates by repository.
-func (c *Client) fetchPRDetails(ctx context.Context, api *github.APIClient, issues []github.Issue) ([]Contribution, []error) {
+func (c *Client) fetchPRDetails(ctx context.Context, api github.GithubAPI, issues []github.Issue) ([]Contribution, []error) {
 	// Map to aggregate PRs by repository
 	repoMap := make(map[string]*Contribution)
 	var mu sync.Mutex
@@ -267,7 +273,7 @@ func (c *Client) fetchPRDetails(ctx context.Context, api *github.APIClient, issu
 }
 
 // enrichWithRepoData fetches repository metadata and enriches contributions.
-func (c *Client) enrichWithRepoData(ctx context.Context, api *github.APIClient, contributions []Contribution) []Contribution {
+func (c *Client) enrichWithRepoData(ctx context.Context, api github.GithubAPI, contributions []Contribution) []Contribution {
 	var wg sync.WaitGroup
 	semaphore := make(chan struct{}, 5) // Limit concurrent requests
 

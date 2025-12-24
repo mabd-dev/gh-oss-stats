@@ -1,0 +1,72 @@
+<svg width="400" height="320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #0d1117; }
+      .border { stroke: #30363d; stroke-width: 1; fill: none; }
+      .text { fill: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .title { font-size: 16px; font-weight: 600; }
+      .value { font-size: 24px; font-weight: 700; fill: #58a6ff; }
+      .label { font-size: 12px; fill: #8b949e; }
+      .repo-name { font-size: 13px; font-weight: 500; }
+      .repo-stat { font-size: 11px; fill: #8b949e; }
+      .divider { stroke: #30363d; stroke-width: 1; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect class="bg border" x="0.5" y="0.5" width="399" height="319" rx="6"/>
+  
+  <!-- Header -->
+  <text class="text title" x="20" y="30">Open Source Contributions</text>
+  <text class="label" x="20" y="50">@mabd-dev</text>
+  
+  <!-- Summary Stats -->
+  <g transform="translate(20, 75)">
+    <text class="value" x="0" y="0">42</text>
+    <text class="label" x="0" y="18">Projects</text>
+  </g>
+  
+  <g transform="translate(120, 75)">
+    <text class="value" x="0" y="0">1.6K</text>
+    <text class="label" x="0" y="18">PRs</text>
+  </g>
+  
+  <g transform="translate(220, 75)">
+    <text class="value" x="0" y="0">3.3K</text>
+    <text class="label" x="0" y="18">Commits</text>
+  </g>
+  
+  <!-- Divider -->
+  <line class="divider" x1="20" y1="115" x2="380" y2="115"/>
+  
+  <!-- Top Contributions Header -->
+  <text class="label" x="20" y="135">Top Contributions</text>
+  
+  <!-- Top Contributions List -->
+  
+  <g transform="translate(20, 155)">
+    <text class="text repo-name" x="0" y="0">kubernetes/kubernetes</text>
+    <text class="repo-stat" x="0" y="15">⭐ 108.0K  •  45 PRs</text>
+  </g>
+  
+  <g transform="translate(20, 185)">
+    <text class="text repo-name" x="0" y="0">facebook/react</text>
+    <text class="repo-stat" x="0" y="15">⭐ 220.0K  •  38 PRs</text>
+  </g>
+  
+  <g transform="translate(20, 215)">
+    <text class="text repo-name" x="0" y="0">microsoft/vscode</text>
+    <text class="repo-stat" x="0" y="15">⭐ 158.0K  •  32 PRs</text>
+  </g>
+  
+  <g transform="translate(20, 245)">
+    <text class="text repo-name" x="0" y="0">golang/go</text>
+    <text class="repo-stat" x="0" y="15">⭐ 118.0K  •  28 PRs</text>
+  </g>
+  
+  <g transform="translate(20, 275)">
+    <text class="text repo-name" x="0" y="0">nodejs/node</text>
+    <text class="repo-stat" x="0" y="15">⭐ 102.0K  •  25 PRs</text>
+  </g>
+  
+</svg>
