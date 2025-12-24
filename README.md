@@ -12,10 +12,43 @@ A Go library + CLI tool that fetches a GitHub user's open source contributions t
 - 📦 **Library-First Design**: Use as a Go library or standalone CLI
 
 ## Usage
+Add OSS contribution badge to your github profile in few steps
+
+1. Navigate to your github profile repo
+1. Create new file `.github/workflows/generate-oss-badge.yaml`
+3. Copy content of [.github/workflows/generate-oss-badge-sample.yaml](.github/workflows/generate-oss-badge-sample.yaml)
+4. Commit the changes
+5. Reference generated svg image in your `README.md` file
+Done
+
+### Workflow Configuration
+- Change Output Path
+You can change generated svg path in lines `39` and `43`
+
+- Change Svg Style And Theme
+see [docs/badge/README.md](docs/badge/README.md) for all available options
+
+- How frequent workflow runs:
+You can do that at `line 4`
+
+Here is few options
+```yaml
+# Weekly (Sundays at midnight)
+- cron: '0 0 * * 0'  
+
+# Daily (midnight)
+- cron: '0 0 * * *' 
+
+# Every 6 hours
+- cron: '0 */6 * * *' 
+
+# Hourly
+- cron: '0 * * * *' 
+```
 
 
 ## Technical Documentation
-📖 **Full docs:** See [docs/Technical.md](docs/Technical.md)
+📖 **Full docs:** See [docs/TECHNICAL.md](docs/TECHNICAL.md)
 
 ## License
 
