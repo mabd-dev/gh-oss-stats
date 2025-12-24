@@ -25,12 +25,12 @@ Done
 
 Samples
 
-| Style |  Dark Theme | Light Theme |
-|------------|------------|-------------|
-| Summary | ![Summary Dark](docs/badges/summary-dark.svg) | ![Summary Light](docs/badges/summary-light.svg) |
-| Compact | ![Compact Dark](docs/badges/compact-dark.svg) | ![Compact Light](docs/badges/compact-light.svg) |
-| Detailed | ![Detailed Dark](docs/badges/detailed-dark.svg) | ![Detailed Light](docs/badges/detailed-light.svg) |
-| Minimal | ![Minimal Dark](docs/badges/minimal-dark.svg) | ![Minimal Light](docs/badges/minimal-light.svg) |
+| Style |  Output  |
+|------------|------------|
+| Summary | ![Summary Dark](docs/badges/summary-dark.svg) |
+| Detailed | ![Detailed Dark](docs/badges/detailed-dark.svg)  |
+| Compact | ![Compact Dark](docs/badges/compact-dark.svg)  |
+| Minimal | ![Minimal Dark](docs/badges/minimal-dark.svg)  |
 
 
 - Change Output Path
