@@ -1,271 +1,111 @@
 # gh-oss-stats
 
-A Go library + CLI tool that fetches a GitHub user's open source contributions to external repositories (repos they don't own) and outputs structured JSON.
+> **Showcase your open source contributions with auto-updating GitHub profile badges**
 
-## Features
+Track and display your merged PRs, commits, and contributions to external repositories with beautiful, auto-updating SVG badges. Perfect for GitHub profiles, portfolios, and resumes.
 
-- 🔍 **Find External Contributions**: Discovers merged PRs to repositories you don't own
-- 📊 **Aggregate Statistics**: Calculates total PRs, commits, lines of code changed
-- 🎨 **SVG Badge Generation**: Create beautiful badges in 4 styles (summary, compact, detailed, minimal)
-- ⭐ **Repository Filtering**: Filter by minimum star count
-- 🚦 **Rate Limit Handling**: Smart rate limit detection with exponential backoff
-- 📦 **Library-First Design**: Use as a Go library or standalone CLI
+## ✨ Features
 
-## Installation
+- 🎨 **Auto-Updating Profile Badges** - Beautiful SVG badges in 4 styles (summary, compact, detailed, minimal)
+- 🤖 **GitHub Actions Integration** - Set it and forget it, updates weekly automatically
+- 🔍 **External Contribution Tracking** - Discovers all your merged PRs to repos you don't own
+- 📊 **Comprehensive Stats** - Total PRs, commits, lines of code, and repository stars
+- ⭐ **Smart Filtering** - Filter by minimum stars, exclude organizations
+- 🎭 **Dark & Light Themes** - Match your profile's aesthetic
+- 📦 **Developer-Friendly** - Use as a Go library or standalone CLI, outputs JSON
 
-### From Source
 
-```bash
-go install github.com/gh-oss-tools/gh-oss-stats/cmd/gh-oss-stats@latest
+| Style |  Output  |
+|------------|------------|
+| Summary | ![Summary Dark](docs/badges/summary-dark.svg) |
+| Detailed | ![Detailed Dark](docs/badges/detailed-dark.svg)  |
+| Compact | ![Compact Dark](docs/badges/compact-dark.svg)  |
+| Minimal | ![Minimal Dark](docs/badges/minimal-dark.svg)  |
+
+
+
+## Quick Start
+
+Add an auto-updating OSS contribution badge to your GitHub profile in a few simple steps:
+
+### 1. Create Your Profile Repository
+If you don't have one already, create a repository named `USERNAME/USERNAME` (replace USERNAME with your GitHub username). This is your special [profile repository](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
+
+### 2. Set Up the Workflow
+1. In your profile repository, create a new file: `.github/workflows/generate-oss-badge.yaml`
+2. Copy the content from [this sample workflow](.github/workflows/generate-oss-badge-sample.yaml) and paste it into the file
+3. Create an `images/` directory in your repository root (or use a different path in step 4)
+
+### 3. Commit and Wait
+Commit the workflow file. The badge will be generated automatically:
+- **First run:** Manually trigger via Actions tab, or wait for the scheduled time (Sundays at midnight)
+- **Updates:** Automatically every Sunday at midnight (customizable)
+
+### 4. Add Badge to Your Profile
+Add this line to your profile `README.md` where you want the badge to appear:
+
+```markdown
+![OSS Contributions](images/oss-badge.svg)
 ```
 
-### Build Locally
+**Done!** Your badge will auto-update weekly. 🎉
 
-```bash
-git clone https://github.com/gh-oss-tools/gh-oss-stats.git
-cd gh-oss-stats
-go build -o gh-oss-stats ./cmd/gh-oss-stats
-```
+---
 
-## Usage
+## Customization
 
-### CLI
+### Change Badge Style or Theme
 
-Basic usage:
+Edit the workflow file (`.github/workflows/generate-oss-badge.yaml`) and modify these flags:
 
-```bash
-# Fetch contributions for a user
-gh-oss-stats --user github-username --token $GITHUB_TOKEN
-
-# Filter by stars and limit PRs
-gh-oss-stats -u github-username -t $GITHUB_TOKEN --min-stars 100 --max-prs 200
-
-# Exclude your own organizations
-gh-oss-stats -u github-username -t $GITHUB_TOKEN --exclude-orgs "my-org,my-company"
-
-# Save to file with verbose logging
-gh-oss-stats -u github-username -t $GITHUB_TOKEN -o output.json -v
-
-# Show version
-gh-oss-stats --version
-```
-
-### CLI Flags
-
-**Data Fetching:**
-```
---user, -u       GitHub username (required)
---token, -t      GitHub token (default: $GITHUB_TOKEN)
---include-loc    Include LOC metrics (default: true)
---include-prs    Include PR details (default: false)
---min-stars      Minimum repo stars (default: 0)
---max-prs        Max PRs to fetch (default: 500)
---exclude-orgs   Comma-separated list of organizations to exclude
---output, -o     Output file (default: stdout)
---verbose, -v    Verbose logging to stderr
---timeout        Timeout in seconds (default: 300)
---version        Print version
-```
-
-**Badge Generation:**
-```
---badge              Generate SVG badge
---badge-style        Badge style: summary, compact, detailed, minimal (default: summary)
---badge-theme        Badge theme: dark, light (default: dark)
---badge-output       Badge output file (default: badge.svg)
---badge-sort         Sort contributions by: prs, stars, commits (default: prs)
---badge-limit        Number of contributions to show in detailed badge (default: 5)
-```
-
-### Badge Generation
-
-Generate beautiful SVG badges from your contribution stats:
-
-```bash
-# Generate a summary badge (400x200)
-gh-oss-stats --user mabd-dev --badge
-
-# Generate a compact shields.io style badge (280x28)
-gh-oss-stats --user mabd-dev --badge --badge-style compact --badge-theme light
-
-# Generate a detailed badge with top 10 repos sorted by stars (400x320)
-gh-oss-stats --user mabd-dev --badge --badge-style detailed --badge-sort stars --badge-limit 10
-
-# Generate a minimal badge (120x28)
-gh-oss-stats --user mabd-dev --badge --badge-style minimal
-```
-
-**Badge Styles:**
-
-| Style | Dimensions | Description |
-|-------|-----------|-------------|
-| `summary` | 400×200 | Key metrics: projects, PRs, commits, lines |
-| `compact` | 280×28 | Shields.io style: "42 projects \| 1.6K PRs" |
-| `detailed` | 400×320 | Summary + top N contributions with stars & PRs |
-| `minimal` | 120×28 | Simple project count badge |
-
-**Themes:**
-- `dark` - GitHub dark theme (default)
-- `light` - GitHub light theme
-
-**Example:**
-```bash
-# Fetch stats + generate both JSON and badge
-gh-oss-stats --user mabd-dev \
-  -o stats.json \
-  --badge \
-  --badge-style detailed \
-  --badge-theme dark \
-  --badge-output badge.svg
-```
-
-### As a Library
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "log"
-    
-    "github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats"
-)
-
-func main() {
-    // Create client with options
-    client := ossstats.New(
-        ossstats.WithToken("your-github-token"),
-        ossstats.WithMinStars(100),
-        ossstats.WithExcludeOrgs([]string{"my-org", "my-company"}),
-        ossstats.WithVerbose(),
-    )
-    
-    // Fetch contributions
-    stats, err := client.GetContributions(context.Background(), "github-username")
-    if err != nil {
-        log.Fatal(err)
-    }
-    
-    fmt.Printf("Total projects: %d\n", stats.Summary.TotalProjects)
-    fmt.Printf("Total PRs merged: %d\n", stats.Summary.TotalPRsMerged)
-}
-```
-
-## Output Format
-
-```json
-{
-  "username": "github-username",
-  "generatedAt": "2025-01-15T10:30:00Z",
-  "summary": {
-    "totalProjects": 42,
-    "totalPRsMerged": 127,
-    "totalCommits": 203,
-    "totalAdditions": 5420,
-    "totalDeletions": 2134
-  },
-  "contributions": [
-    {
-      "repo": "owner/repo-name",
-      "owner": "owner",
-      "repoName": "repo-name",
-      "description": "An awesome project",
-      "repoURL": "https://github.com/owner/repo-name",
-      "stars": 1234,
-      "prsMerged": 5,
-      "commits": 12,
-      "additions": 450,
-      "deletions": 120,
-      "firstContribution": "2024-01-10T08:20:00Z",
-      "lastContribution": "2024-12-15T16:45:00Z"
-    }
-  ]
-}
-```
-
-## GitHub Token
-
-### Quick Setup
-
-**Required for non-trivial usage** due to GitHub's rate limits:
-- ❌ Without token: 60 requests/hour
-- ✅ With token: 5,000 requests/hour
-
-**1. Create a token:**
-   - Go to https://github.com/settings/tokens
-   - Generate new token (classic)
-   - **No scopes needed** for public contributions (read-only access is sufficient)
-
-**2. Set environment variable:**
-
-Add to your `~/.bashrc` or `~/.zshrc`:
-```bash
-export GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
-
-Reload: `source ~/.bashrc`
-
-**3. Done!** The tool automatically uses `$GITHUB_TOKEN`:
-```bash
-gh-oss-stats --user YOUR_USERNAME
-```
-
-### Alternative: CLI Flag
-
-For one-time use or CI/CD:
-```bash
-gh-oss-stats --user YOUR_USERNAME --token ghp_xxx...
-```
-
-### CI/CD (GitHub Actions)
-
-GitHub Actions automatically provides `GITHUB_TOKEN`:
 ```yaml
-- name: Fetch stats
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  run: gh-oss-stats --user ${{ github.actor }}
+--badge-style summary    # Options: summary, compact, detailed, minimal
+--badge-theme dark       # Options: dark, light
 ```
 
-📖 **Full setup guide:** See [docs/TOKEN_SETUP.md](docs/TOKEN_SETUP.md)
+See all badge styles and examples in the [Badge Gallery](docs/badges/README.md).
 
-## Rate Limiting
+### Change Output Location
 
-The tool implements smart rate limit handling:
-- Respects GitHub's rate limits (5,000/hour core API, 30/min search API)
-- Automatically waits when rate limited
-- Returns partial results if rate limited mid-fetch
-- Uses exponential backoff for retries
+In the workflow file, update the path `images/oss-badge.svg` in two places:
+1. The `gh-oss-stats` command's `--badge-output` flag
+2. The `git add` command
 
-## Architecture
+Then update your README.md to reference the new path.
 
-```
-gh-oss-stats/
-├── cmd/gh-oss-stats/     # CLI entry point
-├── pkg/ossstats/         # Public API (importable)
-│   ├── client.go         # Client + New()
-│   ├── contributions.go  # GetContributions() logic
-│   ├── types.go          # Exported types
-│   └── options.go        # Functional options
-└── internal/github/      # GitHub API client (private)
-    ├── api.go            # HTTP client
-    ├── ratelimit.go      # Rate limit handling
-    └── types.go          # API response types
+### Change Update Frequency
+
+Modify the `cron` schedule in the workflow file:
+
+```yaml
+schedule:
+  - cron: '0 0 * * 0'  # Weekly (Sundays at midnight) - default
 ```
 
-## Development
-
-```bash
-# Run tests
-go test ./...
-
-# Build
-go build -o gh-oss-stats ./cmd/gh-oss-stats
-
-# Lint (requires golangci-lint)
-golangci-lint run
+**Common schedules:**
+```yaml
+- cron: '0 0 * * *'      # Daily at midnight
+- cron: '0 */6 * * *'    # Every 6 hours
+- cron: '0 0 * * 1'      # Weekly on Mondays
+- cron: '0 0 1 * *'      # Monthly on the 1st
 ```
+
+### Advanced Options
+
+For filtering, sorting, and other advanced options, see [docs/BADGES.md](docs/BADGES.md) and [docs/TECHNICAL.md](docs/TECHNICAL.md)
+
+
+---
+
+## 👨‍💻 For Developers
+
+While this tool is optimized for GitHub profile badges, it's also a **full-featured Go library and CLI** for programmatic access to contribution data:
+
+- **CLI Usage:** Fetch contribution stats as JSON for your own tools
+- **Go Library:** Import `github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats` in your projects
+- **Local Testing:** `--debug` flag for instant testing with mock data
+
+📖 **Full technical docs:** See [docs/TECHNICAL.md](docs/TECHNICAL.md)
 
 ## License
 

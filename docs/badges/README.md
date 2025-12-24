@@ -1,6 +1,19 @@
-# Badge Preview Gallery
+# Badge Generation Guide
 
-This directory contains preview badges for documentation purposes.
+Complete guide to generating SVG badges for your OSS contributions.
+
+## Quick Start
+
+```bash
+# Generate a badge (uses default: summary style, dark theme)
+gh-oss-stats --user YOUR_USERNAME --badge
+
+# Customize style and theme
+gh-oss-stats --user YOUR_USERNAME --badge \
+  --badge-style compact \
+  --badge-theme light \
+  --badge-output my-badge.svg
+```
 
 ## Badge Previews
 
@@ -28,28 +41,95 @@ This directory contains preview badges for documentation purposes.
 |------------|-------------|
 | ![Minimal Dark](minimal-dark.svg) | ![Minimal Light](minimal-light.svg) |
 
-## Sample Data
 
-All preview badges use the following sample data:
-- **Username**: mabd-dev
-- **Projects**: 42
-- **PRs Merged**: 1,567
-- **Commits**: 3,284
-- **Lines Changed**: 157,450
+---
 
-**Top Contributions:**
-1. kubernetes/kubernetes - ⭐ 108K - 45 PRs
-2. facebook/react - ⭐ 220K - 38 PRs
-3. microsoft/vscode - ⭐ 158K - 32 PRs
-4. golang/go - ⭐ 118K - 28 PRs
-5. nodejs/node - ⭐ 102K - 25 PRs
+## Advanced Options
 
-## Generating Your Own
+### Sorting (Detailed Badge Only)
 
-To generate badges with your own data:
+Control how contributions are sorted in the detailed badge:
 
 ```bash
-gh-oss-stats --user YOUR_USERNAME --badge --badge-style STYLE --badge-theme THEME
+# Sort by PRs merged (default)
+gh-oss-stats --user mabd-dev --badge --badge-style detailed --badge-sort prs
+
+# Sort by repository stars
+gh-oss-stats --user mabd-dev --badge --badge-style detailed --badge-sort stars
+
+# Sort by total commits
+gh-oss-stats --user mabd-dev --badge --badge-style detailed --badge-sort commits
 ```
 
-See [BADGES.md](../BADGES.md) for complete documentation.
+### Contribution Limit (Detailed Badge Only)
+
+Control how many contributions to show:
+
+```bash
+# Show top 3 contributions
+gh-oss-stats --user mabd-dev --badge --badge-style detailed --badge-limit 3
+
+# Show top 10 contributions
+gh-oss-stats --user mabd-dev --badge --badge-style detailed --badge-limit 10
+```
+
+### Custom Output Path
+
+```bash
+# Save to custom location
+gh-oss-stats --user mabd-dev --badge --badge-output path/to/badge.svg
+
+# Generate both JSON stats and badge
+gh-oss-stats --user mabd-dev \
+  -o stats.json \
+  --badge --badge-output badge.svg
+```
+
+## Theme Comparison
+
+| Feature | Dark Theme | Light Theme |
+|---------|------------|-------------|
+| Background | `#0d1117` (GitHub dark) | `#ffffff` (white) |
+| Text | `#c9d1d9` (light gray) | `#24292f` (dark gray) |
+| Accent | `#58a6ff` (GitHub blue) | `#0969da` (GitHub blue) |
+| Use Case | Dark mode sites, modern look | Light mode sites, traditional |
+
+## All CLI Flags
+
+| Flag | Type | Default | Description |
+|------|------|---------|-------------|
+| `--badge` | bool | `false` | Enable badge generation |
+| `--badge-style` | string | `"summary"` | Badge style: summary, compact, detailed, minimal |
+| `--badge-theme` | string | `"dark"` | Color theme: dark, light |
+| `--badge-output` | string | `"badge.svg"` | Output file path |
+| `--badge-sort` | string | `"prs"` | Sort by: prs, stars, commits (detailed only) |
+| `--badge-limit` | int | `5` | Max contributions shown (detailed only) |
+
+## Embedding in README
+
+### Standard Markdown
+
+```markdown
+![OSS Contributions](badge.svg)
+```
+
+### With Link
+
+```markdown
+[![OSS Contributions](badge.svg)](https://github.com/YOUR_USERNAME)
+```
+
+### HTML (with size control)
+
+```html
+<img src="badge.svg" alt="OSS Contributions" width="400">
+```
+
+
+## Contributing
+
+Found a bug or have a feature request? Open an issue at [gh-oss-stats](https://github.com/gh-oss-tools/gh-oss-stats/issues).
+
+---
+
+**Need help?** See the main [README](../README.md) or [open an issue](https://github.com/gh-oss-tools/gh-oss-stats/issues).

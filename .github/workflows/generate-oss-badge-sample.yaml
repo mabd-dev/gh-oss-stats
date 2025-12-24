@@ -1,0 +1,46 @@
+name: Update OSS Badge
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly (Sundays at midnight)
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+      
+      - name: Install gh-oss-stats
+        run: go install github.com/gh-oss-tools/gh-oss-stats/cmd/gh-oss-stats@latest
+      
+      - name: Generate badge
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh-oss-stats \
+            --user ${{ github.repository_owner }} \
+            --include-loc \
+            --badge \
+            --badge-style summary \
+            --badge-theme dark \
+            --badge-output oss-badge.svg
+      
+      - name: Commit badge
+        run: |
+          git add oss-badge.svg
+          if ! git diff --staged --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+
+            git commit -m "Update OSS contribution badge"
+            git push
+          fi
+
