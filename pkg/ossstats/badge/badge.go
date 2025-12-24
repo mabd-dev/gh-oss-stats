@@ -60,7 +60,7 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 	}
 
 	// Add top contributions for detailed view
-	if opts.Style == StyleDetailed || opts.Style == StyleShit {
+	if opts.Style == StyleDetailed {
 		data.TopContributions = getTopContributions(stats, opts.SortBy, opts.Limit)
 	}
 
@@ -74,6 +74,8 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 	tmpl, err := template.New("badge").Funcs(template.FuncMap{
 		"add": func(a, b int) int { return a + b },
 		"mul": func(a, b int) int { return a * b },
+		"mod": func(a, b int) int { return a % b },
+		"div": func(a, b int) int { return a / b },
 	}).Parse(tmplStr)
 	if err != nil {
 		return "", fmt.Errorf("failed to parse template: %w", err)
