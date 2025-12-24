@@ -26,20 +26,20 @@ Add OSS contribution badge to your github profile in few steps
 
 1. Navigate to your github profile repo
 1. Create new file `.github/workflows/generate-oss-badge.yaml`
-3. Copy content of [.github/workflows/generate-oss-badge-sample.yaml](.github/workflows/generate-oss-badge-sample.yaml)
+3. Copy content of [.github/workflows/generate-oss-badge-sample.yaml](.github/workflows/generate-oss-badge-sample.yaml) and past it in newely created file (from step 2)
 4. Commit the changes
 5. Reference generated svg image in your `README.md` file
 Done
 
 ### Workflow Configuration
 
-- Change Output Path
+#### Change Output Path
 You can change generated svg path in lines `39` and `43`
 
-- Change Svg Style And Theme
+#### Change Svg Style And Theme
 see [docs/badge/README.md](docs/badge/README.md) for all available options
 
-- How frequent workflow runs:
+#### How frequent workflow runs:
 You can do that at `line 4`
 
 Here is few options
