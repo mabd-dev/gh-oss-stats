@@ -7,7 +7,7 @@ import (
 	"sort"
 	"text/template"
 
-	"github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats"
+	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats"
 )
 
 // templateData holds the data passed to SVG templates

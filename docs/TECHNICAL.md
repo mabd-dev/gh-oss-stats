@@ -5,13 +5,13 @@
 ### From Source
 
 ```bash
-go install github.com/gh-oss-tools/gh-oss-stats/cmd/gh-oss-stats@latest
+go install github.com/mabd-dev/mabd-dev/cmd/gh-oss-stats@latest
 ```
 
 ### Build Locally
 
 ```bash
-git clone https://github.com/gh-oss-tools/gh-oss-stats.git
+git clone https://github.com/mabd-dev/gh-oss-stats.git
 cd gh-oss-stats
 go build -o gh-oss-stats ./cmd/gh-oss-stats
 ```
@@ -150,7 +150,7 @@ import (
     "fmt"
     "log"
     
-    "github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats"
+    "github.com/mabd-dev/gh-oss-stats/pkg/ossstats"
 )
 
 func main() {

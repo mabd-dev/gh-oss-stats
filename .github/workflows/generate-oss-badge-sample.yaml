@@ -19,7 +19,7 @@ jobs:
           go-version: '1.25'
       
       - name: Install gh-oss-stats
-        run: go install github.com/gh-oss-tools/gh-oss-stats/cmd/gh-oss-stats@latest
+        run: go install github.com/mabd-dev/gh-oss-stats/cmd/gh-oss-stats@latest
       
       - name: Generate badge
         env:

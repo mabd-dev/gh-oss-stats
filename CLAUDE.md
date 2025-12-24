@@ -6,8 +6,8 @@
 
 **gh-oss-stats** is a Go library + CLI tool that fetches a GitHub user's open source contributions to external repositories (repos they don't own). It outputs structured JSON for consumption by other tools (websites, badge services, etc.).
 
-**Organization:** `gh-oss-tools`  
-**Repository:** `github.com/gh-oss-tools/gh-oss-stats`  
+**Organization:** `mabd-dev`  
+**Repository:** `github.com/mabd-dev/gh-oss-stats`  
 **Go Version:** 1.21+
 
 ## Architecture

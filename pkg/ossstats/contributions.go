@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gh-oss-tools/gh-oss-stats/internal/github"
+	"github.com/mabd-dev/gh-oss-stats/internal/github"
 )
 
 // GetContributions fetches and aggregates a user's open source contributions

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats"
-	"github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats/badge"
+	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats"
+	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats/badge"
 )
 
 func ExampleRenderSVG_summary() {

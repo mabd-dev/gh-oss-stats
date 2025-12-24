@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats"
+	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats"
 )
 
 func TestRenderSVG_AllStyles(t *testing.T) {
@@ -300,10 +300,10 @@ func TestRenderSVG_DetailedBadgeLimit(t *testing.T) {
 	contributions := make([]ossstats.Contribution, 10)
 	for i := 0; i < 10; i++ {
 		contributions[i] = ossstats.Contribution{
-			RepoName:   string(rune('a' + i)),
-			Stars:      1000 * (10 - i),
-			PRsMerged:  10 - i,
-			Commits:    100,
+			RepoName:  string(rune('a' + i)),
+			Stars:     1000 * (10 - i),
+			PRsMerged: 10 - i,
+			Commits:   100,
 		}
 	}
 
@@ -469,7 +469,7 @@ func TestGetTopContributions(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := getTopContributions(stats, tt.sortBy, tt.limit)
-			
+
 			if len(got) != tt.wantLen {
 				t.Errorf("getTopContributions() len = %d, want %d", len(got), tt.wantLen)
 			}

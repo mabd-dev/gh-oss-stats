@@ -128,8 +128,8 @@ gh-oss-stats --user mabd-dev \
 
 ## Contributing
 
-Found a bug or have a feature request? Open an issue at [gh-oss-stats](https://github.com/gh-oss-tools/gh-oss-stats/issues).
+Found a bug or have a feature request? Open an issue at [gh-oss-stats](https://github.com/mabd-dev/gh-oss-stats/issues).
 
 ---
 
-**Need help?** See the main [README](../README.md) or [open an issue](https://github.com/gh-oss-tools/gh-oss-stats/issues).
+**Need help?** See the main [README](../README.md) or [open an issue](https://github.com/mabd-dev/gh-oss-stats/issues).

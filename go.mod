@@ -1,3 +1,3 @@
-module github.com/gh-oss-tools/gh-oss-stats
+module github.com/mabd-dev/gh-oss-stats
 
 go 1.25.4

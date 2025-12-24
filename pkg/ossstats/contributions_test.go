@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gh-oss-tools/gh-oss-stats/internal/github"
+	"github.com/mabd-dev/gh-oss-stats/internal/github"
 )
 
 func TestGetContributionsNoContributions(t *testing.T) {
@@ -482,10 +482,10 @@ func TestCalculateSummary(t *testing.T) {
 
 func TestApplyFilters(t *testing.T) {
 	tests := []struct {
-		name         string
-		minStars     int
+		name          string
+		minStars      int
 		contributions []Contribution
-		wantCount    int
+		wantCount     int
 	}{
 		{
 			name:     "no filter",

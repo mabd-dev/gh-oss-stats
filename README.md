@@ -102,7 +102,7 @@ For filtering, sorting, and other advanced options, see [docs/BADGES.md](docs/BA
 While this tool is optimized for GitHub profile badges, it's also a **full-featured Go library and CLI** for programmatic access to contribution data:
 
 - **CLI Usage:** Fetch contribution stats as JSON for your own tools
-- **Go Library:** Import `github.com/gh-oss-tools/gh-oss-stats/pkg/ossstats` in your projects
+- **Go Library:** Import `github.com/mabd-dev/gh-oss-stats/pkg/ossstats` in your projects
 - **Local Testing:** `--debug` flag for instant testing with mock data
 
 📖 **Full technical docs:** See [docs/TECHNICAL.md](docs/TECHNICAL.md)
