@@ -32,6 +32,8 @@ type Client struct {
 
 	// Logger
 	logger Logger
+
+	debug bool
 }
 
 // New creates a new Client with the provided options.

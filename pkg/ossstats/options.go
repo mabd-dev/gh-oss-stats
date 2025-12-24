@@ -93,3 +93,11 @@ func WithVerbose() Option {
 		c.logger = log.Default()
 	}
 }
+
+// WithDebug enable/disable debug mode. When enabled, fake api client is used
+// and mock api data is returned
+func WithDebug(debug bool) Option {
+	return func(c *Client) {
+		c.debug = debug
+	}
+}
