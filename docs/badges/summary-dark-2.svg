@@ -1,0 +1,89 @@
+<svg
+  width="400"
+  height="200"
+  viewBox="0 0 400 200"
+  xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <style>
+      :root {
+        --bg: #0d1117;
+        --text: #c9d1d9;
+        --text-muted: #8b949e;
+        --border: #30363d;
+        --accent: #58a6ff;
+        --card-bg: rgba(255,255,255,0.03);
+      }
+
+      text {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                     "Segoe UI", Helvetica, Arial, sans-serif;
+      }
+
+      .card {
+        fill: var(--card-bg);
+        stroke: var(--border);
+        stroke-width: 1;
+        rx: 12;
+      }
+
+      .glass {
+        fill: url(#glass);
+        rx: 12;
+      }
+
+      .accent {
+        fill: var(--accent);
+      }
+
+      .title {
+        font-size: 15px;
+        font-weight: 600;
+        fill: var(--text);
+      }
+
+      .label {
+        font-size: 11px;
+        fill: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .value {
+        font-size: 22px;
+        font-weight: 700;
+        fill: var(--text);
+      }
+    </style>
+
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.06)" />
+      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+    </linearGradient>
+  </defs>
+
+  <!-- Card -->
+  <rect x="0.5" y="0.5" width="399" height="199" class="card"/>
+  <rect x="0.5" y="0.5" width="399" height="199" class="glass"/>
+  <rect x="12" y="0.5" width="376" height="3" rx="2" class="accent"/>
+
+  <!-- Header -->
+  <text x="20" y="32" class="title">Open Source Stats</text>
+  <text x="20" y="52" class="label">@mabd-dev</text>
+
+  <!-- Metrics -->
+  <g transform="translate(20, 90)">
+    <text class="value" x="0" y="0">7</text>
+    <text class="label" x="0" y="18">Projects</text>
+  </g>
+
+  <g transform="translate(210, 90)">
+    <text class="value" x="0" y="0">17</text>
+    <text class="label" x="0" y="18">PRs Merged</text>
+  </g>
+
+  <g transform="translate(20, 145)">
+    <text class="value" x="0" y="0">2.9K</text>
+    <text class="label" x="0" y="18">Lines Changed</text>
+  </g>
+</svg>

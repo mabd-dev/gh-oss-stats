@@ -1,0 +1,225 @@
+
+<svg
+  width="900"
+  height="440"
+  viewBox="0 0 900 440"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="GitHub Open Source Contribution Stats">
+
+  <!-- ========================= -->
+  <!-- Theme + Styling -->
+  <!-- ========================= -->
+  <style>
+    :root {
+      --bg: #0d1117;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --border: #30363d;
+      --accent: #58a6ff;
+      --card-bg: rgba(255,255,255,0.03);
+    }
+
+    text {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      fill: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      fill: var(--text-muted);
+    }
+
+    .card {
+      fill: var(--card-bg);
+      stroke: var(--border);
+      stroke-width: 1;
+      rx: 14;
+    }
+
+    .card-glass {
+      fill: url(#glass);
+      rx: 14;
+    }
+
+    .accent-strip {
+      fill: var(--accent);
+    }
+
+    .metric-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      fill: var(--text-muted);
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 700;
+      fill: var(--text);
+    }
+
+    .repo-name {
+      font-size: 15px;
+      font-weight: 600;
+      fill: var(--text);
+    }
+
+    .repo-meta {
+      font-size: 12px;
+      fill: var(--text-muted);
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeUp 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+  <!-- ========================= -->
+  <!-- Definitions -->
+  <!-- ========================= -->
+  <defs>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.06)" />
+      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+    </linearGradient>
+  </defs>
+
+  <!-- ========================= -->
+  <!-- Background -->
+  <!-- ========================= -->
+  <rect x="0" y="0" width="900" height="440" rx="18" fill="var(--bg)" />
+
+  <!-- ========================= -->
+  <!-- Header -->
+  <!-- ========================= -->
+  <g class="fade-in" style="animation-delay: 0ms">
+    <text x="32" y="48" class="title">
+      mabd-dev · Open Source Stats
+    </text>
+    <text x="32" y="72" class="subtitle">
+      Generated 2025-12-24 14:10:37.391254 +0000 UTC
+    </text>
+  </g>
+
+  <!-- ========================= -->
+  <!-- Metrics Row -->
+  <!-- ========================= -->
+
+  <!-- Projects -->
+  <g class="fade-in" style="animation-delay: 100ms">
+    <rect x="32" y="96" width="260" height="96" class="card"/>
+    <rect x="32" y="96" width="260" height="96" class="card-glass"/>
+    <rect x="44" y="96" width="236" height="3" rx="2" class="accent-strip"/>
+    <text x="48" y="132" class="metric-label">Projects</text>
+    <text x="48" y="166" class="metric-value">7</text>
+  </g>
+
+  <!-- PRs -->
+  <g class="fade-in" style="animation-delay: 150ms">
+    <rect x="320" y="96" width="260" height="96" class="card"/>
+    <rect x="320" y="96" width="260" height="96" class="card-glass"/>
+    <rect x="332" y="96" width="236" height="3" rx="2" class="accent-strip"/>
+    <text x="336" y="132" class="metric-label">PRs Merged</text>
+    <text x="336" y="166" class="metric-value">17</text>
+  </g>
+
+  <!-- Lines Changed -->
+  <g class="fade-in" style="animation-delay: 200ms">
+    <rect x="608" y="96" width="260" height="96" class="card"/>
+    <rect x="608" y="96" width="260" height="96" class="card-glass"/>
+    <rect x="620" y="96" width="236" height="3" rx="2" class="accent-strip"/>
+    <text x="624" y="132" class="metric-label">Lines Changed</text>
+    <text x="624" y="166" class="metric-value">2.9K</text>
+  </g>
+
+  <!-- ========================= -->
+  <!-- Top Contributions -->
+  <!-- ========================= -->
+  <g class="fade-in" style="animation-delay: 260ms">
+    <text x="32" y="224" class="subtitle">
+      Top Contributions
+    </text>
+  </g>
+
+  
+  <g class="fade-in" style="animation-delay: 300ms">
+    <rect x="32" y="240" width="260" height="108" class="card"/>
+    <rect x="32" y="240" width="260" height="108" class="card-glass"/>
+    <rect x="44" y="240" width="236" height="3" rx="2" class="accent-strip"/>
+
+    <text x="48" y="276" class="repo-name">
+      android-public
+    </text>
+    <text x="48" y="302" class="repo-meta">
+      ⭐ 15 · 6 PRs
+    </text>
+  </g>
+  
+  <g class="fade-in" style="animation-delay: 400ms">
+    <rect x="320" y="240" width="260" height="108" class="card"/>
+    <rect x="320" y="240" width="260" height="108" class="card-glass"/>
+    <rect x="332" y="240" width="236" height="3" rx="2" class="accent-strip"/>
+
+    <text x="336" y="276" class="repo-name">
+      Tomato
+    </text>
+    <text x="336" y="302" class="repo-meta">
+      ⭐ 15 · 2 PRs
+    </text>
+  </g>
+  
+  <g class="fade-in" style="animation-delay: 500ms">
+    <rect x="608" y="240" width="260" height="108" class="card"/>
+    <rect x="608" y="240" width="260" height="108" class="card-glass"/>
+    <rect x="620" y="240" width="236" height="3" rx="2" class="accent-strip"/>
+
+    <text x="624" y="276" class="repo-name">
+      JetpackComposeTracker
+    </text>
+    <text x="624" y="302" class="repo-meta">
+      ⭐ 15 · 2 PRs
+    </text>
+  </g>
+  
+  <g class="fade-in" style="animation-delay: 600ms">
+    <rect x="896" y="240" width="260" height="108" class="card"/>
+    <rect x="896" y="240" width="260" height="108" class="card-glass"/>
+    <rect x="908" y="240" width="236" height="3" rx="2" class="accent-strip"/>
+
+    <text x="912" y="276" class="repo-name">
+      nav3-recipes
+    </text>
+    <text x="912" y="302" class="repo-meta">
+      ⭐ 15 · 2 PRs
+    </text>
+  </g>
+  
+  <g class="fade-in" style="animation-delay: 700ms">
+    <rect x="1184" y="240" width="260" height="108" class="card"/>
+    <rect x="1184" y="240" width="260" height="108" class="card-glass"/>
+    <rect x="1196" y="240" width="236" height="3" rx="2" class="accent-strip"/>
+
+    <text x="1200" y="276" class="repo-name">
+      cahier
+    </text>
+    <text x="1200" y="302" class="repo-meta">
+      ⭐ 15 · 2 PRs
+    </text>
+  </g>
+  
+
+</svg>
