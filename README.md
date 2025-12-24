@@ -192,24 +192,7 @@ func main() {
 - ❌ Without token: 60 requests/hour
 - ✅ With token: 5,000 requests/hour
 
-**1. Create a token:**
-   - Go to https://github.com/settings/tokens
-   - Generate new token (classic)
-   - **No scopes needed** for public contributions (read-only access is sufficient)
-
-**2. Set environment variable:**
-
-Add to your `~/.bashrc` or `~/.zshrc`:
-```bash
-export GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
-
-Reload: `source ~/.bashrc`
-
-**3. Done!** The tool automatically uses `$GITHUB_TOKEN`:
-```bash
-gh-oss-stats --user YOUR_USERNAME
-```
+📖 **Full setup guide:** See [docs/TOKEN_SETUP.md](docs/TOKEN_SETUP.md)
 
 ### Alternative: CLI Flag
 
@@ -228,7 +211,6 @@ GitHub Actions automatically provides `GITHUB_TOKEN`:
   run: gh-oss-stats --user ${{ github.actor }}
 ```
 
-📖 **Full setup guide:** See [docs/TOKEN_SETUP.md](docs/TOKEN_SETUP.md)
 
 ## Rate Limiting
 
