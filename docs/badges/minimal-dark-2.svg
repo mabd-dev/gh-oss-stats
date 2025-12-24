@@ -1,46 +1,38 @@
 <svg
   width="120"
-  height="28"
-  viewBox="0 0 120 28"
-  xmlns="http://www.w3.org/2000/svg">
+  height="32"
+  viewBox="0 0 120 32"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="OSS">
 
   <defs>
     <style>
-      :root {
-        --bg: #0d1117;
-        --text: #c9d1d9;
-        --border: #30363d;
-        --accent: #58a6ff;
-        --card-bg: rgba(255,255,255,0.08);
-      }
-
       text {
         font-family: system-ui, -apple-system, BlinkMacSystemFont,
                      "Segoe UI", Helvetica, Arial, sans-serif;
-        font-size: 11px;
-        font-weight: 600;
-        fill: var(--text);
+        fill: #ffffff;
+        font-size: 12px;
+        font-weight: 800;
       }
 
       .card {
-        fill: var(--card-bg);
-        stroke: var(--border);
-        stroke-width: 1;
-        rx: 6;
-      }
-
-      .accent {
-        fill: var(--accent);
+        fill: url(#miniGradient);
+        rx: 16;
       }
     </style>
+
+    <linearGradient id="miniGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#58a6ff" stop-opacity="0.75"/>
+    </linearGradient>
   </defs>
 
-  <!-- Card -->
-  <rect x="0.5" y="0.5" width="119" height="27" class="card"/>
-  <rect x="8" y="0.5" width="104" height="2" rx="1" class="accent"/>
+  <!-- Background -->
+  <rect class="card" x="0" y="0" width="120" height="32"/>
 
   <!-- Text -->
-  <text x="60" y="18" text-anchor="middle">
+  <text x="60" y="21" text-anchor="middle">
     7 Projects
   </text>
 </svg>

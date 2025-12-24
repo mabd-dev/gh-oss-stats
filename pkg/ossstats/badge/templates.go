@@ -5,184 +5,165 @@ const summaryTemplate = `<svg
   width="400"
   height="200"
   viewBox="0 0 400 200"
-  xmlns="http://www.w3.org/2000/svg">
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Open Source Contribution Summary">
 
   <defs>
     <style>
-      :root {
-        --bg: {{.Colors.Background}};
-        --text: {{.Colors.Text}};
-        --text-muted: {{.Colors.TextSecondary}};
-        --border: {{.Colors.Border}};
-        --accent: {{.Colors.Accent}};
-        --card-bg: rgba(255,255,255,0.03);
-      }
-
       text {
         font-family: system-ui, -apple-system, BlinkMacSystemFont,
                      "Segoe UI", Helvetica, Arial, sans-serif;
       }
 
+      .bg {
+        fill: {{.Colors.Background}};
+      }
+
       .card {
-        fill: var(--card-bg);
-        stroke: var(--border);
+        fill: url(#cardGradient);
+        stroke: {{.Colors.Border}};
         stroke-width: 1;
-        rx: 12;
-      }
-
-      .glass {
-        fill: url(#glass);
-        rx: 12;
-      }
-
-      .accent {
-        fill: var(--accent);
+        rx: 14;
       }
 
       .title {
-        font-size: 15px;
-        font-weight: 600;
-        fill: var(--text);
+        font-size: 18px;
+        font-weight: 800;
+        fill: {{.Colors.Text}};
+        letter-spacing: -0.3px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        fill: {{.Colors.TextSecondary}};
       }
 
       .label {
         font-size: 11px;
-        fill: var(--text-muted);
         text-transform: uppercase;
         letter-spacing: 0.08em;
+        fill: {{.Colors.TextSecondary}};
       }
 
       .value {
-        font-size: 22px;
-        font-weight: 700;
-        fill: var(--text);
+        font-size: 26px;
+        font-weight: 800;
+        fill: {{.Colors.Text}};
       }
     </style>
 
-    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="cardGradient" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="rgba(255,255,255,0.06)" />
-      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+      <stop offset="100%" stop-color="rgba(255,255,255,0.02)" />
     </linearGradient>
   </defs>
 
+  <!-- Background -->
+  <rect class="bg" x="0" y="0" width="400" height="200" rx="16"/>
+
   <!-- Card -->
-  <rect x="0.5" y="0.5" width="399" height="199" class="card"/>
-  <rect x="0.5" y="0.5" width="399" height="199" class="glass"/>
-  <rect x="12" y="0.5" width="376" height="3" rx="2" class="accent"/>
+  <rect class="card" x="12" y="12" width="376" height="176"/>
 
   <!-- Header -->
-  <text x="20" y="32" class="title">Open Source Stats</text>
-  <text x="20" y="52" class="label">@{{.Stats.Username}}</text>
+  <text class="title" x="28" y="42">Open Source</text>
+  <text class="subtitle" x="28" y="62">@{{.Stats.Username}}</text>
 
-  <!-- Metrics -->
-  <g transform="translate(20, 90)">
-    <text class="value" x="0" y="0">{{.TotalProjects}}</text>
-    <text class="label" x="0" y="18">Projects</text>
+  <!-- Stats -->
+  <g transform="translate(28, 98)">
+    <text class="value">{{.TotalProjects}}</text>
+    <text class="label" y="20">Projects</text>
   </g>
 
-  <g transform="translate(210, 90)">
-    <text class="value" x="0" y="0">{{.TotalPRs}}</text>
-    <text class="label" x="0" y="18">PRs Merged</text>
+  <g transform="translate(210, 98)">
+    <text class="value">{{.TotalPRs}}</text>
+    <text class="label" y="20">PRs Merged</text>
   </g>
 
-  <g transform="translate(20, 145)">
-    <text class="value" x="0" y="0">{{.TotalLines}}</text>
-    <text class="label" x="0" y="18">Lines Changed</text>
+  <g transform="translate(28, 148)">
+    <text class="value">{{.TotalLines}}</text>
+    <text class="label" y="20">Lines Changed</text>
   </g>
 </svg>`
 
 // compactTemplate is the SVG template for the Compact badge style (280x28) - Shields.io style
 const compactTemplate = `<svg
   width="280"
-  height="28"
-  viewBox="0 0 280 28"
-  xmlns="http://www.w3.org/2000/svg">
+  height="32"
+  viewBox="0 0 280 32"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="OSS Contributions">
 
   <defs>
     <style>
-      :root {
-        --bg: {{.Colors.Background}};
-        --text: {{.Colors.Text}};
-        --border: {{.Colors.Border}};
-        --accent: {{.Colors.Accent}};
-        --card-bg: rgba(255,255,255,0.05);
-      }
-
       text {
         font-family: system-ui, -apple-system, BlinkMacSystemFont,
                      "Segoe UI", Helvetica, Arial, sans-serif;
-        font-size: 11px;
-        font-weight: 600;
-        fill: var(--text);
+        fill: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
       }
 
       .card {
-        fill: var(--card-bg);
-        stroke: var(--border);
+        fill: url(#badgeGradient);
+        stroke: rgba(255,255,255,0.15);
         stroke-width: 1;
-        rx: 6;
-      }
-
-      .accent {
-        fill: var(--accent);
+        rx: 16;
       }
     </style>
+
+    <linearGradient id="badgeGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="{{.Colors.Accent}}" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="{{.Colors.Accent}}" stop-opacity="0.75"/>
+    </linearGradient>
   </defs>
 
-  <!-- Card -->
-  <rect x="0.5" y="0.5" width="279" height="27" class="card"/>
-  <rect x="8" y="0.5" width="264" height="2" rx="1" class="accent"/>
+  <!-- Background -->
+  <rect class="card" x="0.5" y="0.5" width="279" height="31"/>
 
   <!-- Text -->
-  <text x="140" y="18" text-anchor="middle">
-    {{.CompactText}}
+  <text x="140" y="21" text-anchor="middle">
+    OSS · {{.CompactText}}
   </text>
 </svg>`
 
 // minimalTemplate is the SVG template for the Minimal badge style (120x28)
 const minimalTemplate = `<svg
   width="120"
-  height="28"
-  viewBox="0 0 120 28"
-  xmlns="http://www.w3.org/2000/svg">
+  height="32"
+  viewBox="0 0 120 32"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="OSS">
 
   <defs>
     <style>
-      :root {
-        --bg: {{.Colors.Background}};
-        --text: {{.Colors.Text}};
-        --border: {{.Colors.Border}};
-        --accent: {{.Colors.Accent}};
-        --card-bg: rgba(255,255,255,0.08);
-      }
-
       text {
         font-family: system-ui, -apple-system, BlinkMacSystemFont,
                      "Segoe UI", Helvetica, Arial, sans-serif;
-        font-size: 11px;
-        font-weight: 600;
-        fill: var(--text);
+        fill: #ffffff;
+        font-size: 12px;
+        font-weight: 800;
       }
 
       .card {
-        fill: var(--card-bg);
-        stroke: var(--border);
-        stroke-width: 1;
-        rx: 6;
-      }
-
-      .accent {
-        fill: var(--accent);
+        fill: url(#miniGradient);
+        rx: 16;
       }
     </style>
+
+    <linearGradient id="miniGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="{{.Colors.Accent}}" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="{{.Colors.Accent}}" stop-opacity="0.75"/>
+    </linearGradient>
   </defs>
 
-  <!-- Card -->
-  <rect x="0.5" y="0.5" width="119" height="27" class="card"/>
-  <rect x="8" y="0.5" width="104" height="2" rx="1" class="accent"/>
+  <!-- Background -->
+  <rect class="card" x="0" y="0" width="120" height="32"/>
 
   <!-- Text -->
-  <text x="60" y="18" text-anchor="middle">
+  <text x="60" y="21" text-anchor="middle">
     {{.MinimalText}}
   </text>
 </svg>`
@@ -191,8 +172,8 @@ const minimalTemplate = `<svg
 const detailedTemplate = `
 <svg
   width="900"
-  height="440"
-  viewBox="0 0 900 440"
+  height="{{add 360 (mul (div (add (len .TopContributions) 2) 3) 120)}}"
+  viewBox="0 0 900 {{add 360 (mul (div (add (len .TopContributions) 2) 3) 120)}}"
   xmlns="http://www.w3.org/2000/svg"
   role="img"
   aria-label="GitHub Open Source Contribution Stats">
@@ -206,8 +187,8 @@ const detailedTemplate = `
       --text: {{.Colors.Text}};
       --text-muted: {{.Colors.TextSecondary}};
       --border: {{.Colors.Border}};
-      --accent: {{.Colors.Accent}};
-      --card-bg: rgba(255,255,255,0.03);
+      --card-top: rgba(255,255,255,0.06);
+      --card-bottom: rgba(255,255,255,0.02);
     }
 
     text {
@@ -216,10 +197,10 @@ const detailedTemplate = `
     }
 
     .title {
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 26px;
+      font-weight: 800;
       fill: var(--text);
-      letter-spacing: -0.3px;
+      letter-spacing: -0.4px;
     }
 
     .subtitle {
@@ -228,7 +209,7 @@ const detailedTemplate = `
     }
 
     .card {
-      fill: var(--card-bg);
+      fill: url(#cardGradient);
       stroke: var(--border);
       stroke-width: 1;
       rx: 14;
@@ -239,26 +220,22 @@ const detailedTemplate = `
       rx: 14;
     }
 
-    .accent-strip {
-      fill: var(--accent);
-    }
-
     .metric-label {
-      font-size: 11px;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       fill: var(--text-muted);
     }
 
     .metric-value {
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 28px;
+      font-weight: 800;
       fill: var(--text);
     }
 
     .repo-name {
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 700;
       fill: var(--text);
     }
 
@@ -282,8 +259,13 @@ const detailedTemplate = `
   <!-- Definitions -->
   <!-- ========================= -->
   <defs>
+    <linearGradient id="cardGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--card-top)" />
+      <stop offset="100%" stop-color="var(--card-bottom)" />
+    </linearGradient>
+
     <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.06)" />
+      <stop offset="0%" stop-color="rgba(255,255,255,0.08)" />
       <stop offset="100%" stop-color="rgba(255,255,255,0)" />
     </linearGradient>
   </defs>
@@ -291,17 +273,21 @@ const detailedTemplate = `
   <!-- ========================= -->
   <!-- Background -->
   <!-- ========================= -->
-  <rect x="0" y="0" width="900" height="440" rx="18" fill="var(--bg)" />
+  <rect
+    x="0"
+    y="0"
+    width="900"
+    height="{{add 360 (mul (div (add (len .TopContributions) 2) 3) 120)}}"
+    rx="18"
+    fill="var(--bg)"
+  />
 
   <!-- ========================= -->
   <!-- Header -->
   <!-- ========================= -->
-  <g class="fade-in" style="animation-delay: 0ms">
-    <text x="32" y="48" class="title">
-      {{.Stats.Username}} · Open Source Stats
-    </text>
-    <text x="32" y="72" class="subtitle">
-      Generated {{.Stats.GeneratedAt}}
+  <g class="fade-in">
+    <text x="32" y="50" class="title">
+      {{.Stats.Username}} · Open Source
     </text>
   </g>
 
@@ -313,52 +299,67 @@ const detailedTemplate = `
   <g class="fade-in" style="animation-delay: 100ms">
     <rect x="32" y="96" width="260" height="96" class="card"/>
     <rect x="32" y="96" width="260" height="96" class="card-glass"/>
-    <rect x="44" y="96" width="236" height="3" rx="2" class="accent-strip"/>
     <text x="48" y="132" class="metric-label">Projects</text>
-    <text x="48" y="166" class="metric-value">{{.TotalProjects}}</text>
+    <text x="48" y="168" class="metric-value">{{.TotalProjects}}</text>
   </g>
 
   <!-- PRs -->
   <g class="fade-in" style="animation-delay: 150ms">
     <rect x="320" y="96" width="260" height="96" class="card"/>
     <rect x="320" y="96" width="260" height="96" class="card-glass"/>
-    <rect x="332" y="96" width="236" height="3" rx="2" class="accent-strip"/>
     <text x="336" y="132" class="metric-label">PRs Merged</text>
-    <text x="336" y="166" class="metric-value">{{.TotalPRs}}</text>
+    <text x="336" y="168" class="metric-value">{{.TotalPRs}}</text>
   </g>
 
   <!-- Lines Changed -->
   <g class="fade-in" style="animation-delay: 200ms">
     <rect x="608" y="96" width="260" height="96" class="card"/>
     <rect x="608" y="96" width="260" height="96" class="card-glass"/>
-    <rect x="620" y="96" width="236" height="3" rx="2" class="accent-strip"/>
     <text x="624" y="132" class="metric-label">Lines Changed</text>
-    <text x="624" y="166" class="metric-value">{{.TotalLines}}</text>
+    <text x="624" y="168" class="metric-value">{{.TotalLines}}</text>
   </g>
 
   <!-- ========================= -->
   <!-- Top Contributions -->
   <!-- ========================= -->
-  <g class="fade-in" style="animation-delay: 260ms">
-    <text x="32" y="224" class="subtitle">
-      Top Contributions
-    </text>
-  </g>
+  <text x="32" y="224" class="subtitle fade-in" style="animation-delay: 260ms">
+    Top Contributions
+  </text>
 
   {{range $i, $r := .TopContributions}}
-  <g class="fade-in" style="animation-delay: {{add 300 (mul $i 100)}}ms">
-    <rect x="{{add 32 (mul $i 288)}}" y="240" width="260" height="108" class="card"/>
-    <rect x="{{add 32 (mul $i 288)}}" y="240" width="260" height="108" class="card-glass"/>
-    <rect x="{{add 44 (mul $i 288)}}" y="240" width="236" height="3" rx="2" class="accent-strip"/>
+  {{ $col := mod $i 3 }}
+  {{ $row := div $i 3 }}
+  <g class="fade-in" style="animation-delay: {{add 300 (mul $i 80)}}ms">
+    <rect
+      x="{{add 32 (mul $col 288)}}"
+      y="{{add 240 (mul $row 120)}}"
+      width="260"
+      height="108"
+      class="card"
+    />
+    <rect
+      x="{{add 32 (mul $col 288)}}"
+      y="{{add 240 (mul $row 120)}}"
+      width="260"
+      height="108"
+      class="card-glass"
+    />
 
-    <text x="{{add 48 (mul $i 288)}}" y="276" class="repo-name">
+    <text
+      x="{{add 48 (mul $col 288)}}"
+      y="{{add 278 (mul $row 120)}}"
+      class="repo-name">
       {{$r.RepoName}}
     </text>
-    <text x="{{add 48 (mul $i 288)}}" y="302" class="repo-meta">
-      ⭐ {{$r.Stars}} · {{$r.PRs}} PRs
+    <text
+      x="{{add 48 (mul $col 288)}}"
+      y="{{add 304 (mul $row 120)}}"
+      class="repo-meta">
+      ⭐ {{$r.Stars}} · {{$r.PRs}} PRs Merged
     </text>
   </g>
   {{end}}
 
 </svg>
+
 `
