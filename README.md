@@ -27,7 +27,7 @@ Multiple Variants Support
 
 | Variant |  Output  |
 |------------|------------|
-| Default | ![Default Summary Dark](docs/badges/default-summary-dark.svg) |
+| Default | ![Default Detailed Dark](docs/badges/default-detailed-dark.svg) |
 | Text Based | ![Text Based Detailed Dark](docs/badges/text-based-detailed-dark.svg)  |
 
 
