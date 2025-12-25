@@ -63,7 +63,7 @@ func main() {
 		// Badge generation flags
 		generateBadge = flag.Bool("badge", false, "Generate SVG badge")
 		badgeStyle    = flag.String("badge-style", "summary", "Badge style: summary, compact, detailed, minimal")
-		badgeTheme    = flag.String("badge-theme", "dark", "Badge theme: dark, light")
+		badgeTheme    = flag.String("badge-theme", "dark", "Badge theme: dark, light, nord, dracula, ...")
 		badgeOutput   = flag.String("badge-output", "", "Badge output file (default: badge.svg)")
 		badgeSort     = flag.String("badge-sort", "prs", "Sort contributions by: prs, stars, commits (for detailed badge)")
 		badgeLimit    = flag.Int("badge-limit", 5, "Number of contributions to show (for detailed badge)")
