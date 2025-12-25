@@ -42,7 +42,15 @@ gh-oss-stats --user YOUR_USERNAME --badge \
 | ![Minimal Dark](default-minimal-dark.svg) | ![Minimal Light](default-minimal-light.svg) |
 
 
-Check [All Supported Themes](./BADGE_THEMES.md)
+Multiple Variants Support
+
+| Variant |  Output  |
+|------------|------------|
+| Default | ![Default Summary Dark](docs/badges/default-summary-dark.svg) |
+| Text Based | ![Text Based Detailed Dark](docs/badges/text-based-detailed-dark.svg)  |
+
+
+Check [All Combos](./BADGE_THEMES.md)
 
 ---
 

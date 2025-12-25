@@ -22,7 +22,16 @@ Track and display your merged PRs, commits, and contributions to external reposi
 | Compact | ![Compact Dark](docs/badges/default-compact-dark.svg)  |
 | Minimal | ![Minimal Dark](docs/badges/default-minimal-dark.svg)  |
 
-Check [All Supported Themes](./docs/badges/BADGE_THEMES.md)
+
+Multiple Variants Support
+
+| Variant |  Output  |
+|------------|------------|
+| Default | ![Default Summary Dark](docs/badges/default-summary-dark.svg) |
+| Text Based | ![Text Based Detailed Dark](docs/badges/text-based-detailed-dark.svg)  |
+
+
+Check [All Combos](./docs/badges/BADGE_THEMES.md)
 
 
 ## Quick Start

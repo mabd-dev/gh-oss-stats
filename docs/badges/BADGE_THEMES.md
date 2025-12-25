@@ -2,7 +2,7 @@
 
 
 
-| Variant | Theme | Detailed | Summary |
+| Variant | Theme | Detailed Style | Summary Style |
 |---------|---------|------------|-------------|
 | Default | Github Dark | ![Detailed Dark](default-detailed-dark.svg) | ![Summary Dark](default-summary-dark.svg) |
 | Default | Github Light | ![Detailed Light](default-detailed-light.svg) | ![Summary Dark](default-summary-light.svg) |
