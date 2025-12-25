@@ -42,6 +42,8 @@ gh-oss-stats --user YOUR_USERNAME --badge \
 | ![Minimal Dark](minimal-dark.svg) | ![Minimal Light](minimal-light.svg) |
 
 
+see [All supported themes here](./BADGE_THEMES.md)
+
 ---
 
 ## Advanced Options
@@ -84,19 +86,6 @@ gh-oss-stats --user mabd-dev \
   -o stats.json \
   --badge --badge-output badge.svg
 ```
-
-## Theme Comparison
-
-| Theme | Detailed | Summary |
-|---------|------------|-------------|
-| Github Dark | ![Detailed Dark](detailed-dark.svg) | ![Summary Dark](summary-dark.svg) |
-| Github Light | ![Detailed Light](detailed-light.svg) | ![Summary Dark](summary-light.svg) |
-| Dracula | ![Detailed Dracula](detailed-dracula.svg) | ![Summary Dracula](summary-dracula.svg) |
-| Nord | ![Detailed Nord](detailed-nord.svg) | ![Summary Dracula](summary-nord.svg) |
-| Gruvbox Dark | ![Detailed Gruvbox Dark](detailed-gruvbox-dark.svg) | ![Summary Druvbox Dark](summary-gruvbox-dark.svg) |
-| Gruvbox Light | ![Detailed Gruvbox Light](detailed-gruvbox-light.svg) | ![Summary Druvbox Light](summary-gruvbox-light.svg) |
-
-
 
 ## All CLI Flags
 
