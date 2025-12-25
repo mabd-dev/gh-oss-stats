@@ -14,12 +14,12 @@
       }
 
       .bg {
-        fill: #ffffff;
+        fill: #2e3440;
       }
 
       .card {
         fill: url(#cardGradient);
-        stroke: #d0d7de;
+        stroke: #4c566a;
         stroke-width: 1;
         rx: 14;
       }
@@ -27,32 +27,32 @@
       .title {
         font-size: 18px;
         font-weight: 800;
-        fill: #1f2328;
+        fill: #d8dee9;
         letter-spacing: -0.3px;
       }
 
       .subtitle {
         font-size: 12px;
-        fill: #656d76;
+        fill: #81a1c1;
       }
 
       .label {
         font-size: 11px;
         text-transform: uppercase;
         letter-spacing: 0.08em;
-        fill: #656d76;
+        fill: #81a1c1;
       }
 
       .value {
         font-size: 26px;
         font-weight: 800;
-        fill: #1f2328;
+        fill: #d8dee9;
       }
     </style>
 
     <linearGradient id="cardGradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f6f8fa" stop-opacity="0.8" />
-      <stop offset="100%" stop-color="#f6f8fa" stop-opacity="0.6" />
+      <stop offset="0%" stop-color="#3b4252" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#3b4252" stop-opacity="0.6" />
     </linearGradient>
   </defs>
 

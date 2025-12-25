@@ -1,8 +1,8 @@
 
 <svg
   width="900"
-  height="600"
-  viewBox="0 0 900 600"
+  height="518"
+  viewBox="0 0 900 518"
   xmlns="http://www.w3.org/2000/svg"
   role="img"
   aria-label="GitHub Open Source Contribution Stats">
@@ -13,11 +13,12 @@
   <style>
     :root {
       --bg: #282a36;
+      --bg-alt: #44475a;
       --text: #f8f8f2;
       --text-muted: #6272a4;
       --border: #44475a;
-      --card-top: rgba(255,255,255,0.06);
-      --card-bottom: rgba(255,255,255,0.02);
+      --accent: #bd93f9;
+      --star: #f1fa8c;
     }
 
     text {
@@ -89,13 +90,13 @@
   <!-- ========================= -->
   <defs>
     <linearGradient id="cardGradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="var(--card-top)" />
-      <stop offset="100%" stop-color="var(--card-bottom)" />
+      <stop offset="0%" stop-color="var(--bg-alt)" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="var(--bg-alt)" stop-opacity="0.6" />
     </linearGradient>
 
     <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.08)" />
-      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+      <stop offset="0%" stop-color="var(--bg-alt)" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="var(--bg-alt)" stop-opacity="0" />
     </linearGradient>
   </defs>
 
@@ -106,7 +107,7 @@
     x="0"
     y="0"
     width="900"
-    height="600"
+    height="518"
     rx="18"
     fill="var(--bg)"
   />

@@ -23,7 +23,7 @@ func ExampleRenderSVG_summary() {
 
 	opts := badge.BadgeOptions{
 		Style: badge.StyleSummary,
-		Theme: badge.ThemeDark,
+		Theme: badge.ThemeGithubDark,
 	}
 
 	svg, err := badge.RenderSVG(stats, opts)
@@ -49,7 +49,7 @@ func ExampleRenderSVG_compact() {
 
 	opts := badge.BadgeOptions{
 		Style: badge.StyleCompact,
-		Theme: badge.ThemeLight,
+		Theme: badge.ThemeGithubLight,
 	}
 
 	svg, err := badge.RenderSVG(stats, opts)
@@ -72,7 +72,7 @@ func ExampleRenderSVG_minimal() {
 
 	opts := badge.BadgeOptions{
 		Style: badge.StyleMinimal,
-		Theme: badge.ThemeDark,
+		Theme: badge.ThemeGithubDark,
 	}
 
 	svg, err := badge.RenderSVG(stats, opts)
@@ -103,7 +103,7 @@ func ExampleRenderSVG_detailed() {
 
 	opts := badge.BadgeOptions{
 		Style:  badge.StyleDetailed,
-		Theme:  badge.ThemeDark,
+		Theme:  badge.ThemeGithubDark,
 		SortBy: badge.SortByPRs,
 		Limit:  3,
 	}

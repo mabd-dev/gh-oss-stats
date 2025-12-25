@@ -87,12 +87,16 @@ gh-oss-stats --user mabd-dev \
 
 ## Theme Comparison
 
-| Feature | Dark Theme | Light Theme |
+| Theme | Detailed | Summary |
 |---------|------------|-------------|
-| Background | `#0d1117` (GitHub dark) | `#ffffff` (white) |
-| Text | `#c9d1d9` (light gray) | `#24292f` (dark gray) |
-| Accent | `#58a6ff` (GitHub blue) | `#0969da` (GitHub blue) |
-| Use Case | Dark mode sites, modern look | Light mode sites, traditional |
+| Github Dark | ![Detailed Dark](detailed-dark.svg) | ![Summary Dark](summary-dark.svg) |
+| Github Light | ![Detailed Light](detailed-light.svg) | ![Summary Dark](summary-light.svg) |
+| Dracula | ![Detailed Dracula](detailed-dracula.svg) | ![Summary Dracula](summary-dracula.svg) |
+| Nord | ![Detailed Nord](detailed-nord.svg) | ![Summary Dracula](summary-nord.svg) |
+| Gruvbox Dark | ![Detailed Gruvbox Dark](detailed-gruvbox-dark.svg) | ![Summary Druvbox Dark](summary-gruvbox-dark.svg) |
+| Gruvbox Light | ![Detailed Gruvbox Light](detailed-gruvbox-light.svg) | ![Summary Druvbox Light](summary-gruvbox-light.svg) |
+
+
 
 ## All CLI Flags
 

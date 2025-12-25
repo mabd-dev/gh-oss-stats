@@ -5,28 +5,34 @@ import (
 	"strings"
 )
 
-var DefaultBadgeTheme = ThemeDark
+var DefaultBadgeTheme = ThemeGithubDark
 
 // BadgeTheme represents the color scheme for the badge
 type BadgeTheme string
 
 const (
-	ThemeDark    BadgeTheme = "dark"  // Github dark
-	ThemeLight   BadgeTheme = "light" // Github light
-	ThemeDracula BadgeTheme = "dracula"
-	ThemeNord    BadgeTheme = "nord"
+	ThemeGithubDark   BadgeTheme = "dark"
+	ThemeGithubLight  BadgeTheme = "light"
+	ThemeDracula      BadgeTheme = "dracula"
+	ThemeNord         BadgeTheme = "nord"
+	ThemeGruvboxDark  BadgeTheme = "gruvbox-dark"
+	ThemeGruvboxLight BadgeTheme = "gruvbox-light"
 )
 
 func BadgeThemeFromName(name string) (BadgeTheme, error) {
 	switch strings.ToLower(name) {
 	case "dark":
-		return ThemeDark, nil
+		return ThemeGithubDark, nil
 	case "light":
-		return ThemeLight, nil
+		return ThemeGithubLight, nil
 	case "dracula":
 		return ThemeDracula, nil
 	case "nord":
 		return ThemeNord, nil
+	case "gruvbox-dark":
+		return ThemeGruvboxDark, nil
+	case "gruvbox-light":
+		return ThemeGruvboxLight, nil
 	}
 	err := fmt.Errorf("invalid badge theme: %s (must be: dark, light, dracula, nord)", name)
 	return DefaultBadgeTheme, err
@@ -55,7 +61,7 @@ type ThemeColors struct {
 // GetThemeColors returns the color palette for a given theme
 func GetThemeColors(theme BadgeTheme) ThemeColors {
 	switch theme {
-	case ThemeLight:
+	case ThemeGithubLight:
 		return ThemeColors{
 			Background:    "#ffffff",
 			BackgroundAlt: "#f6f8fa",
@@ -90,6 +96,30 @@ func GetThemeColors(theme BadgeTheme) ThemeColors {
 			Positive:      "#a3be8c",
 			Negative:      "#bf616a",
 			Star:          "#ebcb8b",
+		}
+	case ThemeGruvboxDark:
+		return ThemeColors{
+			Background:    "#282828",
+			BackgroundAlt: "#3c3836",
+			Text:          "#ebdbb2",
+			TextSecondary: "#a89984",
+			Border:        "#3c3836",
+			Accent:        "#458588",
+			Positive:      "#98971a",
+			Negative:      "#cc241d",
+			Star:          "#d79921",
+		}
+	case ThemeGruvboxLight:
+		return ThemeColors{
+			Background:    "#fbf1c7",
+			BackgroundAlt: "#ebdbb2",
+			Text:          "#3c3836",
+			TextSecondary: "#7c6f64",
+			Border:        "#ebdbb2",
+			Accent:        "#458588",
+			Positive:      "#98971a",
+			Negative:      "#cc241d",
+			Star:          "#cc241d",
 		}
 	default:
 		// Github dark

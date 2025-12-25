@@ -36,56 +36,56 @@ func TestRenderSVG_AllStyles(t *testing.T) {
 		{
 			name:      "summary_dark",
 			style:     StyleSummary,
-			theme:     ThemeDark,
+			theme:     ThemeGithubDark,
 			wantWidth: `width="400"`,
 			wantErr:   false,
 		},
 		{
 			name:      "summary_light",
 			style:     StyleSummary,
-			theme:     ThemeLight,
+			theme:     ThemeGithubLight,
 			wantWidth: `width="400"`,
 			wantErr:   false,
 		},
 		{
 			name:      "compact_dark",
 			style:     StyleCompact,
-			theme:     ThemeDark,
+			theme:     ThemeGithubDark,
 			wantWidth: `width="280"`,
 			wantErr:   false,
 		},
 		{
 			name:      "compact_light",
 			style:     StyleCompact,
-			theme:     ThemeLight,
+			theme:     ThemeGithubLight,
 			wantWidth: `width="280"`,
 			wantErr:   false,
 		},
 		{
 			name:      "detailed_dark",
 			style:     StyleDetailed,
-			theme:     ThemeDark,
+			theme:     ThemeGithubDark,
 			wantWidth: `width="900"`,
 			wantErr:   false,
 		},
 		{
 			name:      "detailed_light",
 			style:     StyleDetailed,
-			theme:     ThemeLight,
+			theme:     ThemeGithubLight,
 			wantWidth: `width="900"`,
 			wantErr:   false,
 		},
 		{
 			name:      "minimal_dark",
 			style:     StyleMinimal,
-			theme:     ThemeDark,
+			theme:     ThemeGithubDark,
 			wantWidth: `width="120"`,
 			wantErr:   false,
 		},
 		{
 			name:      "minimal_light",
 			style:     StyleMinimal,
-			theme:     ThemeLight,
+			theme:     ThemeGithubLight,
 			wantWidth: `width="120"`,
 			wantErr:   false,
 		},
@@ -136,7 +136,7 @@ func TestRenderSVG_AllStyles(t *testing.T) {
 func TestRenderSVG_NilStats(t *testing.T) {
 	opts := BadgeOptions{
 		Style: StyleSummary,
-		Theme: ThemeDark,
+		Theme: ThemeGithubDark,
 	}
 
 	_, err := RenderSVG(nil, opts)
@@ -165,7 +165,7 @@ func TestRenderSVG_EmptyContributions(t *testing.T) {
 		t.Run(string(style), func(t *testing.T) {
 			opts := BadgeOptions{
 				Style: style,
-				Theme: ThemeDark,
+				Theme: ThemeGithubDark,
 			}
 
 			svg, err := RenderSVG(stats, opts)
@@ -189,7 +189,7 @@ func TestRenderSVG_InvalidStyle(t *testing.T) {
 
 	opts := BadgeOptions{
 		Style: BadgeStyle("invalid"),
-		Theme: ThemeDark,
+		Theme: ThemeGithubDark,
 	}
 
 	_, err := RenderSVG(stats, opts)
@@ -214,30 +214,30 @@ func TestRenderSVG_ThemeColors(t *testing.T) {
 		{
 			name:       "dark_theme_compact",
 			style:      StyleCompact,
-			theme:      ThemeDark,
+			theme:      ThemeGithubDark,
 			wantColor:  "#e6edf3", // text color
 			wantAccent: "#58a6ff",
 		},
 		{
 			name:       "light_theme_compact",
 			style:      StyleCompact,
-			theme:      ThemeLight,
+			theme:      ThemeGithubLight,
 			wantColor:  "#1f2328", // text color
 			wantAccent: "#0969da",
 		},
 		{
 			name:       "dark_theme_summary",
 			style:      StyleSummary,
-			theme:      ThemeDark,
-			wantColor:  "#0d1117",  // background color
-			wantAccent: "",          // summary doesn't use accent in visible way
+			theme:      ThemeGithubDark,
+			wantColor:  "#0d1117", // background color
+			wantAccent: "",        // summary doesn't use accent in visible way
 		},
 		{
 			name:       "light_theme_summary",
 			style:      StyleSummary,
-			theme:      ThemeLight,
-			wantColor:  "#ffffff",   // background color
-			wantAccent: "",          // summary doesn't use accent in visible way
+			theme:      ThemeGithubLight,
+			wantColor:  "#ffffff", // background color
+			wantAccent: "",        // summary doesn't use accent in visible way
 		},
 	}
 
@@ -304,7 +304,7 @@ func TestRenderSVG_DetailedBadgeSorting(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			opts := BadgeOptions{
 				Style:  StyleDetailed,
-				Theme:  ThemeDark,
+				Theme:  ThemeGithubDark,
 				SortBy: tt.sortBy,
 				Limit:  3,
 			}
@@ -375,7 +375,7 @@ func TestRenderSVG_DetailedBadgeLimit(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			opts := BadgeOptions{
 				Style:  StyleDetailed,
-				Theme:  ThemeDark,
+				Theme:  ThemeGithubDark,
 				SortBy: SortByPRs,
 				Limit:  tt.limit,
 			}
@@ -521,13 +521,13 @@ func TestGetThemeColors(t *testing.T) {
 	}{
 		{
 			name:           "dark_theme",
-			theme:          ThemeDark,
+			theme:          ThemeGithubDark,
 			wantBackground: "#0d1117",
 			wantAccent:     "#58a6ff",
 		},
 		{
 			name:           "light_theme",
-			theme:          ThemeLight,
+			theme:          ThemeGithubLight,
 			wantBackground: "#ffffff",
 			wantAccent:     "#0969da",
 		},
@@ -576,7 +576,7 @@ func TestRenderSVG_CompactBadgeContent(t *testing.T) {
 
 	opts := BadgeOptions{
 		Style: StyleCompact,
-		Theme: ThemeDark,
+		Theme: ThemeGithubDark,
 	}
 
 	svg, err := RenderSVG(stats, opts)
@@ -603,7 +603,7 @@ func TestRenderSVG_MinimalBadgeContent(t *testing.T) {
 
 	opts := BadgeOptions{
 		Style: StyleMinimal,
-		Theme: ThemeDark,
+		Theme: ThemeGithubDark,
 	}
 
 	svg, err := RenderSVG(stats, opts)

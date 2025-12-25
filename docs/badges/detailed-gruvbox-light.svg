@@ -12,13 +12,13 @@
   <!-- ========================= -->
   <style>
     :root {
-      --bg: #0d1117;
-      --bg-alt: #161b22;
-      --text: #e6edf3;
-      --text-muted: #8b949e;
-      --border: #30363d;
-      --accent: #58a6ff;
-      --star: #e3b341;
+      --bg: #fbf1c7;
+      --bg-alt: #ebdbb2;
+      --text: #3c3836;
+      --text-muted: #7c6f64;
+      --border: #ebdbb2;
+      --accent: #458588;
+      --star: #cc241d;
     }
 
     text {

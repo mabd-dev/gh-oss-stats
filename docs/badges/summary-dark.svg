@@ -51,8 +51,8 @@
     </style>
 
     <linearGradient id="cardGradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.06)" />
-      <stop offset="100%" stop-color="rgba(255,255,255,0.02)" />
+      <stop offset="0%" stop-color="#161b22" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#161b22" stop-opacity="0.6" />
     </linearGradient>
   </defs>
 
