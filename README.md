@@ -55,13 +55,14 @@ Add this line to your profile `README.md` where you want the badge to appear:
 
 ## Customization
 
-### Change Badge Style or Theme
+### Change Badge Style, Variant or Theme
 
 Edit the workflow file (`.github/workflows/generate-oss-badge.yaml`) and modify these flags:
 
 ```yaml
---badge-style summary    # Options: summary, compact, detailed, minimal
---badge-theme dark       # Options: dark, light, nord, dracula, etc...
+--badge-style summary       # Options: summary, compact, detailed, minimal
+--badge-variant summary     # Options: default, text-based
+--badge-theme dark          # Options: dark, light, nord, dracula, etc...
 ```
 
 See all badge styles and examples in the [Badge Gallery](docs/badges/README.md).

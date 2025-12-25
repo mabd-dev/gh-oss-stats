@@ -66,6 +66,7 @@ gh-oss-stats --version
 ```
 --badge              Generate SVG badge
 --badge-style        Badge style: summary, compact, detailed, minimal (default: summary)
+--badge-variant      Badge variant: default, text-based, (default: default)
 --badge-theme        Badge theme: dark, light, nord, dracula, ... (default: dark)
 --badge-output       Badge output file (default: badge.svg)
 --badge-sort         Sort contributions by: prs, stars, commits (default: prs)

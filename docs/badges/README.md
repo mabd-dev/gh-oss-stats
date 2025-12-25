@@ -87,17 +87,6 @@ gh-oss-stats --user mabd-dev \
   --badge --badge-output badge.svg
 ```
 
-## All CLI Flags
-
-| Flag | Type | Default | Description |
-|------|------|---------|-------------|
-| `--badge` | bool | `false` | Enable badge generation |
-| `--badge-style` | string | `"summary"` | Badge style: summary, compact, detailed, minimal |
-| `--badge-theme` | string | `"dark"` | Color theme: dark, light, nord, dracula, ... |
-| `--badge-output` | string | `"badge.svg"` | Output file path |
-| `--badge-sort` | string | `"prs"` | Sort by: prs, stars, commits (detailed only) |
-| `--badge-limit` | int | `5` | Max contributions shown (detailed only) |
-
 ## Embedding in README
 
 ### Standard Markdown
