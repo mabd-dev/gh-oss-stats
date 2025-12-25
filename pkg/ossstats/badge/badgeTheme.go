@@ -11,9 +11,10 @@ var DefaultBadgeTheme = ThemeDark
 type BadgeTheme string
 
 const (
-	ThemeDark        BadgeTheme = "dark"  // Dark background, light text
-	ThemeLight       BadgeTheme = "light" // Light background, dark text
-	ThemeAuroraGlass BadgeTheme = "aurora glass"
+	ThemeDark    BadgeTheme = "dark"  // Github dark
+	ThemeLight   BadgeTheme = "light" // Github light
+	ThemeDracula BadgeTheme = "dracula"
+	ThemeNord    BadgeTheme = "nord"
 )
 
 func BadgeThemeFromName(name string) (BadgeTheme, error) {
@@ -22,8 +23,10 @@ func BadgeThemeFromName(name string) (BadgeTheme, error) {
 		return ThemeDark, nil
 	case "light":
 		return ThemeLight, nil
-	case "aurora glass":
-		return ThemeAuroraGlass, nil
+	case "dracula":
+		return ThemeDracula, nil
+	case "nord":
+		return ThemeNord, nil
 	}
 	err := fmt.Errorf("invalid badge theme: %s (must be: dark, light, aurora glass)", name)
 	return DefaultBadgeTheme, err
@@ -31,20 +34,22 @@ func BadgeThemeFromName(name string) (BadgeTheme, error) {
 
 // ThemeColors holds the color palette for a theme
 type ThemeColors struct {
-	Background    string
-	Text          string
-	TextSecondary string
-	Border        string
-	Accent        string
-}
+	// Backgrounds
+	Background    string // Main background
+	BackgroundAlt string // Cards, boxes, secondary areas
 
-// DefaultThemeDark returns the dark theme color palette
-var defaultThemeDark = ThemeColors{
-	Background:    "#0d1117",
-	Text:          "#c9d1d9",
-	TextSecondary: "#8b949e",
-	Border:        "#30363d",
-	Accent:        "#58a6ff",
+	// Text
+	Text          string // Primary text (headings, values)
+	TextSecondary string // Labels, muted text
+
+	// UI
+	Border string // Borders, dividers
+	Accent string // Primary brand color, highlights
+
+	// Semantic (for stats)
+	Positive string // Additions, success, growth
+	Negative string // Deletions, errors
+	Star     string // Star counts (optional, can default to Accent)
 }
 
 // GetThemeColors returns the color palette for a given theme
@@ -53,22 +58,52 @@ func GetThemeColors(theme BadgeTheme) ThemeColors {
 	case ThemeLight:
 		return ThemeColors{
 			Background:    "#ffffff",
-			Text:          "#24292f",
-			TextSecondary: "#57606a",
+			BackgroundAlt: "#f6f8fa",
+			Text:          "#1f2328",
+			TextSecondary: "#656d76",
 			Border:        "#d0d7de",
 			Accent:        "#0969da",
+			Positive:      "#1a7f37",
+			Negative:      "#cf222e",
+			Star:          "#9a6700",
 		}
-	case ThemeDark:
-		return defaultThemeDark
-	case ThemeAuroraGlass:
+	case ThemeDracula:
 		return ThemeColors{
-			Background:    "#0b1020", // deep blue-black
-			Text:          "#e6edf3", // soft white
-			TextSecondary: "#9aa4b2", // muted gray-blue
-			Border:        "#1f2a44", // cool blue border
-			Accent:        "#7dd3fc", // icy blue (primary accent)
+			Background:    "#282a36",
+			BackgroundAlt: "#44475a",
+			Text:          "#f8f8f2",
+			TextSecondary: "#6272a4",
+			Border:        "#44475a",
+			Accent:        "#bd93f9",
+			Positive:      "#50fa7b",
+			Negative:      "#ff5555",
+			Star:          "#f1fa8c",
+		}
+	case ThemeNord:
+		return ThemeColors{
+			Background:    "#2e3440",
+			BackgroundAlt: "#3b4252",
+			Text:          "#d8dee9",
+			TextSecondary: "#",
+			Border:        "#",
+			Accent:        "#",
+			Positive:      "#",
+			Negative:      "#",
+			Star:          "#",
 		}
 	default:
-		return defaultThemeDark
+		// Github dark
+		return ThemeColors{
+			Background:    "#0d1117",
+			BackgroundAlt: "#161b22",
+			Text:          "#e6edf3",
+			TextSecondary: "#8b949e",
+			Border:        "#30363d",
+			Accent:        "#58a6ff",
+			Positive:      "#3fb950",
+			Negative:      "#f85149",
+			Star:          "#e3b341",
+		}
+
 	}
 }
