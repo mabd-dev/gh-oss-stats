@@ -74,7 +74,7 @@ Check [All Combos](./BADGE_THEMES.md)
 
   # Text-based variant (clean typography)
   gh-oss-stats --badge --badge-variant text-based --badge-style detailed
-    ```
+```
 ---
 
 ## Advanced Options
