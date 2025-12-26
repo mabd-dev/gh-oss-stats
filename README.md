@@ -69,7 +69,7 @@ Edit the workflow file (`.github/workflows/generate-oss-badge.yaml`) and modify 
 
 ```yaml
 --badge-style summary       # Options: summary, compact, detailed, minimal
---badge-variant summary     # Options: default, text-based
+--badge-variant default     # Options: default, text-based
 --badge-theme dark          # Options: dark, light, nord, dracula, etc...
 ```
 

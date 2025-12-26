@@ -38,6 +38,11 @@ func init() {
 		fmt.Fprintf(os.Stderr, "  compact  - 280x28px shields.io style\n")
 		fmt.Fprintf(os.Stderr, "  detailed - 400x320px with top contributions\n")
 		fmt.Fprintf(os.Stderr, "  minimal  - 120x28px project count only\n\n")
+
+		fmt.Fprintf(os.Stderr, "Badge Variant (design approach):\n")
+		fmt.Fprintf(os.Stderr, "  default     - Modern cards with gradients (all styles supported)\n")
+		fmt.Fprintf(os.Stderr, "  text-based  - Clean typography focus (detailed style only)\n")
+
 	}
 }
 

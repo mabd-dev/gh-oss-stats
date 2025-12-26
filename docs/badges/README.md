@@ -42,7 +42,8 @@ gh-oss-stats --user YOUR_USERNAME --badge \
 | ![Minimal Dark](default-minimal-dark.svg) | ![Minimal Light](default-minimal-light.svg) |
 
 
-### Multiple Variants Support
+ ## Badge Variants
+  Variants control the visual design and layout approach:
 
 | Default Variant |  Text Based Variant  |
 |------------|------------|
@@ -51,6 +52,29 @@ gh-oss-stats --user YOUR_USERNAME --badge \
 
 Check [All Combos](./BADGE_THEMES.md)
 
+  ### Default Variant
+  Modern, card-based designs with gradients, shadows, and rich visual elements.
+  - Best for: Modern GitHub profiles, portfolios
+  - Styles available: All (summary, compact, detailed, minimal)
+
+  ### Text-Based Variant
+  Clean, minimalist text-focused designs with clear typography.
+  - Best for: Terminal themes, retro aesthetics, accessibility
+  - Styles available: Detailed only (more coming soon)
+  - Characteristics:
+    - No gradients or shadows
+    - Larger text for better readability
+    - Cleaner, more spacious layout
+    - Lower file size
+
+  **Usage:**
+  ```bash
+  # Default variant (rich visual design)
+  gh-oss-stats --badge --badge-variant default --badge-style detailed
+
+  # Text-based variant (clean typography)
+  gh-oss-stats --badge --badge-variant text-based --badge-style detailed
+    ```
 ---
 
 ## Advanced Options
