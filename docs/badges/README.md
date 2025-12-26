@@ -17,31 +17,64 @@ gh-oss-stats --user YOUR_USERNAME --badge \
 
 ## Badge Previews
 
-### Summary Badges (400×200)
+#### Summary Badges (400×200)
 
 | Dark Theme | Light Theme |
 |------------|-------------|
-| ![Summary Dark](summary-dark.svg) | ![Summary Light](summary-light.svg) |
+| ![Summary Dark](default-summary-dark.svg) | ![Summary Light](default-summary-light.svg) |
 
-### Compact Badges (280×28)
-
-| Dark Theme | Light Theme |
-|------------|-------------|
-| ![Compact Dark](compact-dark.svg) | ![Compact Light](compact-light.svg) |
-
-### Detailed Badges (400×320)
+#### Compact Badges (280×28)
 
 | Dark Theme | Light Theme |
 |------------|-------------|
-| ![Detailed Dark](detailed-dark.svg) | ![Detailed Light](detailed-light.svg) |
+| ![Compact Dark](default-compact-dark.svg) | ![Compact Light](default-compact-light.svg) |
 
-### Minimal Badges (120×28)
+#### Detailed Badges (400×320)
 
 | Dark Theme | Light Theme |
 |------------|-------------|
-| ![Minimal Dark](minimal-dark.svg) | ![Minimal Light](minimal-light.svg) |
+| ![Detailed Dark](default-detailed-dark.svg) | ![Detailed Light](default-detailed-light.svg) |
+
+#### Minimal Badges (120×28)
+
+| Dark Theme | Light Theme |
+|------------|-------------|
+| ![Minimal Dark](default-minimal-dark.svg) | ![Minimal Light](default-minimal-light.svg) |
 
 
+ ## Badge Variants
+  Variants control the visual design and layout approach:
+
+| Default Variant |  Text Based Variant  |
+|------------|------------|
+| ![Default Detailed Dark](default-detailed-dark.svg) | ![Text Based Detailed Dark](text-based-detailed-dark.svg) |
+
+
+Check [All Combos](./BADGE_THEMES.md)
+
+  ### Default Variant
+  Modern, card-based designs with gradients, shadows, and rich visual elements.
+  - Best for: Modern GitHub profiles, portfolios
+  - Styles available: All (summary, compact, detailed, minimal)
+
+  ### Text-Based Variant
+  Clean, minimalist text-focused designs with clear typography.
+  - Best for: Terminal themes, retro aesthetics, accessibility
+  - Styles available: Detailed only (more coming soon)
+  - Characteristics:
+    - No gradients or shadows
+    - Larger text for better readability
+    - Cleaner, more spacious layout
+    - Lower file size
+
+  **Usage:**
+  ```bash
+  # Default variant (rich visual design)
+  gh-oss-stats --badge --badge-variant default --badge-style detailed
+
+  # Text-based variant (clean typography)
+  gh-oss-stats --badge --badge-variant text-based --badge-style detailed
+```
 ---
 
 ## Advanced Options
@@ -84,26 +117,6 @@ gh-oss-stats --user mabd-dev \
   -o stats.json \
   --badge --badge-output badge.svg
 ```
-
-## Theme Comparison
-
-| Feature | Dark Theme | Light Theme |
-|---------|------------|-------------|
-| Background | `#0d1117` (GitHub dark) | `#ffffff` (white) |
-| Text | `#c9d1d9` (light gray) | `#24292f` (dark gray) |
-| Accent | `#58a6ff` (GitHub blue) | `#0969da` (GitHub blue) |
-| Use Case | Dark mode sites, modern look | Light mode sites, traditional |
-
-## All CLI Flags
-
-| Flag | Type | Default | Description |
-|------|------|---------|-------------|
-| `--badge` | bool | `false` | Enable badge generation |
-| `--badge-style` | string | `"summary"` | Badge style: summary, compact, detailed, minimal |
-| `--badge-theme` | string | `"dark"` | Color theme: dark, light |
-| `--badge-output` | string | `"badge.svg"` | Output file path |
-| `--badge-sort` | string | `"prs"` | Sort by: prs, stars, commits (detailed only) |
-| `--badge-limit` | int | `5` | Max contributions shown (detailed only) |
 
 ## Embedding in README
 

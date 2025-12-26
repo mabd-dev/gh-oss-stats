@@ -11,17 +11,26 @@ Track and display your merged PRs, commits, and contributions to external reposi
 - 🔍 **External Contribution Tracking** - Discovers all your merged PRs to repos you don't own
 - 📊 **Comprehensive Stats** - Total PRs, commits, lines of code, and repository stars
 - ⭐ **Smart Filtering** - Filter by minimum stars, exclude organizations
-- 🎭 **Dark & Light Themes** - Match your profile's aesthetic
+- 🎭 6 **Color Themes** - Match your profile's aesthetic
 - 📦 **Developer-Friendly** - Use as a Go library or standalone CLI, outputs JSON
 
 
 | Style |  Output  |
 |------------|------------|
-| Summary | ![Summary Dark](docs/badges/summary-dark.svg) |
-| Detailed | ![Detailed Dark](docs/badges/detailed-dark.svg)  |
-| Compact | ![Compact Dark](docs/badges/compact-dark.svg)  |
-| Minimal | ![Minimal Dark](docs/badges/minimal-dark.svg)  |
+| Summary | ![Summary Dark](docs/badges/default-summary-dark.svg) |
+| Detailed | ![Detailed Dark](docs/badges/default-detailed-dark.svg)  |
+| Compact | ![Compact Dark](docs/badges/default-compact-dark.svg)  |
+| Minimal | ![Minimal Dark](docs/badges/default-minimal-dark.svg)  |
 
+
+### Multiple Variants Support
+
+| Default Variant |  Text Based Variant  |
+|------------|------------|
+| ![Default Detailed Dark](docs/badges/default-detailed-dark.svg) | ![Text Based Detailed Dark](docs/badges/text-based-detailed-dark.svg) |
+
+
+Check [All Combos](docs/badges/BADGE_THEMES.md)
 
 
 ## Quick Start
@@ -54,13 +63,14 @@ Add this line to your profile `README.md` where you want the badge to appear:
 
 ## Customization
 
-### Change Badge Style or Theme
+### Change Badge Style, Variant or Theme
 
 Edit the workflow file (`.github/workflows/generate-oss-badge.yaml`) and modify these flags:
 
 ```yaml
---badge-style summary    # Options: summary, compact, detailed, minimal
---badge-theme dark       # Options: dark, light
+--badge-style summary       # Options: summary, compact, detailed, minimal
+--badge-variant default     # Options: default, text-based
+--badge-theme dark          # Options: dark, light, nord, dracula, etc...
 ```
 
 See all badge styles and examples in the [Badge Gallery](docs/badges/README.md).

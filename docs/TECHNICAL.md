@@ -43,34 +43,43 @@ gh-oss-stats --version
 ### CLI Flags
 
 **Data Fetching:**
-```
---user, -u       GitHub username (required)
---token, -t      GitHub token (default: $GITHUB_TOKEN)
---include-loc    Include LOC metrics (default: true)
---include-prs    Include PR details (default: false)
---min-stars      Minimum repo stars (default: 0)
---max-prs        Max PRs to fetch (default: 500)
---exclude-orgs   Comma-separated list of organizations to exclude
---output, -o     Output file (default: stdout)
---verbose, -v    Verbose logging to stderr
---timeout        Timeout in seconds (default: 300)
---version        Print version
-```
+
+| Flag | Type | Default | Description |
+|-------|-----------|-------------|-------------|
+| --user, -u | string | "" | Github username |
+| --token, -t | string | $GITHUB_TOKEN | Github token |
+| --include-loc | bool | false | Include LOC metrics (line of code) |
+| --include-prs | bool | false | Include PR details |
+| --min-stars | int | 0 | Minimum repo stars |
+| --max-prs | int | 500 | Max PRs to fetch |
+| --exclude-orgs | string | "" | Comma-separated list of organizations to exclude |
+| --output, -o | string | "" | Output file path |
+| --verbose, -v | bool | false | Verbose logging |
+| -- timeout | int | 300 | Timeout in **seconds** |
+| --version | bool | false | Print version |
+
 
 **Development:**
-```
---debug          Use mock API client for local testing (no GitHub API calls)
-```
+
+| Flag | Type | Default | Description |
+|-------|-----------|-------------|-------------|
+| --debug | boolean | false | Uses fake data when true |
+
 
 **Badge Generation:**
-```
---badge              Generate SVG badge
---badge-style        Badge style: summary, compact, detailed, minimal (default: summary)
---badge-theme        Badge theme: dark, light (default: dark)
---badge-output       Badge output file (default: badge.svg)
---badge-sort         Sort contributions by: prs, stars, commits (default: prs)
---badge-limit        Number of contributions to show in detailed badge (default: 5)
-```
+
+| Flag | Type | Default | Description |
+|-------|-----------|-------------|-------------|
+| --badge | boolean | false | Generate SVG Badge |
+| --badge-style | string | default | Available options: summary, compact, detailed, minimal |
+| --badge-variant | string | default | Available options: default, text-based |
+| --badge-theme | string | dark | Available options: dark, light, nord, dracula, gruvbox-light, gruvbox-dar |
+| --badge-output | string | ./badge.svg | Badge output file path |
+| --badge-sort | string | prs | Sort contributions by: prs, stars, commits |
+| --badge-limit | int | 5 | Number of contributions to show in detailed badge |
+
+
+
 
 ### Badge Generation
 
@@ -99,9 +108,7 @@ gh-oss-stats --user mabd-dev --badge --badge-style minimal
 | `detailed` | 400×320 | Summary + top N contributions with stars & PRs |
 | `minimal` | 120×28 | Simple project count badge |
 
-**Themes:**
-- `dark` - GitHub dark theme (default)
-- `light` - GitHub light theme
+Check [All Combos](/badges/BADGE_THEMES.md)
 
 **Example:**
 ```bash
@@ -260,16 +267,27 @@ The tool implements smart rate limit handling:
 
 ```
 gh-oss-stats/
-├── cmd/gh-oss-stats/     # CLI entry point
-├── pkg/ossstats/         # Public API (importable)
-│   ├── client.go         # Client + New()
-│   ├── contributions.go  # GetContributions() logic
-│   ├── types.go          # Exported types
-│   └── options.go        # Functional options
-└── internal/github/      # GitHub API client (private)
-    ├── api.go            # HTTP client
-    ├── ratelimit.go      # Rate limit handling
-    └── types.go          # API response types
+├── cmd/gh-oss-stats/           # CLI entry point
+├── pkg/ossstats/               # Public API (importable)
+│   ├── badge/                  # Badge generation folder
+    │   ├── badgeTemplates/     # Defines all badge svg templates
+    │   ├── badge.go            # Generate and save badge
+    │   ├── badgeSortBy.go      # Defines sorting types
+    │   ├── badgeStyle.go       # Defines all badge styles + helper function
+    │   ├── badgeTheme.go       # Defines all badge themes + helper function
+    │   ├── badgeVariant.go     # Defines all badge variants + helper function
+    │   └── types.go            # Client + New()
+│   ├── client.go               # Client + New()
+│   ├── contributions.go        # GetContributions() logic
+│   ├── types.go                # Exported types
+│   └── options.go              # Functional options
+└── internal/github/            # GitHub API client (private)
+    ├── mockResponses/          # Fake github API responses for debug mode
+    ├── interface.go            # HTTP client interface
+    ├── api.go                  # Real Github HTTP client
+    ├── mock_client.go          # Mock Github HTTP client
+    ├── ratelimit.go            # Rate limit handling
+    └── types.go                # API response types
 ```
 
 ## Development

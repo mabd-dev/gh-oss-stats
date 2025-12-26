@@ -8,7 +8,10 @@ import (
 	"text/template"
 
 	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats"
+	bt "github.com/mabd-dev/gh-oss-stats/pkg/ossstats/badge/badgeTemplates"
 )
+
+var DefaultPRsLimit = 5
 
 // templateData holds the data passed to SVG templates
 type templateData struct {
@@ -38,10 +41,10 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 
 	// Set defaults
 	if opts.SortBy == "" {
-		opts.SortBy = SortByPRs
+		opts.SortBy = DefaultSortBy
 	}
 	if opts.Limit == 0 {
-		opts.Limit = 5
+		opts.Limit = DefaultPRsLimit
 	}
 
 	// Get theme colors
@@ -65,24 +68,18 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 	}
 
 	// Select template based on style
-	var tmplStr string
-	switch opts.Style {
-	case StyleSummary:
-		tmplStr = summaryTemplate
-	case StyleCompact:
-		tmplStr = compactTemplate
-	case StyleDetailed:
-		tmplStr = detailedTemplate
-	case StyleMinimal:
-		tmplStr = minimalTemplate
-	default:
-		return "", fmt.Errorf("unsupported badge style: %s", opts.Style)
+	tmplStr, err := getTemplateStr(opts.Style, opts.Variant)
+	if err != nil {
+		return "", err
 	}
 
 	// Parse and execute template with custom functions
 	tmpl, err := template.New("badge").Funcs(template.FuncMap{
 		"add": func(a, b int) int { return a + b },
+		"sub": func(a, b int) int { return a - b },
 		"mul": func(a, b int) int { return a * b },
+		"mod": func(a, b int) int { return a % b },
+		"div": func(a, b int) int { return a / b },
 	}).Parse(tmplStr)
 	if err != nil {
 		return "", fmt.Errorf("failed to parse template: %w", err)
@@ -148,4 +145,31 @@ func getTopContributions(stats *ossstats.Stats, sortBy SortBy, limit int) []cont
 	}
 
 	return result
+}
+
+func getTemplateStr(
+	style BadgeStyle,
+	variant BadgeVariant,
+) (string, error) {
+	switch variant {
+	case VariantDefault:
+		switch style {
+		case StyleSummary:
+			return bt.DefaultSummary, nil
+		case StyleCompact:
+			return bt.DefaultCompact, nil
+		case StyleDetailed:
+			return bt.DefaultDetailed, nil
+		case StyleMinimal:
+			return bt.DefaultMinimal, nil
+		}
+	case VariantTextBased:
+		switch style {
+		case StyleDetailed:
+			return bt.TextBasedDetailed, nil
+		}
+	}
+
+	err := fmt.Errorf("unsupported badge variant: %s, and style: %s combinations", variant, style)
+	return "", err
 }

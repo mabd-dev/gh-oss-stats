@@ -38,6 +38,11 @@ func init() {
 		fmt.Fprintf(os.Stderr, "  compact  - 280x28px shields.io style\n")
 		fmt.Fprintf(os.Stderr, "  detailed - 400x320px with top contributions\n")
 		fmt.Fprintf(os.Stderr, "  minimal  - 120x28px project count only\n\n")
+
+		fmt.Fprintf(os.Stderr, "Badge Variant (design approach):\n")
+		fmt.Fprintf(os.Stderr, "  default     - Modern cards with gradients (all styles supported)\n")
+		fmt.Fprintf(os.Stderr, "  text-based  - Clean typography focus (detailed style only)\n")
+
 	}
 }
 
@@ -62,11 +67,12 @@ func main() {
 
 		// Badge generation flags
 		generateBadge = flag.Bool("badge", false, "Generate SVG badge")
-		badgeStyle    = flag.String("badge-style", "summary", "Badge style: summary, compact, detailed, minimal")
-		badgeTheme    = flag.String("badge-theme", "dark", "Badge theme: dark, light")
+		badgeStyle    = flag.String("badge-style", string(badge.DefualtBadgeStyle), "Badge style: summary, compact, detailed, minimal")
+		badgeVariant  = flag.String("badge-variant", string(badge.DefaultBadgeVariant), "Badge variants: default, text-based")
+		badgeTheme    = flag.String("badge-theme", string(badge.DefaultBadgeTheme), "Badge theme: dark, light, nord, dracula, ...")
 		badgeOutput   = flag.String("badge-output", "", "Badge output file (default: badge.svg)")
-		badgeSort     = flag.String("badge-sort", "prs", "Sort contributions by: prs, stars, commits (for detailed badge)")
-		badgeLimit    = flag.Int("badge-limit", 5, "Number of contributions to show (for detailed badge)")
+		badgeSort     = flag.String("badge-sort", string(badge.DefaultSortBy), "Sort contributions by: prs, stars, commits (for detailed badge)")
+		badgeLimit    = flag.Int("badge-limit", badge.DefaultPRsLimit, "Number of contributions to show (for detailed badge)")
 	)
 
 	flag.Parse()
@@ -170,7 +176,7 @@ func main() {
 
 	// Generate badge if requested
 	if *generateBadge {
-		if err := writeBadge(badgeStyle, badgeTheme, badgeOutput, badgeSort, badgeLimit, verbose, stats); err != nil {
+		if err := writeBadge(badgeStyle, badgeVariant, badgeTheme, badgeOutput, badgeSort, badgeLimit, verbose, stats); err != nil {
 			fmt.Fprintf(os.Stderr, "Error generating badge: %v\n", err)
 			os.Exit(1)
 		}
@@ -205,6 +211,7 @@ func writeStats(
 
 func writeBadge(
 	styleStr *string,
+	variantStr *string,
 	themeStr *string,
 	output *string,
 	sortStr *string,
@@ -212,51 +219,38 @@ func writeBadge(
 	verbose *bool,
 	stats *ossstats.Stats,
 ) error {
-	// Parse badge style
 	var style badge.BadgeStyle
-	switch strings.ToLower(*styleStr) {
-	case "summary":
-		style = badge.StyleSummary
-	case "compact":
-		style = badge.StyleCompact
-	case "detailed":
-		style = badge.StyleDetailed
-	case "minimal":
-		style = badge.StyleMinimal
-	default:
-		return fmt.Errorf("invalid badge style: %s (must be: summary, compact, detailed, minimal)", *styleStr)
+	style, err := badge.BadgeStyleFromName(*styleStr)
+	if err != nil {
+		return err
 	}
 
-	// Parse badge theme
-	var theme badge.BadgeTheme
-	switch strings.ToLower(*themeStr) {
-	case "dark":
-		theme = badge.ThemeDark
-	case "light":
-		theme = badge.ThemeLight
-	default:
-		return fmt.Errorf("invalid badge theme: %s (must be: dark, light)", *themeStr)
+	if style == badge.StyleMinimal {
+		fmt.Fprintf(os.Stderr, "\033[33mWarning: 'minimal' badge style will be removed in 0.3.0\n\033[0m")
 	}
 
-	// Parse sort option
-	var sortBy badge.SortBy
-	switch strings.ToLower(*sortStr) {
-	case "prs":
-		sortBy = badge.SortByPRs
-	case "stars":
-		sortBy = badge.SortByStars
-	case "commits":
-		sortBy = badge.SortByCommits
-	default:
-		return fmt.Errorf("invalid badge sort: %s (must be: prs, stars, commits)", *sortStr)
+	variant, err := badge.BadgeVariantFromName(*variantStr)
+	if err != nil {
+		return err
+	}
+
+	theme, err := badge.BadgeThemeFromName(*themeStr)
+	if err != nil {
+		return err
+	}
+
+	sortBy, err := badge.SortByFromName(*sortStr)
+	if err != nil {
+		return err
 	}
 
 	// Create badge options
 	opts := badge.BadgeOptions{
-		Style:  style,
-		Theme:  theme,
-		SortBy: sortBy,
-		Limit:  *limit,
+		Style:   style,
+		Variant: variant,
+		Theme:   theme,
+		SortBy:  sortBy,
+		Limit:   *limit,
 	}
 
 	// Generate SVG
@@ -277,7 +271,7 @@ func writeBadge(
 	}
 
 	if *verbose {
-		fmt.Fprintf(os.Stderr, "Badge written to %s (%s/%s)\n", outputFile, style, theme)
+		fmt.Fprintf(os.Stderr, "Badge written to %s (%s/%s/%s)\n", outputFile, variant, style, theme)
 	}
 
 	return nil

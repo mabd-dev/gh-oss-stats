@@ -1,0 +1,181 @@
+
+	
+	<svg
+  width="720"
+  height="580"
+  viewBox="0 0 720 580"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Open Source Contributions">
+
+  <defs>
+    <style>
+      text {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                     "Segoe UI", Helvetica, Arial, sans-serif;
+      }
+
+      .bg {
+        fill: #ffffff;
+      }
+
+      .username {
+        font-size: 30px;
+        font-weight: 900;
+        fill: #1f2328;
+        letter-spacing: -0.6px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+        fill: #656d76;
+      }
+
+      .stat {
+        font-size: 26px;
+        font-weight: 800;
+        fill: #1f2328;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        fill: #656d76;
+      }
+
+      .divider {
+        stroke: #d0d7de;
+        stroke-width: 1;
+      }
+
+      .section-title {
+        font-size: 13px;
+        font-weight: 700;
+        fill: #656d76;
+        letter-spacing: 0.1em;
+      }
+
+      .repo-name {
+        font-size: 16px;
+        font-weight: 700;
+        fill: #1f2328;
+      }
+
+      .repo-stars {
+        font-size: 13px;
+        font-weight: 700;
+        fill: #0969da;
+      }
+
+      .repo-meta {
+        font-size: 12px;
+        fill: #656d76;
+      }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect
+    class="bg"
+    x="0"
+    y="0"
+    width="720"
+    height="580"
+    rx="20"/>
+
+  <!-- Header -->
+  <text class="username" x="48" y="68">
+    mabd-dev
+  </text>
+
+  <text class="subtitle" x="48" y="92">
+    Open source contributions
+  </text>
+
+  <!-- Stats -->
+  <g transform="translate(48, 132)">
+    <text class="stat">7</text>
+    <text class="stat-label" y="22">Projects</text>
+  </g>
+
+  <g transform="translate(220, 132)">
+    <text class="stat">17</text>
+    <text class="stat-label" y="22">PRs merged</text>
+  </g>
+
+  <g transform="translate(390, 132)">
+    <text class="stat">2.9K</text>
+    <text class="stat-label" y="22">Lines changed</text>
+  </g>
+
+  <!-- Divider -->
+  <line
+    class="divider"
+    x1="48"
+    y1="196"
+    x2="672"
+    y2="196"/>
+
+  <!-- Repo Section -->
+  <text class="section-title" x="48" y="228">
+    TOP REPOSITORIES
+  </text>
+
+  
+  <g transform="translate(48, 260)">
+    <text class="repo-name">
+      android-public
+      <tspan class="repo-stars"> ★ 15</tspan>
+    </text>
+
+    <text class="repo-meta" y="22">
+      6 PRs merged
+    </text>
+  </g>
+  
+  <g transform="translate(48, 316)">
+    <text class="repo-name">
+      Tomato
+      <tspan class="repo-stars"> ★ 15</tspan>
+    </text>
+
+    <text class="repo-meta" y="22">
+      2 PRs merged
+    </text>
+  </g>
+  
+  <g transform="translate(48, 372)">
+    <text class="repo-name">
+      JetpackComposeTracker
+      <tspan class="repo-stars"> ★ 15</tspan>
+    </text>
+
+    <text class="repo-meta" y="22">
+      2 PRs merged
+    </text>
+  </g>
+  
+  <g transform="translate(48, 428)">
+    <text class="repo-name">
+      nav3-recipes
+      <tspan class="repo-stars"> ★ 15</tspan>
+    </text>
+
+    <text class="repo-meta" y="22">
+      2 PRs merged
+    </text>
+  </g>
+  
+  <g transform="translate(48, 484)">
+    <text class="repo-name">
+      cahier
+      <tspan class="repo-stars"> ★ 15</tspan>
+    </text>
+
+    <text class="repo-meta" y="22">
+      2 PRs merged
+    </text>
+  </g>
+  
+
+</svg>
+
