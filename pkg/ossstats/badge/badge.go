@@ -11,6 +11,8 @@ import (
 	bt "github.com/mabd-dev/gh-oss-stats/pkg/ossstats/badge/badgeTemplates"
 )
 
+var DefaultPRsLimit = 5
+
 // templateData holds the data passed to SVG templates
 type templateData struct {
 	Stats            *ossstats.Stats
@@ -42,7 +44,7 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 		opts.SortBy = DefaultSortBy
 	}
 	if opts.Limit == 0 {
-		opts.Limit = 5
+		opts.Limit = DefaultPRsLimit
 	}
 
 	// Get theme colors

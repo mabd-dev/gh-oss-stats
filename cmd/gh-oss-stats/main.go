@@ -67,12 +67,12 @@ func main() {
 
 		// Badge generation flags
 		generateBadge = flag.Bool("badge", false, "Generate SVG badge")
-		badgeStyle    = flag.String("badge-style", "summary", "Badge style: summary, compact, detailed, minimal")
-		badgeVariant  = flag.String("badge-variant", "default", "Badge variants: default, text-based")
-		badgeTheme    = flag.String("badge-theme", "dark", "Badge theme: dark, light, nord, dracula, ...")
+		badgeStyle    = flag.String("badge-style", string(badge.DefualtBadgeStyle), "Badge style: summary, compact, detailed, minimal")
+		badgeVariant  = flag.String("badge-variant", string(badge.DefaultBadgeVariant), "Badge variants: default, text-based")
+		badgeTheme    = flag.String("badge-theme", string(badge.DefaultBadgeTheme), "Badge theme: dark, light, nord, dracula, ...")
 		badgeOutput   = flag.String("badge-output", "", "Badge output file (default: badge.svg)")
-		badgeSort     = flag.String("badge-sort", "prs", "Sort contributions by: prs, stars, commits (for detailed badge)")
-		badgeLimit    = flag.Int("badge-limit", 5, "Number of contributions to show (for detailed badge)")
+		badgeSort     = flag.String("badge-sort", string(badge.DefaultSortBy), "Sort contributions by: prs, stars, commits (for detailed badge)")
+		badgeLimit    = flag.Int("badge-limit", badge.DefaultPRsLimit, "Number of contributions to show (for detailed badge)")
 	)
 
 	flag.Parse()
