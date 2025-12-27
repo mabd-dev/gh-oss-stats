@@ -1,6 +1,31 @@
 # Technical Documentation
 
-## Installation
+## Using GitHub Action (Recommended)
+
+**For auto-updating GitHub profile badges**, use our official GitHub Action:
+
+**Repository:** [mabd-dev/gh-oss-stats-action](https://github.com/mabd-dev/gh-oss-stats-action)
+**Marketplace:** [OSS Stats Badge Generator](https://github.com/marketplace/actions/oss-stats-badge-generator)
+
+**Basic example:**
+
+```yaml
+- uses: mabd-dev/gh-oss-stats-action@v0.1.0
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+    badge-path: 'images/oss-badge.svg'
+    badge-style: 'detailed'
+    badge-theme: 'dark'
+```
+
+See the [action repository](https://github.com/mabd-dev/gh-oss-stats-action) for:
+- Complete setup instructions
+- All available inputs and examples
+- Troubleshooting guide
+
+---
+
+## CLI Installation (For Developers)
 
 ### From Source
 
@@ -17,11 +42,17 @@ go build -o gh-oss-stats ./cmd/gh-oss-stats
 ```
 
 
-## Usage
+## CLI Usage (Advanced)
 
-### CLI
+**Note:** For GitHub profile badges, use the [GitHub Action](#using-github-action-recommended) instead.
 
-Basic usage:
+The CLI is useful for:
+- Local development and testing
+- Programmatic access to contribution data
+- Custom integrations and workflows
+- Generating JSON output for other tools
+
+### Basic Usage
 
 ```bash
 # Fetch contributions for a user
@@ -82,6 +113,13 @@ gh-oss-stats --version
 
 
 ### Badge Generation
+
+**Recommended:** For auto-updating badges on GitHub, use the [GitHub Action](#using-github-action-recommended) instead.
+
+The CLI badge generation is useful for:
+- Local testing and development
+- One-time badge generation
+- Custom scripts and automation
 
 Generate beautiful SVG badges from your contribution stats:
 
