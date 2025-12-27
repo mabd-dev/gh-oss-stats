@@ -22,6 +22,6 @@ func BadgeVariantFromName(name string) (BadgeVariant, error) {
 		return VariantTextBased, nil
 	}
 
-	err := fmt.Errorf("invalid badge variant: %s", name)
+	err := fmt.Errorf("invalid badge variant: %s (must be: default, text-based)", name)
 	return DefaultBadgeVariant, err
 }

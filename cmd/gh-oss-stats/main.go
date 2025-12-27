@@ -66,13 +66,13 @@ func main() {
 		debug        = flag.Bool("debug", false, "Uses fake data when true")
 
 		// Badge generation flags
-		generateBadge = flag.Bool("badge", false, "Generate SVG badge")
-		badgeStyle    = flag.String("badge-style", string(badge.DefualtBadgeStyle), "Badge style: summary, compact, detailed, minimal")
-		badgeVariant  = flag.String("badge-variant", string(badge.DefaultBadgeVariant), "Badge variants: default, text-based")
-		badgeTheme    = flag.String("badge-theme", string(badge.DefaultBadgeTheme), "Badge theme: dark, light, nord, dracula, ...")
-		badgeOutput   = flag.String("badge-output", "", "Badge output file (default: badge.svg)")
-		badgeSort     = flag.String("badge-sort", string(badge.DefaultSortBy), "Sort contributions by: prs, stars, commits (for detailed badge)")
-		badgeLimit    = flag.Int("badge-limit", badge.DefaultPRsLimit, "Number of contributions to show (for detailed badge)")
+		generateBadge   = flag.Bool("badge", false, "Generate SVG badge")
+		badgeStyleStr   = flag.String("badge-style", string(badge.DefaultBadgeStyle), "Badge style: summary, compact, detailed, minimal")
+		badgeVariantStr = flag.String("badge-variant", string(badge.DefaultBadgeVariant), "Badge variants: default, text-based")
+		badgeThemeStr   = flag.String("badge-theme", string(badge.DefaultBadgeTheme), "Badge theme: dark, light, nord, dracula, ...")
+		badgeOutputStr  = flag.String("badge-output", "", "Badge output file (default: badge.svg)")
+		badgeSortStr    = flag.String("badge-sort", string(badge.DefaultSortBy), "Sort contributions by: prs, stars, commits (for detailed badge)")
+		badgeLimit      = flag.Int("badge-limit", badge.DefaultPRsLimit, "Number of contributions to show (for detailed badge)")
 	)
 
 	flag.Parse()
@@ -100,6 +100,49 @@ func main() {
 	if *username == "" {
 		fmt.Fprintf(os.Stderr, "Error: --user is required\n\n")
 		flag.Usage()
+		os.Exit(1)
+	}
+
+	// Validate numerical flags
+	if *minStars < 0 {
+		fmt.Fprintf(os.Stderr, "Error: --min-stars must be >= 0 (got: %d)\n\n", *minStars)
+		os.Exit(1)
+	}
+	if *maxPRs <= 0 {
+		fmt.Fprintf(os.Stderr, "Error: --max-prs must be > 0 (got: %d)\n\n", *maxPRs)
+		os.Exit(1)
+	}
+	if *badgeLimit <= 0 {
+		fmt.Fprintf(os.Stderr, "Error: --badge-limit must be > 0 (got: %d)\n\n", *badgeLimit)
+		os.Exit(1)
+	}
+	if *timeoutSec <= 0 {
+		fmt.Fprintf(os.Stderr, "Error: --timeout must be > 0 seconds (got: %d)\n\n", *timeoutSec)
+		os.Exit(1)
+	}
+
+	// Validate badge options
+	badgeStyle, err := badge.BadgeStyleFromName(*badgeStyleStr)
+	if err != nil {
+		fmt.Fprint(os.Stderr, err.Error())
+		os.Exit(1)
+	}
+
+	badgeVariant, err := badge.BadgeVariantFromName(*badgeVariantStr)
+	if err != nil {
+		fmt.Fprint(os.Stderr, err.Error())
+		os.Exit(1)
+	}
+
+	badgeTheme, err := badge.BadgeThemeFromName(*badgeThemeStr)
+	if err != nil {
+		fmt.Fprint(os.Stderr, err.Error())
+		os.Exit(1)
+	}
+
+	badgeSortBy, err := badge.SortByFromName(*badgeSortStr)
+	if err != nil {
+		fmt.Fprint(os.Stderr, err.Error())
 		os.Exit(1)
 	}
 
@@ -176,7 +219,7 @@ func main() {
 
 	// Generate badge if requested
 	if *generateBadge {
-		if err := writeBadge(badgeStyle, badgeVariant, badgeTheme, badgeOutput, badgeSort, badgeLimit, verbose, stats); err != nil {
+		if err := writeBadge(badgeStyle, badgeVariant, badgeTheme, badgeSortBy, badgeOutputStr, badgeLimit, verbose, stats); err != nil {
 			fmt.Fprintf(os.Stderr, "Error generating badge: %v\n", err)
 			os.Exit(1)
 		}
@@ -210,38 +253,18 @@ func writeStats(
 }
 
 func writeBadge(
-	styleStr *string,
-	variantStr *string,
-	themeStr *string,
+	style badge.BadgeStyle,
+	variant badge.BadgeVariant,
+	theme badge.BadgeTheme,
+	sortBy badge.SortBy,
 	output *string,
-	sortStr *string,
 	limit *int,
 	verbose *bool,
 	stats *ossstats.Stats,
 ) error {
-	var style badge.BadgeStyle
-	style, err := badge.BadgeStyleFromName(*styleStr)
-	if err != nil {
-		return err
-	}
 
 	if style == badge.StyleMinimal {
 		fmt.Fprintf(os.Stderr, "\033[33mWarning: 'minimal' badge style will be removed in 0.3.0\n\033[0m")
-	}
-
-	variant, err := badge.BadgeVariantFromName(*variantStr)
-	if err != nil {
-		return err
-	}
-
-	theme, err := badge.BadgeThemeFromName(*themeStr)
-	if err != nil {
-		return err
-	}
-
-	sortBy, err := badge.SortByFromName(*sortStr)
-	if err != nil {
-		return err
 	}
 
 	// Create badge options

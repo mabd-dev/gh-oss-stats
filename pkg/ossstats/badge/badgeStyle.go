@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-var DefualtBadgeStyle = StyleSummary
+var DefaultBadgeStyle = StyleSummary
 
 // BadgeStyle represents the type of badge to generate
 type BadgeStyle string
@@ -29,5 +29,5 @@ func BadgeStyleFromName(name string) (BadgeStyle, error) {
 		return StyleMinimal, nil
 	}
 	err := fmt.Errorf("invalid badge style: %s (must be: summary, compact, detailed, minimal)", name)
-	return DefualtBadgeStyle, err
+	return DefaultBadgeStyle, err
 }

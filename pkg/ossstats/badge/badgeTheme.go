@@ -34,7 +34,7 @@ func BadgeThemeFromName(name string) (BadgeTheme, error) {
 	case "gruvbox-light":
 		return ThemeGruvboxLight, nil
 	}
-	err := fmt.Errorf("invalid badge theme: %s (must be: dark, light, dracula, nord)", name)
+	err := fmt.Errorf("invalid badge theme: %s (must be: dark, light, dracula, nord, gruvbox-dark, gruvbox-light)", name)
 	return DefaultBadgeTheme, err
 }
 
