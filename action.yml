@@ -3,6 +3,10 @@ name: gh-oss-stats
 description: Generate Badge To Showcase Your Open Source Contributions
 author: mabd-dev
 
+branding:
+  icon: 'award'
+  color: 'green'
+
 
 # ============= INPUTS ==============
 inputs:
