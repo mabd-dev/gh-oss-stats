@@ -71,6 +71,10 @@ inputs:
     description: 'Commit message for auto-commit'
     default: 'Update OSS stats badge'
 
+  version:
+    description: Version of mabd-dev/gh-oss-stats to use
+    default: latest
+
 
 # ============ EXECUTION ============
 runs:
@@ -83,7 +87,7 @@ runs:
 
     - name: Install gh-oss-stats
       shell: bash
-      run: go install github.com/mabd-dev/gh-oss-stats/cmd/gh-oss-stats@latest
+      run: go install github.com/mabd-dev/gh-oss-stats/cmd/gh-oss-stats@${{ inputs.version }}
 
     - name: Generate badge
       env:
