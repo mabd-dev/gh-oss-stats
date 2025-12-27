@@ -14,33 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - uses: actions/setup-go@v5
+      - uses: mabd-dev/gh-oss-stats@dev
         with:
-          go-version: '1.25'
-      
-      - name: Install gh-oss-stats
-        run: go install github.com/mabd-dev/gh-oss-stats/cmd/gh-oss-stats@latest
-      
-      - name: Generate badge
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh-oss-stats \
-            --user ${{ github.repository_owner }} \
-            --include-loc \
-            --badge \
-            --badge-style summary \
-            --badge-theme dark \
-            --badge-output oss-badge.svg
-      
-      - name: Commit badge
-        run: |
-          git add oss-badge.svg
-          if ! git diff --staged --quiet; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-
-            git commit -m "Update OSS contribution badge"
-            git push
-          fi
-
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ github.repository_owner }}
+          badge-style: summary
+          badge-theme: dark
+          badge-output: oss-badge.svg
