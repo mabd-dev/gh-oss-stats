@@ -71,7 +71,7 @@ gh-oss-stats --version
 | Flag | Type | Default | Description |
 |-------|-----------|-------------|-------------|
 | --badge | boolean | false | Generate SVG Badge |
-| --badge-style | string | default | Available options: summary, compact, detailed, minimal |
+| --badge-style | string | summary | Available options: summary, compact, detailed, minimal |
 | --badge-variant | string | default | Available options: default, text-based |
 | --badge-theme | string | dark | Available options: dark, light, nord, dracula, gruvbox-light, gruvbox-dar |
 | --badge-output | string | ./badge.svg | Badge output file path |
