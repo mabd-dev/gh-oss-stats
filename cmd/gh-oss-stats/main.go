@@ -37,7 +37,6 @@ func init() {
 		fmt.Fprintf(os.Stderr, "  summary  - 400x200px with key metrics (default)\n")
 		fmt.Fprintf(os.Stderr, "  compact  - 280x28px shields.io style\n")
 		fmt.Fprintf(os.Stderr, "  detailed - 400x320px with top contributions\n")
-		fmt.Fprintf(os.Stderr, "  minimal  - 120x28px project count only\n\n")
 
 		fmt.Fprintf(os.Stderr, "Badge Variant (design approach):\n")
 		fmt.Fprintf(os.Stderr, "  default     - Modern cards with gradients (all styles supported)\n")
@@ -67,7 +66,7 @@ func main() {
 
 		// Badge generation flags
 		generateBadge   = flag.Bool("badge", false, "Generate SVG badge")
-		badgeStyleStr   = flag.String("badge-style", string(badge.DefaultBadgeStyle), "Badge style: summary, compact, detailed, minimal")
+		badgeStyleStr   = flag.String("badge-style", string(badge.DefaultBadgeStyle), "Badge style: summary, compact, detailed")
 		badgeVariantStr = flag.String("badge-variant", string(badge.DefaultBadgeVariant), "Badge variants: default, text-based")
 		badgeThemeStr   = flag.String("badge-theme", string(badge.DefaultBadgeTheme), "Badge theme: dark, light, nord, dracula, ...")
 		badgeOutputStr  = flag.String("badge-output", "", "Badge output file (default: badge.svg)")
@@ -259,10 +258,6 @@ func writeBadge(
 	verbose *bool,
 	stats *ossstats.Stats,
 ) error {
-
-	if style == badge.StyleMinimal {
-		fmt.Fprintf(os.Stderr, "\033[33mWarning: 'minimal' badge style will be removed in 0.3.0\n\033[0m")
-	}
 
 	// Create badge options
 	opts := badge.BadgeOptions{

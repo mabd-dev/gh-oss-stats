@@ -83,22 +83,6 @@ func TestRenderSVG_AllStyles(t *testing.T) {
 			wantErr:   false,
 		},
 		{
-			name:      "minimal_dark",
-			style:     StyleMinimal,
-			variant:   VariantDefault,
-			theme:     ThemeGithubDark,
-			wantWidth: `width="120"`,
-			wantErr:   false,
-		},
-		{
-			name:      "minimal_light",
-			style:     StyleMinimal,
-			variant:   VariantDefault,
-			theme:     ThemeGithubLight,
-			wantWidth: `width="120"`,
-			wantErr:   false,
-		},
-		{
 			name:      "summary_dracula",
 			style:     StyleSummary,
 			variant:   VariantDefault,
@@ -133,14 +117,6 @@ func TestRenderSVG_AllStyles(t *testing.T) {
 		{
 			name:      "summary_nord",
 			style:     StyleSummary,
-			variant:   VariantTextBased,
-			theme:     ThemeNord,
-			wantWidth: `width="720"`,
-			wantErr:   true,
-		},
-		{
-			name:      "minimal_nord",
-			style:     StyleMinimal,
 			variant:   VariantTextBased,
 			theme:     ThemeNord,
 			wantWidth: `width="720"`,
@@ -204,7 +180,7 @@ func TestRenderSVG_EmptyContributions(t *testing.T) {
 		Contributions: []ossstats.Contribution{},
 	}
 
-	tests := []BadgeStyle{StyleSummary, StyleCompact, StyleDetailed, StyleMinimal}
+	tests := []BadgeStyle{StyleSummary, StyleCompact, StyleDetailed}
 
 	for _, style := range tests {
 		t.Run(string(style), func(t *testing.T) {
@@ -641,30 +617,5 @@ func TestRenderSVG_CompactBadgeContent(t *testing.T) {
 	}
 	if !strings.Contains(svg, "1.6K PRs") {
 		t.Error("Compact badge missing '1.6K PRs'")
-	}
-}
-
-func TestRenderSVG_MinimalBadgeContent(t *testing.T) {
-	stats := &ossstats.Stats{
-		Username: "testuser",
-		Summary: ossstats.Summary{
-			TotalProjects: 42,
-		},
-	}
-
-	opts := BadgeOptions{
-		Style:   StyleMinimal,
-		Variant: VariantDefault,
-		Theme:   ThemeGithubDark,
-	}
-
-	svg, err := RenderSVG(stats, opts)
-	if err != nil {
-		t.Fatalf("RenderSVG() unexpected error: %v", err)
-	}
-
-	// Check for expected content
-	if !strings.Contains(svg, "42 Projects") {
-		t.Error("Minimal badge missing '42 Projects'")
 	}
 }

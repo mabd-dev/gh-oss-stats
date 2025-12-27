@@ -22,7 +22,6 @@ type templateData struct {
 	TotalCommits     string
 	TotalLines       string
 	CompactText      string // For compact badge: "n projects | m PRs"
-	MinimalText      string // For minimal badge: "n Projects"
 	TopContributions []contributionData
 }
 
@@ -59,7 +58,6 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 		TotalCommits:  formatNumber(stats.Summary.TotalCommits),
 		TotalLines:    formatNumber(stats.Summary.TotalAdditions + stats.Summary.TotalDeletions),
 		CompactText:   fmt.Sprintf("%s projects | %s PRs", formatNumber(stats.Summary.TotalProjects), formatNumber(stats.Summary.TotalPRsMerged)),
-		MinimalText:   fmt.Sprintf("%s Projects", formatNumber(stats.Summary.TotalProjects)),
 	}
 
 	// Add top contributions for detailed view
@@ -160,8 +158,6 @@ func getTemplateStr(
 			return bt.DefaultCompact, nil
 		case StyleDetailed:
 			return bt.DefaultDetailed, nil
-		case StyleMinimal:
-			return bt.DefaultMinimal, nil
 		}
 	case VariantTextBased:
 		switch style {

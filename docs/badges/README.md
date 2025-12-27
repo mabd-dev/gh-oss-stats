@@ -35,12 +35,6 @@ gh-oss-stats --user YOUR_USERNAME --badge \
 |------------|-------------|
 | ![Detailed Dark](default-detailed-dark.svg) | ![Detailed Light](default-detailed-light.svg) |
 
-#### Minimal Badges (120×28)
-
-| Dark Theme | Light Theme |
-|------------|-------------|
-| ![Minimal Dark](default-minimal-dark.svg) | ![Minimal Light](default-minimal-light.svg) |
-
 
  ## Badge Variants
   Variants control the visual design and layout approach:
@@ -55,7 +49,7 @@ Check [All Combos](./BADGE_THEMES.md)
   ### Default Variant
   Modern, card-based designs with gradients, shadows, and rich visual elements.
   - Best for: Modern GitHub profiles, portfolios
-  - Styles available: All (summary, compact, detailed, minimal)
+  - Styles available: All (summary, compact, detailed)
 
   ### Text-Based Variant
   Clean, minimalist text-focused designs with clear typography.

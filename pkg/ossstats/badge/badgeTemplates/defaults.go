@@ -128,48 +128,6 @@ const DefaultCompact = `<svg
   </text>
 </svg>`
 
-// minimalTemplate is the SVG template for the Minimal badge style (120x28)
-const DefaultMinimal = `<svg
-  width="120"
-  height="32"
-  viewBox="0 0 120 32"
-  xmlns="http://www.w3.org/2000/svg"
-  role="img"
-  aria-label="OSS">
-
-  <defs>
-    <style>
-      text {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont,
-                     "Segoe UI", Helvetica, Arial, sans-serif;
-        fill: {{.Colors.Text}};
-        font-size: 12px;
-        font-weight: 800;
-      }
-
-      .card {
-        fill: url(#miniGradient);
-        stroke: {{.Colors.Border}};
-        stroke-width: 1;
-        rx: 16;
-      }
-    </style>
-
-    <linearGradient id="miniGradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="{{.Colors.Accent}}" stop-opacity="0.95"/>
-      <stop offset="100%" stop-color="{{.Colors.Accent}}" stop-opacity="0.75"/>
-    </linearGradient>
-  </defs>
-
-  <!-- Background -->
-  <rect class="card" x="0" y="0" width="120" height="32"/>
-
-  <!-- Text -->
-  <text x="60" y="21" text-anchor="middle">
-    {{.MinimalText}}
-  </text>
-</svg>`
-
 // detailedTemplate is the SVG template for the Detailed badge style (400x320)
 const DefaultDetailed = `
 <svg

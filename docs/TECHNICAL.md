@@ -71,7 +71,7 @@ gh-oss-stats --version
 | Flag | Type | Default | Description |
 |-------|-----------|-------------|-------------|
 | --badge | boolean | false | Generate SVG Badge |
-| --badge-style | string | summary | Available options: summary, compact, detailed, minimal |
+| --badge-style | string | summary | Available options: summary, compact, detailed |
 | --badge-variant | string | default | Available options: default, text-based |
 | --badge-theme | string | dark | Available options: dark, light, nord, dracula, gruvbox-light, gruvbox-dar |
 | --badge-output | string | ./badge.svg | Badge output file path |
@@ -94,9 +94,6 @@ gh-oss-stats --user mabd-dev --badge --badge-style compact --badge-theme light
 
 # Generate a detailed badge with top 10 repos sorted by stars (400x320)
 gh-oss-stats --user mabd-dev --badge --badge-style detailed --badge-sort stars --badge-limit 10
-
-# Generate a minimal badge (120x28)
-gh-oss-stats --user mabd-dev --badge --badge-style minimal
 ```
 
 **Badge Styles:**
@@ -106,7 +103,6 @@ gh-oss-stats --user mabd-dev --badge --badge-style minimal
 | `summary` | 400×200 | Key metrics: projects, PRs, commits, lines |
 | `compact` | 280×28 | Shields.io style: "42 projects \| 1.6K PRs" |
 | `detailed` | 400×320 | Summary + top N contributions with stars & PRs |
-| `minimal` | 120×28 | Simple project count badge |
 
 Check [All Combos](/badges/BADGE_THEMES.md)
 

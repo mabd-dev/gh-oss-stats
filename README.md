@@ -6,7 +6,7 @@ Track and display your merged PRs, commits, and contributions to external reposi
 
 ## ✨ Features
 
-- 🎨 **Auto-Updating Profile Badges** - Beautiful SVG badges in 4 styles (summary, compact, detailed, minimal)
+- 🎨 **Auto-Updating Profile Badges** - Beautiful SVG badges in 4 styles (summary, compact, detailed)
 - 🤖 **GitHub Actions Integration** - Set it and forget it, updates weekly automatically
 - 🔍 **External Contribution Tracking** - Discovers all your merged PRs to repos you don't own
 - 📊 **Comprehensive Stats** - Total PRs, commits, lines of code, and repository stars
@@ -20,7 +20,6 @@ Track and display your merged PRs, commits, and contributions to external reposi
 | Summary | ![Summary Dark](docs/badges/default-summary-dark.svg) |
 | Detailed | ![Detailed Dark](docs/badges/default-detailed-dark.svg)  |
 | Compact | ![Compact Dark](docs/badges/default-compact-dark.svg)  |
-| Minimal | ![Minimal Dark](docs/badges/default-minimal-dark.svg)  |
 
 
 ### Multiple Variants Support
@@ -68,7 +67,7 @@ Add this line to your profile `README.md` where you want the badge to appear:
 Edit the workflow file (`.github/workflows/generate-oss-badge.yaml`) and modify these flags:
 
 ```yaml
---badge-style summary       # Options: summary, compact, detailed, minimal
+--badge-style summary       # Options: summary, compact, detailed 
 --badge-variant default     # Options: default, text-based
 --badge-theme dark          # Options: dark, light, nord, dracula, etc...
 ```
