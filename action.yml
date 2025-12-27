@@ -20,7 +20,7 @@ inputs:
 
   include-loc:
     description: Include LOC (Lines Of Code) metrics
-    default: 'false'
+    default: 'true'
 
   min-stars:
     description: Minimum repo stars
