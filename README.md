@@ -6,6 +6,7 @@ Track and display your merged PRs, commits, and contributions to external reposi
 
 ## ✨ Features
 
+- 🚀 **2-Step GitHub Action** - Add auto-updating badges to your profile in minutes
 - 🎨 **Auto-Updating Profile Badges** - Beautiful SVG badges in 4 styles (summary, compact, detailed)
 - 🤖 **GitHub Actions Integration** - Set it and forget it, updates weekly automatically
 - 🔍 **External Contribution Tracking** - Discovers all your merged PRs to repos you don't own
@@ -34,87 +35,89 @@ Check [All Combos](docs/badges/BADGE_THEMES.md)
 
 ## Quick Start
 
-Add an auto-updating OSS contribution badge to your GitHub profile in a few simple steps:
+### Using GitHub Action (Recommended)
 
-### 1. Create Your Profile Repository
-If you don't have one already, create a repository named `USERNAME/USERNAME` (replace USERNAME with your GitHub username). This is your special [profile repository](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme).
+The easiest way to add auto-updating OSS badges to your GitHub profile is with our **official GitHub Action**. Just 2 steps:
 
-### 2. Set Up the Workflow
-1. In your profile repository, create a new file: `.github/workflows/generate-oss-badge.yaml`
-2. Copy the content from [this sample workflow](.github/workflows/generate-oss-badge-sample.yaml) and paste it into the file
-3. Create an `images/` directory in your repository root (or use a different path in step 4)
+**Step 1:** Create `.github/workflows/oss-badge.yml` in your profile repository:
 
-### 3. Commit and Wait
-Commit the workflow file. The badge will be generated automatically:
-- **First run:** Manually trigger via Actions tab, or wait for the scheduled time (Sundays at midnight)
-- **Updates:** Automatically every Sunday at midnight (customizable)
+```yaml
+name: Generate OSS Badge
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly
+  workflow_dispatch:
 
-### 4. Add Badge to Your Profile
-Add this line to your profile `README.md` where you want the badge to appear:
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mabd-dev/gh-oss-stats-action@v0.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          badge-path: 'images/oss-badge.svg'
+```
+
+**Step 2:** Add the badge to your profile README:
 
 ```markdown
 ![OSS Contributions](images/oss-badge.svg)
 ```
 
-**Done!** Your badge will auto-update weekly. 🎉
+**Done!** Your badge will auto-update weekly.
+
+**Full documentation and examples:** [mabd-dev/gh-oss-stats-action](https://github.com/mabd-dev/gh-oss-stats-action)
+
+---
+
+### For Advanced Users (CLI)
+
+For programmatic access, local testing, or custom integrations, you can use the CLI directly. See the [For Developers](#-for-developers) section below.
 
 ---
 
 ## Customization
 
-### Change Badge Style, Variant or Theme
+### GitHub Action Inputs
 
-Edit the workflow file (`.github/workflows/generate-oss-badge.yaml`) and modify these flags:
-
-```yaml
---badge-style summary       # Options: summary, compact, detailed 
---badge-variant default     # Options: default, text-based
---badge-theme dark          # Options: dark, light, nord, dracula, etc...
-```
-
-See all badge styles and examples in the [Badge Gallery](docs/badges/README.md).
-
-### Change Output Location
-
-In the workflow file, update the path `images/oss-badge.svg` in two places:
-1. The `gh-oss-stats` command's `--badge-output` flag
-2. The `git add` command
-
-Then update your README.md to reference the new path.
-
-### Change Update Frequency
-
-Modify the `cron` schedule in the workflow file:
+Customize your badge by passing inputs to the action:
 
 ```yaml
-schedule:
-  - cron: '0 0 * * 0'  # Weekly (Sundays at midnight) - default
+- uses: mabd-dev/gh-oss-stats-action@v0.1.0
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+    badge-path: 'images/oss-badge.svg'
+    badge-style: 'detailed'      # summary, compact, or detailed
+    badge-theme: 'nord'           # dark, light, nord, dracula, gruvbox-light, gruvbox-dark
+    badge-variant: 'text-based'   # default or text-based
+    min-stars: '100'              # Filter repos by minimum stars
+    exclude-orgs: 'my-org,acme'   # Exclude specific organizations
 ```
 
-**Common schedules:**
-```yaml
-- cron: '0 0 * * *'      # Daily at midnight
-- cron: '0 */6 * * *'    # Every 6 hours
-- cron: '0 0 * * 1'      # Weekly on Mondays
-- cron: '0 0 1 * *'      # Monthly on the 1st
-```
+**See the full list of options and examples:** [Action Documentation](https://github.com/mabd-dev/gh-oss-stats-action#inputs)
 
-### Advanced Options
+**Badge examples:** [Badge Gallery](docs/badges/README.md)
 
-For filtering, sorting, and other advanced options, see [docs/BADGES.md](docs/BADGES.md) and [docs/TECHNICAL.md](docs/TECHNICAL.md)
+### Advanced CLI Options
+
+For local development or custom integrations, see [docs/TECHNICAL.md](docs/TECHNICAL.md)
 
 
 ---
 
 ## 👨‍💻 For Developers
 
-While this tool is optimized for GitHub profile badges, it's also a **full-featured Go library and CLI** for programmatic access to contribution data:
+**Want auto-updating badges?** Use the [GitHub Action](#using-github-action-recommended) above.
 
-- **CLI Usage:** Fetch contribution stats as JSON for your own tools
-- **Go Library:** Import `github.com/mabd-dev/gh-oss-stats/pkg/ossstats` in your projects
-- **Local Testing:** `--debug` flag for instant testing with mock data
+**Need programmatic access or custom integrations?** This tool is also a full-featured Go library and CLI:
 
-📖 **Full technical docs:** See [docs/TECHNICAL.md](docs/TECHNICAL.md)
+- **CLI Usage:** Fetch contribution stats as JSON for your own tools and scripts
+- **Go Library:** Import `github.com/mabd-dev/gh-oss-stats/pkg/ossstats` in your Go projects
+- **Local Testing:** `--debug` flag for instant testing with mock data (no API calls)
+- **Custom Workflows:** Build your own automation beyond badges
+
+📖 **Full technical documentation:** [docs/TECHNICAL.md](docs/TECHNICAL.md)
 
 ## License
 
