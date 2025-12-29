@@ -75,12 +75,12 @@ const TextBasedSummary = `<svg
   <text class="username" x="28" y="45">@{{.Stats.Username}}</text>
   <text class="subtitle" x="28" y="62">Open Source Contributions</text>
   <!-- Stats -->
-  <text class="stat-value" x="80" y="127" text-anchor="middle">{{.TotalProjects}}</text>
-  <text class="stat-label" x="80" y="141" text-anchor="middle">Projects</text>
-  <text class="stat-value" x="200" y="127" text-anchor="middle">{{.TotalPRs}}</text>
-  <text class="stat-label" x="200" y="141" text-anchor="middle">PRs Merged</text>
-  <text class="stat-value" x="320" y="127" text-anchor="middle">{{.TotalLines}}</text>
-  <text class="stat-label" x="320" y="141" text-anchor="middle">Lines Changed</text>
+  <text class="stat-value" x="60" y="127" text-anchor="middle">{{.TotalProjects}}</text>
+  <text class="stat-label" x="60" y="141" text-anchor="middle">Projects</text>
+  <text class="stat-value" x="180" y="127" text-anchor="middle">{{.TotalPRs}}</text>
+  <text class="stat-label" x="180" y="141" text-anchor="middle">PRs Merged</text>
+  <text class="stat-value" x="300" y="127" text-anchor="middle">{{.TotalLines}}</text>
+  <text class="stat-label" x="300" y="141" text-anchor="middle">Lines Changed</text>
 </svg>`
 
 // textBasedDetailedTemplate is the SVG template for the Detailed badge style (400x320)
