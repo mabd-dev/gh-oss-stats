@@ -40,26 +40,6 @@ jobs:
       - name: Display coverage
         run: go tool cover -func=coverage.out
 
-  # lint:
-  #   name: Lint Code
-  #   runs-on: ubuntu-latest
-  #
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #
-  #     - name: Set up Go
-  #       uses: actions/setup-go@v5
-  #       with:
-  #         go-version: '1.25'
-  #         cache: true
-  #
-  #     - name: Run golangci-lint
-  #       uses: golangci/golangci-lint-action@v4
-  #       with:
-  #         version: latest
-  #         args: --timeout=5m
-  #
   build:
     name: Build Binary
     runs-on: ubuntu-latest
@@ -75,7 +55,16 @@ jobs:
           cache: true
 
       - name: Build CLI
-        run: go build -v -o gh-oss-stats ./cmd/gh-oss-stats
+        run: |
+          echo "Building gh-oss-stats ..."
+          mkdir -p dist
+          GOOS=linux  GOARCH=amd64  go build -o dist/gh-oss-stats-linux-amd64   ./cmd/gh-oss-stats/main.go
+          GOOS=linux  GOARCH=arm64  go build -o dist/gh-oss-stats-linux-arm64   ./cmd/gh-oss-stats/main.go
+          GOOS=darwin GOARCH=arm64  go build -o dist/gh-oss-stats-darwing-arm64 ./cmd/gh-oss-stats/main.go
 
-      - name: Verify binary
-        run: ./gh-oss-stats --version || ./gh-oss-stats --help || echo "Binary built successfully"
+
+      - name: Verify binaries
+        run: |
+          ./dist/gh-oss-stats-linux-amd64 --version   || ./dist/gh-oss-stats-linux-amd64  --help  || echo "linux-amd64 binary built successfully"
+          ./dist/gh-oss-stats-linux-arm64 --version   || ./dist/gh-oss-stats-linux-arm64 --help   || echo "linux-arm64 binary built successfully"
+          ./dist/gh-oss-stats-darwin-arm64 --version  || ./dist/gh-oss-stats-darwin-arm64 --help  || echo "darwin-arm64 binary built successfully"
