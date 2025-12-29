@@ -48,6 +48,9 @@ on:
     - cron: '0 0 * * 0'  # Weekly
   workflow_dispatch:
 
+permissions:
+  contents: write  # Required for auto-commit
+
 jobs:
   generate:
     runs-on: ubuntu-latest
