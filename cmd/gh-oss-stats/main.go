@@ -14,7 +14,7 @@ import (
 	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats/badge"
 )
 
-const version = "1.0.0"
+const version = "0.3.1"
 
 func init() {
 	flag.Usage = func() {
