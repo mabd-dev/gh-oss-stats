@@ -1,5 +1,37 @@
 package badgetemplates
 
+const TextBasedCompact = `<svg
+  width="280"
+  height="32"
+  viewBox="0 0 280 32"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="OSS Contributions">
+  <defs>
+    <style>
+      .bg { fill: {{.Colors.Background}}; }
+      .content {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                     "Segoe UI", Helvetica, Arial, sans-serif;
+        font-size: 11px;
+        fill: {{.Colors.Text}};
+      }
+      .bold { font-weight: 700; }
+      .sep { fill: {{.Colors.TextSecondary}}; }
+    </style>
+  </defs>
+  <rect class="bg" width="280" height="32" rx="16"/>
+  <text class="content" x="140" y="19.5" text-anchor="middle">
+    <tspan class="bold">OSS</tspan>
+    <tspan class="sep"> · </tspan>
+    <tspan class="bold">{{.TotalProjects}}</tspan>
+    <tspan> projects</tspan>
+    <tspan class="sep"> · </tspan>
+    <tspan class="bold">{{.TotalPRs}}</tspan>
+    <tspan> PRs Merged</tspan>
+  </text>
+</svg>`
+
 // textBasedDetailedTemplate is the SVG template for the Detailed badge style (400x320)
 const TextBasedDetailed = `
 	{{ $SVGHeight := add 300 (mul 56 (len .TopContributions)) }}
