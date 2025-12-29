@@ -17,7 +17,7 @@
       }
 
       .card {
-        fill: url(#badgeGradient);
+        fill: #282828;
         stroke: #3c3836;
         stroke-width: 1;
         rx: 16;

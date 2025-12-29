@@ -106,7 +106,7 @@ const DefaultCompact = `<svg
       }
 
       .card {
-        fill: url(#badgeGradient);
+        fill: {{.Colors.Background}};
         stroke: {{.Colors.Border}};
         stroke-width: 1;
         rx: 16;
