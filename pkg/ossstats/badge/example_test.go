@@ -61,7 +61,7 @@ func ExampleRenderSVG_compact() {
 	}
 
 	fmt.Printf("Generated compact badge (%d bytes)\n", len(svg))
-	// Output: Generated compact badge (958 bytes)
+	// Output: Generated compact badge (946 bytes)
 }
 
 func ExampleRenderSVG_detailed() {

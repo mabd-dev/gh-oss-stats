@@ -98,6 +98,7 @@ func TestRenderSVG_AllStyles(t *testing.T) {
 			wantWidth: `width="280"`,
 			wantErr:   false,
 		},
+		// Text-Based Variants
 		{
 			name:      "detailed_nord",
 			style:     StyleDetailed,
@@ -111,16 +112,16 @@ func TestRenderSVG_AllStyles(t *testing.T) {
 			style:     StyleCompact,
 			variant:   VariantTextBased,
 			theme:     ThemeNord,
-			wantWidth: `width="720"`,
-			wantErr:   true,
+			wantWidth: `width="280"`,
+			wantErr:   false,
 		},
 		{
 			name:      "summary_nord",
 			style:     StyleSummary,
 			variant:   VariantTextBased,
 			theme:     ThemeNord,
-			wantWidth: `width="720"`,
-			wantErr:   true,
+			wantWidth: `width="400"`,
+			wantErr:   false,
 		},
 	}
 
