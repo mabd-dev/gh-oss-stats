@@ -3,38 +3,31 @@ package main
 import (
 	"fmt"
 	"os"
-
-	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats/badge"
 )
 
 const version = "0.3.1"
 
 func main() {
-	badgeConfig = BadgeConfig{
-		generate: false,
-		style:    string(badge.DefaultBadgeStyle),
-		variant:  string(badge.DefaultBadgeVariant),
-		theme:    string(badge.DefaultBadgeTheme),
-		output:   "",
-		sort:     string(badge.DefaultSortBy),
-		limit:    badge.DefaultPRsLimit,
-	}
+	// Get arguments after program name
+	args := os.Args[1:]
 
-	if len(os.Args) < 2 {
-		runMainCmd(os.Args[1:])
+	// If no arguments or first arg is not a sub-command, run main command
+	if len(args) == 0 {
+		runMainCmd(args)
 		return
 	}
 
-	switch os.Args[1] {
-	case "json":
-		runJSONCmd(os.Args[2:])
-	case "mock":
-		runMockCmd(os.Args[2:])
+	// Route to sub-commands
+	switch args[0] {
+	case "badge":
+		runBadgeCmd(args[1:])
+	case "demo":
+		runDemoCmd(args[1:])
 	case "version":
 		fmt.Printf("gh-oss-stats v%s\n", version)
 		os.Exit(0)
 	default:
-		runMainCmd(os.Args[1:])
-		os.Exit(0)
+		// If first arg doesn't match a sub-command, treat as main command args
+		runMainCmd(args)
 	}
 }

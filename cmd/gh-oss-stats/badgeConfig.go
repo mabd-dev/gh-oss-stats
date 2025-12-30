@@ -6,20 +6,28 @@ import (
 	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats/badge"
 )
 
-var badgeConfig BadgeConfig
-
 type BadgeConfig struct {
-	generate bool
-	style    string
-	variant  string
-	theme    string
-	output   string
-	sort     string
-	limit    int
+	style   string
+	variant string
+	theme   string
+	output  string
+	sort    string
+	limit   int
+}
+
+// newBadgeConfig creates a new BadgeConfig with default values
+func newBadgeConfig() *BadgeConfig {
+	return &BadgeConfig{
+		style:   string(badge.DefaultBadgeStyle),
+		variant: string(badge.DefaultBadgeVariant),
+		theme:   string(badge.DefaultBadgeTheme),
+		output:  "",
+		sort:    string(badge.DefaultSortBy),
+		limit:   badge.DefaultPRsLimit,
+	}
 }
 
 func (bf *BadgeConfig) registerBadgeFlags(fs *flag.FlagSet) {
-	fs.BoolVar(&bf.generate, "badge", false, "Generate SVG badge")
 	fs.StringVar(&bf.style, "badge-style", string(badge.DefaultBadgeStyle), "Badge style: summary, compact, detailed")
 	fs.StringVar(&bf.variant, "badge-variant", string(badge.DefaultBadgeVariant), "Badge variants: default, text-based")
 	fs.StringVar(&bf.theme, "badge-theme", string(badge.DefaultBadgeTheme), "Badge theme: dark, light, nord, dracula, ...")

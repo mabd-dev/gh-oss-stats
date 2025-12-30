@@ -30,9 +30,13 @@ var (
 	verboseShort = flag.Bool("v", false, "Verbose logging (short)")
 	timeoutSec   = flag.Int("timeout", int(ossstats.DefaultTimeout.Seconds()), "Timeout in seconds")
 	debug        = flag.Bool("debug", false, "Uses fake data when true")
+
+	generateBadge = flag.Bool("badge", false, "Generate SVG badge")
 )
 
 func runMainCmd(args []string) {
+	// Initialize local badge configuration
+	badgeConfig := newBadgeConfig()
 	badgeConfig.registerBadgeFlags(flag.CommandLine)
 	flag.Parse()
 
@@ -173,7 +177,7 @@ func runMainCmd(args []string) {
 		if *verbose {
 			fmt.Fprintf(os.Stderr, "Output written to %s\n", *output)
 		}
-	} else if badgeConfig.generate {
+	} else if *generateBadge {
 		if err := writeBadge(badgeStyle, badgeVariant, badgeTheme, badgeSortBy, badgeConfig.output, badgeConfig.limit, verbose, stats); err != nil {
 			fmt.Fprintf(os.Stderr, "Error generating badge: %v\n", err)
 			os.Exit(1)
