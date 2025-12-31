@@ -162,4 +162,6 @@ func runDemoCmd(args []string) {
 		fmt.Fprintf(os.Stderr, "Error generating badge: %v\n", err)
 		os.Exit(1)
 	}
+
+	os.Exit(0)
 }
