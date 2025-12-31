@@ -167,6 +167,8 @@ func runMainCmd(args []string) {
 		jsonData := formatStats(*stats)
 		fmt.Println(string(jsonData))
 	}
+
+	os.Exit(0)
 }
 
 func writeStatsToFile(output *string, stats *ossstats.Stats) {

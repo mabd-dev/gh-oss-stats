@@ -41,47 +41,50 @@ func runBadgeCmd(args []string) {
 	badgeCmd.Parse(args)
 
 	*badgeFromFile = strings.TrimSpace(*badgeFromFile)
+	*badgeData = strings.TrimSpace(*badgeData)
+
+	if *badgeFromFile == "" && *badgeData == "" {
+		fmt.Fprintln(os.Stderr, "Error: badgeFromFile or data has to be provided")
+		os.Exit(1)
+	}
+
 	if *badgeFromFile != "" {
 		content, err := os.ReadFile(*badgeFromFile)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 			os.Exit(1)
 		}
-		generateBadgeFromJSONString(string(content), *badgeConfig)
+
+		err = generateBadgeFromJSONString(string(content), *badgeConfig)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "Error: failed to parse json data")
+			os.Exit(1)
+		}
+		os.Exit(0)
 	}
 
-	*badgeData = strings.TrimSpace(*badgeData)
 	if *badgeData != "" {
-		generateBadgeFromJSONString(*badgeData, *badgeConfig)
+		err := generateBadgeFromJSONString(*badgeData, *badgeConfig)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "Error: failed to parse json data")
+			os.Exit(1)
+		}
+		os.Exit(0)
 	}
 
-	fmt.Fprintln(os.Stderr, "Error: badgeFromFile or data has to be provided")
-	os.Exit(1)
 }
 
-func generateBadgeFromJSONString(statsJSON string, badgeConfig BadgeConfig) {
+func generateBadgeFromJSONString(statsJSON string, badgeConfig BadgeConfig) error {
 	var stats ossstats.Stats
 	err := json.Unmarshal([]byte(statsJSON), &stats)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error: failed to parse json data")
-		os.Exit(1)
+		return err
 	}
 
 	badgeOption, err := createBadgeOptions(badgeConfig)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
-		os.Exit(1)
+		return err
 	}
 
-	if err := writeBadge(
-		badgeOption,
-		badgeConfig.output,
-		verbose,
-		&stats,
-	); err != nil {
-		fmt.Fprintf(os.Stderr, "Error generating badge: %v\n", err)
-		os.Exit(1)
-	}
-
-	os.Exit(0)
+	return writeBadge(badgeOption, badgeConfig.output, verbose, &stats)
 }
