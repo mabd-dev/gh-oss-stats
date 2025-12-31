@@ -59,9 +59,9 @@ jobs:
         run: |
           echo "Building gh-oss-stats ..."
           mkdir -p dist
-          GOOS=linux  GOARCH=amd64  go build -o dist/gh-oss-stats-linux-amd64   ./cmd/gh-oss-stats/main.go
-          GOOS=linux  GOARCH=arm64  go build -o dist/gh-oss-stats-linux-arm64   ./cmd/gh-oss-stats/main.go
-          GOOS=darwin GOARCH=arm64  go build -o dist/gh-oss-stats-darwin-arm64 ./cmd/gh-oss-stats/main.go
+          GOOS=linux  GOARCH=amd64  go build -o dist/gh-oss-stats-linux-amd64   ./cmd/gh-oss-stats/*.go
+          GOOS=linux  GOARCH=arm64  go build -o dist/gh-oss-stats-linux-arm64   ./cmd/gh-oss-stats/*.go
+          GOOS=darwin GOARCH=arm64  go build -o dist/gh-oss-stats-darwin-arm64 ./cmd/gh-oss-stats/*.go
 
       - name: Verify binaries
         run: |
