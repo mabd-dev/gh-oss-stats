@@ -11,7 +11,6 @@ import (
 	"time"
 
 	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats"
-	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats/badge"
 )
 
 var (
@@ -31,6 +30,8 @@ var (
 	timeoutSec   = flag.Int("timeout", int(ossstats.DefaultTimeout.Seconds()), "Timeout in seconds")
 
 	generateBadge = flag.Bool("badge", false, "Generate SVG badge")
+
+	debug = flag.Bool("debug", false, "Uses fake data when true")
 )
 
 func runMainCmd(args []string) {
@@ -78,28 +79,9 @@ func runMainCmd(args []string) {
 		os.Exit(1)
 	}
 
-	// Validate badge options
-	badgeStyle, err := badge.BadgeStyleFromName(badgeConfig.style)
+	badgeOption, err := createBadgeOptions(*badgeConfig)
 	if err != nil {
-		fmt.Fprint(os.Stderr, err.Error())
-		os.Exit(1)
-	}
-
-	badgeVariant, err := badge.BadgeVariantFromName(badgeConfig.variant)
-	if err != nil {
-		fmt.Fprint(os.Stderr, err.Error())
-		os.Exit(1)
-	}
-
-	badgeTheme, err := badge.BadgeThemeFromName(badgeConfig.theme)
-	if err != nil {
-		fmt.Fprint(os.Stderr, err.Error())
-		os.Exit(1)
-	}
-
-	badgeSortBy, err := badge.SortByFromName(badgeConfig.sort)
-	if err != nil {
-		fmt.Fprint(os.Stderr, err.Error())
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -123,6 +105,7 @@ func runMainCmd(args []string) {
 		ossstats.WithMinStars(*minStars),
 		ossstats.WithMaxPRs(*maxPRs),
 		ossstats.WithTimeout(time.Duration(*timeoutSec) * time.Second),
+		ossstats.WithDebug(*debug),
 	}
 
 	if *token != "" {
@@ -176,7 +159,7 @@ func runMainCmd(args []string) {
 			fmt.Fprintf(os.Stderr, "Output written to %s\n", *output)
 		}
 	} else if *generateBadge {
-		if err := writeBadge(badgeStyle, badgeVariant, badgeTheme, badgeSortBy, badgeConfig.output, badgeConfig.limit, verbose, stats); err != nil {
+		if err := writeBadge(badgeOption, badgeConfig.output, verbose, stats); err != nil {
 			fmt.Fprintf(os.Stderr, "Error generating badge: %v\n", err)
 			os.Exit(1)
 		}
@@ -203,48 +186,4 @@ func formatStats(stats ossstats.Stats) []byte {
 		os.Exit(1)
 	}
 	return jsonData
-}
-
-func writeBadge(
-	style badge.BadgeStyle,
-	variant badge.BadgeVariant,
-	theme badge.BadgeTheme,
-	sortBy badge.SortBy,
-	output string,
-	limit int,
-	verbose *bool,
-	stats *ossstats.Stats,
-) error {
-
-	// Create badge options
-	opts := badge.BadgeOptions{
-		Style:   style,
-		Variant: variant,
-		Theme:   theme,
-		SortBy:  sortBy,
-		Limit:   limit,
-	}
-
-	// Generate SVG
-	svg, err := badge.RenderSVG(stats, opts)
-	if err != nil {
-		return fmt.Errorf("failed to render badge: %w", err)
-	}
-
-	// Determine output file
-	outputFile := output
-	if outputFile == "" {
-		outputFile = "badge.svg"
-	}
-
-	// Write badge to file
-	if err := os.WriteFile(outputFile, []byte(svg), 0644); err != nil {
-		return fmt.Errorf("failed to write badge: %w", err)
-	}
-
-	if *verbose {
-		fmt.Fprintf(os.Stderr, "Badge written to %s (%s/%s/%s)\n", outputFile, variant, style, theme)
-	}
-
-	return nil
 }
