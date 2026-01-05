@@ -317,6 +317,38 @@
     </text>
   </g>
   
+  
+  
+  <g class="fade-in" style="animation-delay: 700ms">
+    <rect
+      x="608"
+      y="360"
+      width="260"
+      height="108"
+      class="card"
+    />
+    <rect
+      x="608"
+      y="360"
+      width="260"
+      height="108"
+      class="card-glass"
+    />
+
+    <text
+      x="624"
+      y="398"
+      class="repo-name">
+      Compose-Rolling-Number
+    </text>
+    <text
+      x="624"
+      y="424"
+      class="repo-meta">
+      ⭐ 15 · 2 PRs Merged
+    </text>
+  </g>
+  
 
 </svg>
 

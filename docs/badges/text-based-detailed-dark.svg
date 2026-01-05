@@ -2,8 +2,8 @@
 	
 	<svg
   width="720"
-  height="580"
-  viewBox="0 0 720 580"
+  height="636"
+  viewBox="0 0 720 636"
   xmlns="http://www.w3.org/2000/svg"
   role="img"
   aria-label="Open Source Contributions">
@@ -79,7 +79,7 @@
     x="0"
     y="0"
     width="720"
-    height="580"
+    height="636"
     rx="20"/>
 
   <!-- Header -->
@@ -168,6 +168,17 @@
   <g transform="translate(48, 484)">
     <text class="repo-name">
       cahier
+      <tspan class="repo-stars"> ★ 15</tspan>
+    </text>
+
+    <text class="repo-meta" y="22">
+      2 PRs merged
+    </text>
+  </g>
+  
+  <g transform="translate(48, 540)">
+    <text class="repo-name">
+      Compose-Rolling-Number
       <tspan class="repo-stars"> ★ 15</tspan>
     </text>
 
