@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: mabd-dev/gh-oss-stats-action@v0.2.0
+      - uses: mabd-dev/gh-oss-stats-action@v0.2.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           badge-output-path: 'oss-badge.svg'
@@ -96,7 +96,7 @@ For programmatic access, local testing, or custom integrations, you can use the 
 Customize your badge by passing inputs to the action:
 
 ```yaml
-- uses: mabd-dev/gh-oss-stats-action@v0.2.0
+- uses: mabd-dev/gh-oss-stats-action@v0.2.1
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     badge-path: 'images/oss-badge.svg'
