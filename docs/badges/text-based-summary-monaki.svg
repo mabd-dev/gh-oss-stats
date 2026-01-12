@@ -1,0 +1,49 @@
+<svg
+  width="400"
+  height="200"
+  viewBox="0 0 400 200"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Open Source Contribution Summary">
+  <defs>
+    <style>
+      text {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                     "Segoe UI", Helvetica, Arial, sans-serif;
+      }
+      .bg {
+        fill: #272822;
+      }
+      .username {
+        font-size: 18px;
+        font-weight: 800;
+        fill: #F8F8F2;
+      }
+      .subtitle {
+        font-size: 11px;
+        fill: #75715E;
+      }
+      .stat-value {
+        font-size: 28px;
+        font-weight: 800;
+        fill: #F8F8F2;
+      }
+      .stat-label {
+        font-size: 11px;
+        fill: #75715E;
+      }
+    </style>
+  </defs>
+  <!-- Background -->
+  <rect class="bg" width="400" height="200" rx="16"/>
+  <!-- Header -->
+  <text class="username" x="28" y="45">@mabd-dev</text>
+  <text class="subtitle" x="28" y="62">Open Source Contributions</text>
+  <!-- Stats -->
+  <text class="stat-value" x="60" y="127" text-anchor="middle">7</text>
+  <text class="stat-label" x="60" y="141" text-anchor="middle">PROJECTS</text>
+  <text class="stat-value" x="180" y="127" text-anchor="middle">17</text>
+  <text class="stat-label" x="180" y="141" text-anchor="middle">PRs MERGED</text>
+  <text class="stat-value" x="300" y="127" text-anchor="middle">2.9K</text>
+  <text class="stat-label" x="300" y="141" text-anchor="middle">LINES CHANGED</text>
+</svg>

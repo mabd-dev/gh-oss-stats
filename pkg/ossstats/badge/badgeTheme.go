@@ -11,12 +11,24 @@ var DefaultBadgeTheme = ThemeGithubDark
 type BadgeTheme string
 
 const (
-	ThemeGithubDark   BadgeTheme = "dark"
-	ThemeGithubLight  BadgeTheme = "light"
-	ThemeDracula      BadgeTheme = "dracula"
-	ThemeNord         BadgeTheme = "nord"
-	ThemeGruvboxDark  BadgeTheme = "gruvbox-dark"
-	ThemeGruvboxLight BadgeTheme = "gruvbox-light"
+	ThemeGithubDark          BadgeTheme = "dark"
+	ThemeGithubLight         BadgeTheme = "light"
+	ThemeDracula             BadgeTheme = "dracula"
+	ThemeNord                BadgeTheme = "nord"
+	ThemeGruvboxDark         BadgeTheme = "gruvbox-dark"
+	ThemeGruvboxLight        BadgeTheme = "gruvbox-light"
+	ThemeMonaki              BadgeTheme = "monaki"
+	ThemeSolarizedDark       BadgeTheme = "solarized-dark"
+	ThemeSolarizedLight      BadgeTheme = "solarized-light"
+	ThemeTokyoNight          BadgeTheme = "tokyo-night"
+	ThemeTokyoNightStorm     BadgeTheme = "tokyo-night-storm"
+	ThemeTokyoLight          BadgeTheme = "tokyo-light"
+	ThemeOneDark             BadgeTheme = "one-dark"
+	ThemeOneDarkVivid        BadgeTheme = "one-dark-vivid"
+	ThemeCatppuccinMocha     BadgeTheme = "catppuccin-mocha"
+	ThemeCatppuccinMacchiato BadgeTheme = "catppuccin-macchiato"
+	ThemeCatppuccinFrappe    BadgeTheme = "catppuccin-frappe"
+	ThemeCatppuccinLatte     BadgeTheme = "catppuccin-latte"
 )
 
 func BadgeThemeFromName(name string) (BadgeTheme, error) {
@@ -33,6 +45,30 @@ func BadgeThemeFromName(name string) (BadgeTheme, error) {
 		return ThemeGruvboxDark, nil
 	case "gruvbox-light":
 		return ThemeGruvboxLight, nil
+	case "monaki":
+		return ThemeMonaki, nil
+	case "solarized-dark":
+		return ThemeSolarizedDark, nil
+	case "solarized-light":
+		return ThemeSolarizedLight, nil
+	case "tokyo-night":
+		return ThemeTokyoNight, nil
+	case "tokyo-night-storm":
+		return ThemeTokyoNightStorm, nil
+	case "tokyo-light":
+		return ThemeTokyoLight, nil
+	case "one-dark":
+		return ThemeOneDark, nil
+	case "one-dark-vivid":
+		return ThemeOneDarkVivid, nil
+	case "catppuccin-mocha":
+		return ThemeCatppuccinMocha, nil
+	case "catppuccin-macchiato":
+		return ThemeCatppuccinMacchiato, nil
+	case "catppuccin-frappe":
+		return ThemeCatppuccinFrappe, nil
+	case "catppuccin-latte":
+		return ThemeCatppuccinLatte, nil
 	}
 	err := fmt.Errorf("invalid badge theme: %s (must be: dark, light, dracula, nord, gruvbox-dark, gruvbox-light)", name)
 	return DefaultBadgeTheme, err
@@ -121,6 +157,151 @@ func GetThemeColors(theme BadgeTheme) ThemeColors {
 			Negative:      "#cc241d",
 			Star:          "#cc241d",
 		}
+	case ThemeMonaki:
+		return ThemeColors{
+			Background:    "#272822",
+			BackgroundAlt: "#3E3D32",
+			Text:          "#F8F8F2",
+			TextSecondary: "#75715E",
+			Border:        "#49483E",
+			Accent:        "#66D9EF",
+			Positive:      "#A6E22E",
+			Negative:      "#F92672",
+			Star:          "#E6DB74",
+		}
+	case ThemeSolarizedDark:
+		return ThemeColors{
+			Background:    "#002B36",
+			BackgroundAlt: "#073642",
+			Text:          "#839496",
+			TextSecondary: "#586E75",
+			Border:        "#073642",
+			Accent:        "#268BD2",
+			Positive:      "#859900",
+			Negative:      "#DC322F",
+			Star:          "#B58900",
+		}
+	case ThemeSolarizedLight:
+		return ThemeColors{
+			Background:    "#FDF6E3",
+			BackgroundAlt: "#EEE8D5",
+			Text:          "#657B83",
+			TextSecondary: "#93A1A1",
+			Border:        "#EEE8D5",
+			Accent:        "#268BD2",
+			Positive:      "#859900",
+			Negative:      "#DC322F",
+			Star:          "#B58900",
+		}
+	case ThemeTokyoNight:
+		return ThemeColors{
+			Background:    "#1A1B26",
+			BackgroundAlt: "#24283B",
+			Text:          "#C0CAF5",
+			TextSecondary: "#565F89",
+			Border:        "#414868",
+			Accent:        "#7AA2F7",
+			Positive:      "#9ECE6A",
+			Negative:      "#F7768E",
+			Star:          "#E0AF68",
+		}
+	case ThemeTokyoNightStorm:
+		return ThemeColors{
+			Background:    "#24283B",
+			BackgroundAlt: "#1F2335",
+			Text:          "#C0CAF5",
+			TextSecondary: "#565F89",
+			Border:        "#414868",
+			Accent:        "#7AA2F7",
+			Positive:      "#9ECE6A",
+			Negative:      "#F7768E",
+			Star:          "#E0AF68",
+		}
+	case ThemeTokyoLight:
+		return ThemeColors{
+			Background:    "#D5D6DB",
+			BackgroundAlt: "#CBCCD1",
+			Text:          "#343B58",
+			TextSecondary: "#6172AF",
+			Border:        "#C4C8DA",
+			Accent:        "#34548A",
+			Positive:      "#485E30",
+			Negative:      "#8C4351",
+			Star:          "#8F5E15",
+		}
+	case ThemeOneDark:
+		return ThemeColors{
+			Background:    "#282C34",
+			BackgroundAlt: "#21252B",
+			Text:          "#ABB2BF",
+			TextSecondary: "#5C6370",
+			Border:        "#3E4451",
+			Accent:        "#61AFEF",
+			Positive:      "#98C379",
+			Negative:      "#E06C75",
+			Star:          "#E5C07B",
+		}
+	case ThemeOneDarkVivid:
+		return ThemeColors{
+			Background:    "#282C34",
+			BackgroundAlt: "#21252B",
+			Text:          "#ABB2BF",
+			TextSecondary: "#5C6370",
+			Border:        "#3E4451",
+			Accent:        "#528BFF",
+			Positive:      "#98C379",
+			Negative:      "#EF596F",
+			Star:          "#D19A66",
+		}
+	case ThemeCatppuccinMocha:
+		return ThemeColors{
+			Background:    "#1E1E2E",
+			BackgroundAlt: "#313244",
+			Text:          "#CDD6F4",
+			TextSecondary: "#A6ADC8",
+			Border:        "#45475A",
+			Accent:        "#89B4FA",
+			Positive:      "#A6E3A1",
+			Negative:      "#F38BA8",
+			Star:          "#F9E2AF",
+		}
+	case ThemeCatppuccinMacchiato:
+		return ThemeColors{
+			Background:    "#24273A",
+			BackgroundAlt: "#363A4F",
+			Text:          "#CAD3F5",
+			TextSecondary: "#A5ADCB",
+			Border:        "#494D64",
+			Accent:        "#8AADF4",
+			Positive:      "#A6DA95",
+			Negative:      "#ED8796",
+			Star:          "#EED49F",
+		}
+	case ThemeCatppuccinFrappe:
+		return ThemeColors{
+			Background:    "#303446",
+			BackgroundAlt: "#414559",
+			Text:          "#C6D0F5",
+			TextSecondary: "#A5ADCE",
+			Border:        "#51576D",
+			Accent:        "#8CAAEE",
+			Positive:      "#A6D189",
+			Negative:      "#E78284",
+			Star:          "#E5C890",
+		}
+	case ThemeCatppuccinLatte:
+		return ThemeColors{
+			Background:    "#EFF1F5",
+			BackgroundAlt: "#CCD0DA",
+			Text:          "#4C4F69",
+			TextSecondary: "#6C6F85",
+			Border:        "#BCC0CC",
+			Accent:        "#1E66F5",
+			Positive:      "#40A02B",
+			Negative:      "#D20F39",
+			Star:          "#DF8E1D",
+		}
+
 	default:
 		// Github dark
 		return ThemeColors{
