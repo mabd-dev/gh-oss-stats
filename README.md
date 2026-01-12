@@ -85,7 +85,7 @@ That is it. It will run and generate the badge for you.
 
 ### For Advanced Users (CLI)
 
-For programmatic access, local testing, or custom integrations, you can use the CLI directly. See the [For Developers](#-for-developers) section below.
+For programmatic access, local testing, or custom integrations, you can use the CLI directly. See [technical documentation](docs/TECHNICAL.md).
 
 ---
 
