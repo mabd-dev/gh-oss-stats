@@ -3,100 +3,22 @@
   width="900"
   height="518"
   viewBox="0 0 900 518"
+  fill="none"
   xmlns="http://www.w3.org/2000/svg"
   role="img"
   aria-label="GitHub Open Source Contribution Stats">
 
-  <!-- ========================= -->
-  <!-- Theme + Styling -->
-  <!-- ========================= -->
-  <style>
-    :root {
-      --bg: #D5D6DB;
-      --bg-alt: #CBCCD1;
-      --text: #343B58;
-      --text-muted: #6172AF;
-      --border: #C4C8DA;
-      --accent: #34548A;
-      --star: #8F5E15;
-    }
-
-    text {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,
-                   "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
-    .title {
-      font-size: 26px;
-      font-weight: 800;
-      fill: var(--text);
-      letter-spacing: -0.4px;
-    }
-
-    .subtitle {
-      font-size: 13px;
-      fill: var(--text-muted);
-    }
-
-    .card {
-      fill: url(#cardGradient);
-      stroke: var(--border);
-      stroke-width: 1;
-      rx: 14;
-    }
-
-    .card-glass {
-      fill: url(#glass);
-      rx: 14;
-    }
-
-    .metric-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      fill: var(--text-muted);
-    }
-
-    .metric-value {
-      font-size: 28px;
-      font-weight: 800;
-      fill: var(--text);
-    }
-
-    .repo-name {
-      font-size: 16px;
-      font-weight: 700;
-      fill: var(--text);
-    }
-
-    .repo-meta {
-      font-size: 12px;
-      fill: var(--text-muted);
-    }
-
-    .fade-in {
-      opacity: 0;
-      animation: fadeUp 0.6s ease-out forwards;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-
-  <!-- ========================= -->
-  <!-- Definitions -->
-  <!-- ========================= -->
   <defs>
+    <!-- Card gradient (solid fill with opacity) -->
     <linearGradient id="cardGradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="var(--bg-alt)" stop-opacity="0.8" />
-      <stop offset="100%" stop-color="var(--bg-alt)" stop-opacity="0.6" />
+      <stop offset="0%" stop-color="#CBCCD1" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#CBCCD1" stop-opacity="0.6"/>
     </linearGradient>
 
-    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="var(--bg-alt)" stop-opacity="0.2" />
-      <stop offset="100%" stop-color="var(--bg-alt)" stop-opacity="0" />
+    <!-- Glass overlay gradient -->
+    <linearGradient id="glassOverlay" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#CBCCD1" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#CBCCD1" stop-opacity="0"/>
     </linearGradient>
   </defs>
 
@@ -104,251 +26,408 @@
   <!-- Background -->
   <!-- ========================= -->
   <rect
-    x="0"
-    y="0"
     width="900"
     height="518"
     rx="18"
-    fill="var(--bg)"
+    fill="#D5D6DB"
   />
 
   <!-- ========================= -->
   <!-- Header -->
   <!-- ========================= -->
-  <g class="fade-in">
-    <text x="32" y="50" class="title">
-      mabd-dev · Open Source
-    </text>
-  </g>
+  <text
+    x="33"
+    y="49"
+    fill="#343B58"
+    font-family="Inter, system-ui, -apple-system, sans-serif"
+    font-size="26"
+    font-weight="bold"
+    letter-spacing="0em">mabd-dev · Open Source Contributions</text>
 
   <!-- ========================= -->
   <!-- Metrics Row -->
   <!-- ========================= -->
 
-  <!-- Projects -->
-  <g class="fade-in" style="animation-delay: 100ms">
-    <rect x="32" y="96" width="260" height="96" class="card"/>
-    <rect x="32" y="96" width="260" height="96" class="card-glass"/>
-    <text x="48" y="132" class="metric-label">Projects</text>
-    <text x="48" y="168" class="metric-value">7</text>
+  <!-- Projects Card -->
+  <g>
+    <rect x="32" y="96" width="260" height="96" rx="14" fill="url(#cardGradient)" stroke="#C4C8DA"/>
+    <rect x="32" y="96" width="260" height="96" rx="14" fill="url(#glassOverlay)"/>
+    <text
+      x="48"
+      y="132"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">PROJECTS</text>
+    <text
+      x="48"
+      y="167"
+      fill="#343B58"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="28"
+      font-weight="bold"
+      letter-spacing="0em">7</text>
   </g>
 
-  <!-- PRs -->
-  <g class="fade-in" style="animation-delay: 150ms">
-    <rect x="320" y="96" width="260" height="96" class="card"/>
-    <rect x="320" y="96" width="260" height="96" class="card-glass"/>
-    <text x="336" y="132" class="metric-label">PRs Merged</text>
-    <text x="336" y="168" class="metric-value">17</text>
+  <!-- PRs Merged Card -->
+  <g>
+    <rect x="320" y="96" width="260" height="96" rx="14" fill="url(#cardGradient)" stroke="#C4C8DA"/>
+    <rect x="320" y="96" width="260" height="96" rx="14" fill="url(#glassOverlay)"/>
+    <text
+      x="336"
+      y="132"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">PRS MERGED</text>
+    <text
+      x="336"
+      y="167"
+      fill="#343B58"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="28"
+      font-weight="bold"
+      letter-spacing="0em">17</text>
   </g>
 
-  <!-- Lines Changed -->
-  <g class="fade-in" style="animation-delay: 200ms">
-    <rect x="608" y="96" width="260" height="96" class="card"/>
-    <rect x="608" y="96" width="260" height="96" class="card-glass"/>
-    <text x="624" y="132" class="metric-label">Lines Changed</text>
-    <text x="624" y="168" class="metric-value">2.9K</text>
+  <!-- Lines Changed Card -->
+  <g>
+    <rect x="608" y="96" width="260" height="96" rx="14" fill="url(#cardGradient)" stroke="#C4C8DA"/>
+    <rect x="608" y="96" width="260" height="96" rx="14" fill="url(#glassOverlay)"/>
+    <text
+      x="624"
+      y="132"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">LINES CHANGED</text>
+    <text
+      x="624"
+      y="167"
+      fill="#343B58"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="28"
+      font-weight="bold"
+      letter-spacing="0em">2.9K</text>
   </g>
 
   <!-- ========================= -->
   <!-- Top Contributions -->
   <!-- ========================= -->
-  <text x="32" y="224" class="subtitle fade-in" style="animation-delay: 260ms">
-    Top Contributions
-  </text>
+  <text
+    x="32"
+    y="224"
+    fill="#6172AF"
+    font-family="Inter, system-ui, -apple-system, sans-serif"
+    font-size="13"
+    letter-spacing="0em">Top Contributions</text>
 
   
   
   
-  <g class="fade-in" style="animation-delay: 300ms">
+  
+  
+  <g>
+    <!-- Card background -->
     <rect
       x="32"
       y="240"
       width="260"
       height="108"
-      class="card"
+      rx="14"
+      fill="url(#cardGradient)"
+      stroke="#C4C8DA"
     />
+    <!-- Glass overlay -->
     <rect
       x="32"
       y="240"
       width="260"
       height="108"
-      class="card-glass"
+      rx="14"
+      fill="url(#glassOverlay)"
     />
-
+    <!-- Repo name -->
     <text
       x="48"
-      y="278"
-      class="repo-name">
-      android-public
-    </text>
+      y="272"
+      fill="#343B58"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="16"
+      font-weight="bold"
+      letter-spacing="0em">android-public</text>
+    <!-- Owner -->
     <text
       x="48"
-      y="304"
-      class="repo-meta">
-      ⭐ 15 · 6 PRs Merged
-    </text>
+      y="290"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">@ibad-al-rahman</text>
+    <!-- Stats -->
+    <text
+      x="48"
+      y="330"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">⭐ 15 · 6 PRs Merged</text>
   </g>
   
   
   
-  <g class="fade-in" style="animation-delay: 380ms">
+  
+  
+  <g>
+    <!-- Card background -->
     <rect
       x="320"
       y="240"
       width="260"
       height="108"
-      class="card"
+      rx="14"
+      fill="url(#cardGradient)"
+      stroke="#C4C8DA"
     />
+    <!-- Glass overlay -->
     <rect
       x="320"
       y="240"
       width="260"
       height="108"
-      class="card-glass"
+      rx="14"
+      fill="url(#glassOverlay)"
     />
-
+    <!-- Repo name -->
     <text
       x="336"
-      y="278"
-      class="repo-name">
-      Tomato
-    </text>
+      y="272"
+      fill="#343B58"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="16"
+      font-weight="bold"
+      letter-spacing="0em">Tomato</text>
+    <!-- Owner -->
     <text
       x="336"
-      y="304"
-      class="repo-meta">
-      ⭐ 15 · 2 PRs Merged
-    </text>
+      y="290"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">@nsh07</text>
+    <!-- Stats -->
+    <text
+      x="336"
+      y="330"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">⭐ 15 · 2 PRs Merged</text>
   </g>
   
   
   
-  <g class="fade-in" style="animation-delay: 460ms">
+  
+  
+  <g>
+    <!-- Card background -->
     <rect
       x="608"
       y="240"
       width="260"
       height="108"
-      class="card"
+      rx="14"
+      fill="url(#cardGradient)"
+      stroke="#C4C8DA"
     />
+    <!-- Glass overlay -->
     <rect
       x="608"
       y="240"
       width="260"
       height="108"
-      class="card-glass"
+      rx="14"
+      fill="url(#glassOverlay)"
     />
-
+    <!-- Repo name -->
     <text
       x="624"
-      y="278"
-      class="repo-name">
-      JetpackComposeTracker
-    </text>
+      y="272"
+      fill="#343B58"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="16"
+      font-weight="bold"
+      letter-spacing="0em">JetpackComposeTracker</text>
+    <!-- Owner -->
     <text
       x="624"
-      y="304"
-      class="repo-meta">
-      ⭐ 15 · 2 PRs Merged
-    </text>
+      y="290"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">@qamarelsafadi</text>
+    <!-- Stats -->
+    <text
+      x="624"
+      y="330"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">⭐ 15 · 2 PRs Merged</text>
   </g>
   
   
   
-  <g class="fade-in" style="animation-delay: 540ms">
+  
+  
+  <g>
+    <!-- Card background -->
     <rect
       x="32"
       y="360"
       width="260"
       height="108"
-      class="card"
+      rx="14"
+      fill="url(#cardGradient)"
+      stroke="#C4C8DA"
     />
+    <!-- Glass overlay -->
     <rect
       x="32"
       y="360"
       width="260"
       height="108"
-      class="card-glass"
+      rx="14"
+      fill="url(#glassOverlay)"
     />
-
+    <!-- Repo name -->
     <text
       x="48"
-      y="398"
-      class="repo-name">
-      nav3-recipes
-    </text>
+      y="392"
+      fill="#343B58"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="16"
+      font-weight="bold"
+      letter-spacing="0em">nav3-recipes</text>
+    <!-- Owner -->
     <text
       x="48"
-      y="424"
-      class="repo-meta">
-      ⭐ 15 · 2 PRs Merged
-    </text>
+      y="410"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">@android</text>
+    <!-- Stats -->
+    <text
+      x="48"
+      y="450"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">⭐ 15 · 2 PRs Merged</text>
   </g>
   
   
   
-  <g class="fade-in" style="animation-delay: 620ms">
+  
+  
+  <g>
+    <!-- Card background -->
     <rect
       x="320"
       y="360"
       width="260"
       height="108"
-      class="card"
+      rx="14"
+      fill="url(#cardGradient)"
+      stroke="#C4C8DA"
     />
+    <!-- Glass overlay -->
     <rect
       x="320"
       y="360"
       width="260"
       height="108"
-      class="card-glass"
+      rx="14"
+      fill="url(#glassOverlay)"
     />
-
+    <!-- Repo name -->
     <text
       x="336"
-      y="398"
-      class="repo-name">
-      cahier
-    </text>
+      y="392"
+      fill="#343B58"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="16"
+      font-weight="bold"
+      letter-spacing="0em">cahier</text>
+    <!-- Owner -->
     <text
       x="336"
-      y="424"
-      class="repo-meta">
-      ⭐ 15 · 2 PRs Merged
-    </text>
+      y="410"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">@android</text>
+    <!-- Stats -->
+    <text
+      x="336"
+      y="450"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">⭐ 15 · 2 PRs Merged</text>
   </g>
   
   
   
-  <g class="fade-in" style="animation-delay: 700ms">
+  
+  
+  <g>
+    <!-- Card background -->
     <rect
       x="608"
       y="360"
       width="260"
       height="108"
-      class="card"
+      rx="14"
+      fill="url(#cardGradient)"
+      stroke="#C4C8DA"
     />
+    <!-- Glass overlay -->
     <rect
       x="608"
       y="360"
       width="260"
       height="108"
-      class="card-glass"
+      rx="14"
+      fill="url(#glassOverlay)"
     />
-
+    <!-- Repo name -->
     <text
       x="624"
-      y="398"
-      class="repo-name">
-      Compose-Rolling-Number
-    </text>
+      y="392"
+      fill="#343B58"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="16"
+      font-weight="bold"
+      letter-spacing="0em">Compose-Rolling-Number</text>
+    <!-- Owner -->
     <text
       x="624"
-      y="424"
-      class="repo-meta">
-      ⭐ 15 · 2 PRs Merged
-    </text>
+      y="410"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">@esatgozcu</text>
+    <!-- Stats -->
+    <text
+      x="624"
+      y="450"
+      fill="#6172AF"
+      font-family="Inter, system-ui, -apple-system, sans-serif"
+      font-size="12"
+      letter-spacing="0em">⭐ 15 · 2 PRs Merged</text>
   </g>
   
 
 </svg>
-

@@ -28,6 +28,7 @@ type templateData struct {
 // contributionData holds formatted contribution data for templates
 type contributionData struct {
 	RepoName string
+	Owner    string
 	Stars    string
 	PRs      string
 }
@@ -137,6 +138,7 @@ func getTopContributions(stats *ossstats.Stats, sortBy SortBy, limit int) []cont
 	for i := 0; i < limit; i++ {
 		result[i] = contributionData{
 			RepoName: contributions[i].RepoName,
+			Owner:    contributions[i].Owner,
 			Stars:    formatStars(contributions[i].Stars),
 			PRs:      formatNumber(contributions[i].PRsMerged),
 		}
