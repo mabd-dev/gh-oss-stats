@@ -22,7 +22,7 @@ const (
 	ThemeSolarizedLight      BadgeTheme = "solarized-light"
 	ThemeTokyoNight          BadgeTheme = "tokyo-night"
 	ThemeTokyoNightStorm     BadgeTheme = "tokyo-night-storm"
-	ThemeTokyoLight          BadgeTheme = "tokyo-light"
+	ThemeTokyoNightLight     BadgeTheme = "tokyo-night-light"
 	ThemeOneDark             BadgeTheme = "one-dark"
 	ThemeOneDarkVivid        BadgeTheme = "one-dark-vivid"
 	ThemeCatppuccinMocha     BadgeTheme = "catppuccin-mocha"
@@ -55,8 +55,8 @@ func BadgeThemeFromName(name string) (BadgeTheme, error) {
 		return ThemeTokyoNight, nil
 	case "tokyo-night-storm":
 		return ThemeTokyoNightStorm, nil
-	case "tokyo-light":
-		return ThemeTokyoLight, nil
+	case "tokyo-night-light":
+		return ThemeTokyoNightLight, nil
 	case "one-dark":
 		return ThemeOneDark, nil
 	case "one-dark-vivid":
@@ -217,7 +217,7 @@ func GetThemeColors(theme BadgeTheme) ThemeColors {
 			Negative:      "#F7768E",
 			Star:          "#E0AF68",
 		}
-	case ThemeTokyoLight:
+	case ThemeTokyoNightLight:
 		return ThemeColors{
 			Background:    "#D5D6DB",
 			BackgroundAlt: "#CBCCD1",
