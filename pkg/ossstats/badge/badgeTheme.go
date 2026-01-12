@@ -17,7 +17,7 @@ const (
 	ThemeNord                BadgeTheme = "nord"
 	ThemeGruvboxDark         BadgeTheme = "gruvbox-dark"
 	ThemeGruvboxLight        BadgeTheme = "gruvbox-light"
-	ThemeMonaki              BadgeTheme = "monaki"
+	ThemeMonokai             BadgeTheme = "monokai"
 	ThemeSolarizedDark       BadgeTheme = "solarized-dark"
 	ThemeSolarizedLight      BadgeTheme = "solarized-light"
 	ThemeTokyoNight          BadgeTheme = "tokyo-night"
@@ -45,8 +45,8 @@ func BadgeThemeFromName(name string) (BadgeTheme, error) {
 		return ThemeGruvboxDark, nil
 	case "gruvbox-light":
 		return ThemeGruvboxLight, nil
-	case "monaki":
-		return ThemeMonaki, nil
+	case "monokai":
+		return ThemeMonokai, nil
 	case "solarized-dark":
 		return ThemeSolarizedDark, nil
 	case "solarized-light":
@@ -157,7 +157,7 @@ func GetThemeColors(theme BadgeTheme) ThemeColors {
 			Negative:      "#cc241d",
 			Star:          "#cc241d",
 		}
-	case ThemeMonaki:
+	case ThemeMonokai:
 		return ThemeColors{
 			Background:    "#272822",
 			BackgroundAlt: "#3E3D32",
