@@ -70,7 +70,8 @@ func BadgeThemeFromName(name string) (BadgeTheme, error) {
 	case "catppuccin-latte":
 		return ThemeCatppuccinLatte, nil
 	}
-	err := fmt.Errorf("invalid badge theme: %s (must be: dark, light, dracula, nord, gruvbox-dark, gruvbox-light)", name)
+
+	err := fmt.Errorf("invalid badge theme: %s (check https://github.com/mabd-dev/gh-oss-stats/blob/main/docs/badges/BADGE_THEMES.md for all possible values)", name)
 	return DefaultBadgeTheme, err
 }
 
