@@ -253,7 +253,7 @@ func TestRenderSVG_ThemeColors(t *testing.T) {
 			name:       "dark_theme_summary",
 			style:      StyleSummary,
 			theme:      ThemeGithubDark,
-			wantColor:  "#0d1117", // background color
+			wantColor:  "#101820", // background color
 			wantAccent: "",        // summary doesn't use accent in visible way
 		},
 		{
@@ -376,6 +376,7 @@ func TestRenderSVG_DetailedBadgeLimit(t *testing.T) {
 		wantCount int
 	}{
 		{
+
 			name:      "limit_3",
 			limit:     3,
 			wantCount: 3,
@@ -553,7 +554,7 @@ func TestGetThemeColors(t *testing.T) {
 		{
 			name:           "dark_theme",
 			theme:          ThemeGithubDark,
-			wantBackground: "#0d1117",
+			wantBackground: "#101820",
 			wantAccent:     "#58a6ff",
 		},
 		{
@@ -577,7 +578,7 @@ func TestGetThemeColors(t *testing.T) {
 		{
 			name:           "unknown_theme_defaults_to_dark",
 			theme:          BadgeTheme("unknown"),
-			wantBackground: "#0d1117",
+			wantBackground: "#101820",
 			wantAccent:     "#58a6ff",
 		},
 	}
