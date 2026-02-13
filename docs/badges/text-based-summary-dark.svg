@@ -12,7 +12,7 @@
                      "Segoe UI", Helvetica, Arial, sans-serif;
       }
       .bg {
-        fill: #0d1117;
+        fill: #101820;
       }
       .username {
         font-size: 18px;

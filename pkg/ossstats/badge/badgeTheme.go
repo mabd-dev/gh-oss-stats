@@ -306,7 +306,7 @@ func GetThemeColors(theme BadgeTheme) ThemeColors {
 	default:
 		// Github dark
 		return ThemeColors{
-			Background:    "#0d1117",
+			Background:    "#101820",
 			BackgroundAlt: "#161b22",
 			Text:          "#e6edf3",
 			TextSecondary: "#8b949e",
