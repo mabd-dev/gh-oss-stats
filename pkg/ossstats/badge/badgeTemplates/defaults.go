@@ -262,6 +262,7 @@ const DefaultDetailed = `
       font-size="16"
       font-weight="bold"
       letter-spacing="0em">{{$r.RepoName}}</text>
+	  class="repo-name"
     <!-- Owner -->
     <text
       x="{{add $x 16}}"

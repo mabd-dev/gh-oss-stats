@@ -156,6 +156,7 @@
       font-size="16"
       font-weight="bold"
       letter-spacing="0em">android-public</text>
+	  class="repo-name"
     <!-- Owner -->
     <text
       x="48"
@@ -207,6 +208,7 @@
       font-size="16"
       font-weight="bold"
       letter-spacing="0em">Tomato</text>
+	  class="repo-name"
     <!-- Owner -->
     <text
       x="336"
@@ -258,6 +260,7 @@
       font-size="16"
       font-weight="bold"
       letter-spacing="0em">JetpackComposeTracker</text>
+	  class="repo-name"
     <!-- Owner -->
     <text
       x="624"
@@ -309,6 +312,7 @@
       font-size="16"
       font-weight="bold"
       letter-spacing="0em">nav3-recipes</text>
+	  class="repo-name"
     <!-- Owner -->
     <text
       x="48"
@@ -360,6 +364,7 @@
       font-size="16"
       font-weight="bold"
       letter-spacing="0em">cahier</text>
+	  class="repo-name"
     <!-- Owner -->
     <text
       x="336"
@@ -411,6 +416,7 @@
       font-size="16"
       font-weight="bold"
       letter-spacing="0em">Compose-Rolling-Number</text>
+	  class="repo-name"
     <!-- Owner -->
     <text
       x="624"

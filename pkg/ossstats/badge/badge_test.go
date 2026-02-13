@@ -399,23 +399,27 @@ func TestRenderSVG_DetailedBadgeLimit(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			opts := BadgeOptions{
-				Style:   StyleDetailed,
-				Variant: VariantDefault,
-				Theme:   ThemeGithubDark,
-				SortBy:  SortByPRs,
-				Limit:   tt.limit,
-			}
+			variants := []BadgeVariant{VariantDefault, VariantTextBased}
 
-			svg, err := RenderSVG(stats, opts)
-			if err != nil {
-				t.Fatalf("RenderSVG() unexpected error: %v", err)
-			}
+			for _, variant := range variants {
+				opts := BadgeOptions{
+					Style:   StyleDetailed,
+					Variant: variant,
+					Theme:   ThemeGithubDark,
+					SortBy:  SortByPRs,
+					Limit:   tt.limit,
+				}
 
-			// Count occurrences of repo-name class
-			count := strings.Count(svg, `class="repo-name"`)
-			if count != tt.wantCount {
-				t.Errorf("RenderSVG() got %d repos, want %d", count, tt.wantCount)
+				svg, err := RenderSVG(stats, opts)
+				if err != nil {
+					t.Fatalf("RenderSVG() unexpected error: %v", err)
+				}
+
+				// Count occurrences of repo-name class
+				count := strings.Count(svg, `class="repo-name"`)
+				if count != tt.wantCount {
+					t.Errorf("RenderSVG() got %d repos, want %d", count, tt.wantCount)
+				}
 			}
 		})
 	}
