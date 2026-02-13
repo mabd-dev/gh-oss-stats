@@ -95,5 +95,5 @@ func ExampleRenderSVG_detailed() {
 	}
 
 	fmt.Printf("Generated detailed badge (%d bytes)\n", len(svg))
-	// Output: Generated detailed badge (5413 bytes)
+	// Output: Generated detailed badge (6634 bytes)
 }
