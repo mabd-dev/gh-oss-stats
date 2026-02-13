@@ -261,8 +261,8 @@ const DefaultDetailed = `
       font-family="Inter, system-ui, -apple-system, sans-serif"
       font-size="16"
       font-weight="bold"
-      letter-spacing="0em">{{$r.RepoName}}</text>
 	  class="repo-name"
+      letter-spacing="0em">{{$r.RepoName}}</text>
     <!-- Owner -->
     <text
       x="{{add $x 16}}"
