@@ -57,7 +57,7 @@ func runBadgeCmd(args []string) {
 
 		err = generateBadgeFromJSONString(string(content), *badgeConfig)
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "Error: failed to parse json data")
+			fmt.Fprintf(os.Stderr, "Error: failed to parse json data, error=%v\n", err.Error())
 			os.Exit(1)
 		}
 		os.Exit(0)
@@ -66,7 +66,7 @@ func runBadgeCmd(args []string) {
 	if *badgeData != "" {
 		err := generateBadgeFromJSONString(*badgeData, *badgeConfig)
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "Error: failed to parse json data")
+			fmt.Fprintf(os.Stderr, "Error: failed to parse json data, error=%v\n", err.Error())
 			os.Exit(1)
 		}
 		os.Exit(0)

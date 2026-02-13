@@ -12,7 +12,7 @@ Track and display your merged PRs, commits, and contributions to external reposi
 - 🔍 **External Contribution Tracking** - Discovers all your merged PRs to repos you don't own
 - 📊 **Comprehensive Stats** - Total PRs, commits, lines of code, and repository stars
 - ⭐ **Smart Filtering** - Filter by minimum stars, exclude organizations
-- 🎭 6 **Color Themes** - Match your profile's aesthetic
+- 🎭 18 **Color Themes** - Match your profile's aesthetic
 - 📦 **Developer-Friendly** - Use as a Go library or standalone CLI, outputs JSON
 
 
@@ -101,7 +101,7 @@ Customize your badge by passing inputs to the action:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     badge-path: 'images/oss-badge.svg'
     badge-style: 'detailed'      # summary, compact, or detailed
-    badge-theme: 'nord'           # dark, light, nord, dracula, gruvbox-light, gruvbox-dark
+    badge-theme: 'nord'           # dark, light, nord, dracula, gruvbox-light, gruvbox-dark, etc...
     badge-variant: 'text-based'   # default or text-based
     min-stars: '100'              # Filter repos by minimum stars
     exclude-orgs: 'my-org,acme'   # Exclude specific organizations

@@ -185,7 +185,7 @@ These flags control badge generation and styling. Used by the main command (with
 | --badge | boolean | false | Generate SVG Badge (main command only) |
 | --badge-style | string | summary | Badge style: `summary`, `compact`, `detailed` |
 | --badge-variant | string | default | Badge variant: `default`, `text-based` |
-| --badge-theme | string | dark | Color theme: `dark`, `light`, `nord`, `dracula`, `gruvbox-light`, `gruvbox-dark` |
+| --badge-theme | string | dark | Color theme: `dark`, `light`, `nord`, `dracula`, `gruvbox-light`, `gruvbox-dark`, etc... |
 | --badge-output | string | ./badge.svg | Output file path for generated badge |
 | --badge-sort | string | prs | Sort contributions by: `prs`, `stars`, `commits` |
 | --badge-limit | int | 5 | Number of contributions to display in detailed badge |

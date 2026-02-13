@@ -253,7 +253,7 @@ func TestRenderSVG_ThemeColors(t *testing.T) {
 			name:       "dark_theme_summary",
 			style:      StyleSummary,
 			theme:      ThemeGithubDark,
-			wantColor:  "#0d1117", // background color
+			wantColor:  "#101820", // background color
 			wantAccent: "",        // summary doesn't use accent in visible way
 		},
 		{
@@ -376,6 +376,7 @@ func TestRenderSVG_DetailedBadgeLimit(t *testing.T) {
 		wantCount int
 	}{
 		{
+
 			name:      "limit_3",
 			limit:     3,
 			wantCount: 3,
@@ -399,23 +400,27 @@ func TestRenderSVG_DetailedBadgeLimit(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			opts := BadgeOptions{
-				Style:   StyleDetailed,
-				Variant: VariantDefault,
-				Theme:   ThemeGithubDark,
-				SortBy:  SortByPRs,
-				Limit:   tt.limit,
-			}
+			variants := []BadgeVariant{VariantDefault, VariantTextBased}
 
-			svg, err := RenderSVG(stats, opts)
-			if err != nil {
-				t.Fatalf("RenderSVG() unexpected error: %v", err)
-			}
+			for _, variant := range variants {
+				opts := BadgeOptions{
+					Style:   StyleDetailed,
+					Variant: variant,
+					Theme:   ThemeGithubDark,
+					SortBy:  SortByPRs,
+					Limit:   tt.limit,
+				}
 
-			// Count occurrences of repo-name class
-			count := strings.Count(svg, `class="repo-name"`)
-			if count != tt.wantCount {
-				t.Errorf("RenderSVG() got %d repos, want %d", count, tt.wantCount)
+				svg, err := RenderSVG(stats, opts)
+				if err != nil {
+					t.Fatalf("RenderSVG() unexpected error: %v", err)
+				}
+
+				// Count occurrences of repo-name class
+				count := strings.Count(svg, `class="repo-name"`)
+				if count != tt.wantCount {
+					t.Errorf("RenderSVG() got %d repos, want %d", count, tt.wantCount)
+				}
 			}
 		})
 	}
@@ -549,7 +554,7 @@ func TestGetThemeColors(t *testing.T) {
 		{
 			name:           "dark_theme",
 			theme:          ThemeGithubDark,
-			wantBackground: "#0d1117",
+			wantBackground: "#101820",
 			wantAccent:     "#58a6ff",
 		},
 		{
@@ -573,7 +578,7 @@ func TestGetThemeColors(t *testing.T) {
 		{
 			name:           "unknown_theme_defaults_to_dark",
 			theme:          BadgeTheme("unknown"),
-			wantBackground: "#0d1117",
+			wantBackground: "#101820",
 			wantAccent:     "#58a6ff",
 		},
 	}

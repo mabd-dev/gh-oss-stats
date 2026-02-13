@@ -4,4 +4,4 @@ commands.nu
 /gh-oss-stats
 scripts/
 local/
-
+dist/
