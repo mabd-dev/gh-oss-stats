@@ -4,9 +4,6 @@
 
   All available combinations of **Variants × Themes × Styles**.
 
-  > **Note:** Text-Based variant currently only supports the Detailed style.
-  > Summary and Compact styles are planned for future releases.
-
  ## How to Use This Guide
 
   Each row shows:
