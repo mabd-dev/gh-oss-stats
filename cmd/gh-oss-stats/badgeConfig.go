@@ -44,6 +44,7 @@ func (bf *BadgeConfig) registerBadgeFlags(fs *flag.FlagSet) {
 	fs.StringVar(&bf.output, "badge-output", "", "Badge output file (default: badge.svg)")
 	fs.StringVar(&bf.sort, "badge-sort", string(badge.DefaultSortBy), "Sort contributions by: prs, stars, commits")
 	fs.IntVar(&bf.limit, "badge-limit", badge.DefaultPRsLimit, "Number of contributions to show")
+
 	fs.StringVar(&bf.colorBackground, "badge-color-background", "", "Custom background color (hex, e.g. #1a1b26)")
 	fs.StringVar(&bf.colorBackgroundAlt, "badge-color-background-alt", "", "Custom alt background color (hex)")
 	fs.StringVar(&bf.colorText, "badge-color-text", "", "Custom primary text color (hex)")

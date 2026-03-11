@@ -229,3 +229,109 @@ func baseConf() BadgeConfig {
 		limit:   badge.DefaultPRsLimit,
 	}
 }
+
+func TestValidateHexColor(t *testing.T) {
+	tests := []struct {
+		value   string
+		wantErr bool
+	}{
+		// Valid
+		{"#abc", false},
+		{"#ABC", false},
+		{"#1a2b3c", false},
+		{"#1A2B3C", false},
+		{"#00000000", false}, // 8-digit with alpha
+		// Invalid
+		{"", true},           // empty (callers skip empty, but function itself rejects)
+		{"abc", true},        // missing #
+		{"#gg0000", true},    // invalid hex digits
+		{"#12345", true},     // 5 digits
+		{"#1234567", true},   // 7 digits
+		{"#123456789", true}, // 9 digits
+		{"red", true},        // named color
+		{"rgb(0,0,0)", true}, // CSS function
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.value, func(t *testing.T) {
+			err := validateHexColor("badge-color-accent", tt.value)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("validateHexColor(%q) error = %v, wantErr %v", tt.value, err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestValidateHexColorErrorMessage(t *testing.T) {
+	err := validateHexColor("badge-color-accent", "notacolor")
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+	msg := err.Error()
+	if !contains(msg, "--badge-color-accent") {
+		t.Errorf("error message should mention the flag name, got: %q", msg)
+	}
+	if !contains(msg, "notacolor") {
+		t.Errorf("error message should mention the invalid value, got: %q", msg)
+	}
+}
+
+func TestCreateBadgeOptionsInvalidColor(t *testing.T) {
+	colorFlagFields := []struct {
+		flagName string
+		setConf  func(*BadgeConfig)
+	}{
+		{"badge-color-background", func(c *BadgeConfig) { c.colorBackground = "red" }},
+		{"badge-color-background-alt", func(c *BadgeConfig) { c.colorBackgroundAlt = "blue" }},
+		{"badge-color-text", func(c *BadgeConfig) { c.colorText = "white" }},
+		{"badge-color-text-secondary", func(c *BadgeConfig) { c.colorTextSecondary = "gray" }},
+		{"badge-color-border", func(c *BadgeConfig) { c.colorBorder = "black" }},
+		{"badge-color-accent", func(c *BadgeConfig) { c.colorAccent = "invalid" }},
+		{"badge-color-positive", func(c *BadgeConfig) { c.colorPositive = "green" }},
+		{"badge-color-negative", func(c *BadgeConfig) { c.colorNegative = "rgb(255,0,0)" }},
+		{"badge-color-star", func(c *BadgeConfig) { c.colorStar = "gold" }},
+	}
+
+	for _, tt := range colorFlagFields {
+		t.Run(tt.flagName, func(t *testing.T) {
+			conf := baseConf()
+			tt.setConf(&conf)
+
+			_, err := createBadgeOptions(conf)
+			if err == nil {
+				t.Fatalf("expected error for invalid color on --%s, got nil", tt.flagName)
+			}
+			if !contains(err.Error(), "--"+tt.flagName) {
+				t.Errorf("error should mention the flag name --%s, got: %q", tt.flagName, err.Error())
+			}
+		})
+	}
+}
+
+func TestCreateBadgeOptionsValidColors(t *testing.T) {
+	validColors := []string{"#fff", "#FFF", "#1a2b3c", "#1A2B3C", "#00000000"}
+
+	for _, color := range validColors {
+		t.Run(color, func(t *testing.T) {
+			conf := baseConf()
+			conf.colorAccent = color
+
+			_, err := createBadgeOptions(conf)
+			if err != nil {
+				t.Errorf("unexpected error for valid color %q: %v", color, err)
+			}
+		})
+	}
+}
+
+func contains(s, sub string) bool {
+	return len(s) >= len(sub) && (s == sub || len(sub) == 0 ||
+		func() bool {
+			for i := 0; i <= len(s)-len(sub); i++ {
+				if s[i:i+len(sub)] == sub {
+					return true
+				}
+			}
+			return false
+		}())
+}
