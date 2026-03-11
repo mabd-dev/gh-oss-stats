@@ -49,6 +49,36 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 
 	// Get theme colors
 	colors := GetThemeColors(opts.Theme)
+	if opts.CustomColors != nil {
+		c := opts.CustomColors
+		if c.Background != "" {
+			colors.Background = c.Background
+		}
+		if c.BackgroundAlt != "" {
+			colors.BackgroundAlt = c.BackgroundAlt
+		}
+		if c.Text != "" {
+			colors.Text = c.Text
+		}
+		if c.TextSecondary != "" {
+			colors.TextSecondary = c.TextSecondary
+		}
+		if c.Border != "" {
+			colors.Border = c.Border
+		}
+		if c.Accent != "" {
+			colors.Accent = c.Accent
+		}
+		if c.Positive != "" {
+			colors.Positive = c.Positive
+		}
+		if c.Negative != "" {
+			colors.Negative = c.Negative
+		}
+		if c.Star != "" {
+			colors.Star = c.Star
+		}
+	}
 
 	// Prepare base template data
 	data := templateData{

@@ -33,12 +33,31 @@ func createBadgeOptions(conf BadgeConfig) (badge.BadgeOptions, error) {
 		os.Exit(1)
 	}
 
+	var customColors *badge.ThemeColors
+	if conf.colorBackground != "" || conf.colorBackgroundAlt != "" ||
+		conf.colorText != "" || conf.colorTextSecondary != "" ||
+		conf.colorBorder != "" || conf.colorAccent != "" ||
+		conf.colorPositive != "" || conf.colorNegative != "" || conf.colorStar != "" {
+		customColors = &badge.ThemeColors{
+			Background:    conf.colorBackground,
+			BackgroundAlt: conf.colorBackgroundAlt,
+			Text:          conf.colorText,
+			TextSecondary: conf.colorTextSecondary,
+			Border:        conf.colorBorder,
+			Accent:        conf.colorAccent,
+			Positive:      conf.colorPositive,
+			Negative:      conf.colorNegative,
+			Star:          conf.colorStar,
+		}
+	}
+
 	return badge.BadgeOptions{
-		Style:   badgeStyle,
-		Variant: badgeVariant,
-		Theme:   badgeTheme,
-		SortBy:  badgeSortBy,
-		Limit:   conf.limit,
+		Style:        badgeStyle,
+		Variant:      badgeVariant,
+		Theme:        badgeTheme,
+		SortBy:       badgeSortBy,
+		Limit:        conf.limit,
+		CustomColors: customColors,
 	}, nil
 }
 

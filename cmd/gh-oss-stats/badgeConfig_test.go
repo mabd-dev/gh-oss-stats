@@ -188,8 +188,115 @@ func TestBadgeConfigPointerReturn(t *testing.T) {
 
 	// Modifying bc1 should not affect bc2
 	bc1.style = "modified"
-	
+
 	if bc2.style == "modified" {
 		t.Error("Modifying bc1 affected bc2; they should be independent instances")
+	}
+}
+
+func TestBadgeColorFlagsRegistered(t *testing.T) {
+	bc := newBadgeConfig()
+	fs := flag.NewFlagSet("test", flag.ContinueOnError)
+	bc.registerBadgeFlags(fs)
+
+	colorFlags := []string{
+		"badge-color-background",
+		"badge-color-background-alt",
+		"badge-color-text",
+		"badge-color-text-secondary",
+		"badge-color-border",
+		"badge-color-accent",
+		"badge-color-positive",
+		"badge-color-negative",
+		"badge-color-star",
+	}
+
+	for _, name := range colorFlags {
+		t.Run(name, func(t *testing.T) {
+			f := fs.Lookup(name)
+			if f == nil {
+				t.Errorf("flag --%s not registered", name)
+				return
+			}
+			if f.DefValue != "" {
+				t.Errorf("flag --%s default = %q, want %q", name, f.DefValue, "")
+			}
+		})
+	}
+}
+
+func TestBadgeColorFlagDefaults(t *testing.T) {
+	bc := newBadgeConfig()
+	fs := flag.NewFlagSet("test", flag.ContinueOnError)
+	bc.registerBadgeFlags(fs)
+
+	// Parse with no color flags — all color fields should remain empty
+	if err := fs.Parse([]string{}); err != nil {
+		t.Fatalf("Parse failed: %v", err)
+	}
+
+	fields := []struct {
+		name string
+		got  string
+	}{
+		{"colorBackground", bc.colorBackground},
+		{"colorBackgroundAlt", bc.colorBackgroundAlt},
+		{"colorText", bc.colorText},
+		{"colorTextSecondary", bc.colorTextSecondary},
+		{"colorBorder", bc.colorBorder},
+		{"colorAccent", bc.colorAccent},
+		{"colorPositive", bc.colorPositive},
+		{"colorNegative", bc.colorNegative},
+		{"colorStar", bc.colorStar},
+	}
+
+	for _, f := range fields {
+		if f.got != "" {
+			t.Errorf("%s default = %q, want empty string", f.name, f.got)
+		}
+	}
+}
+
+func TestBadgeColorFlagsParsed(t *testing.T) {
+	bc := newBadgeConfig()
+	fs := flag.NewFlagSet("test", flag.ContinueOnError)
+	bc.registerBadgeFlags(fs)
+
+	args := []string{
+		"--badge-color-background", "#0d1117",
+		"--badge-color-background-alt", "#161b22",
+		"--badge-color-text", "#c9d1d9",
+		"--badge-color-text-secondary", "#8b949e",
+		"--badge-color-border", "#30363d",
+		"--badge-color-accent", "#58a6ff",
+		"--badge-color-positive", "#3fb950",
+		"--badge-color-negative", "#f85149",
+		"--badge-color-star", "#e3b341",
+	}
+
+	if err := fs.Parse(args); err != nil {
+		t.Fatalf("Parse failed: %v", err)
+	}
+
+	tests := []struct {
+		name string
+		got  string
+		want string
+	}{
+		{"colorBackground", bc.colorBackground, "#0d1117"},
+		{"colorBackgroundAlt", bc.colorBackgroundAlt, "#161b22"},
+		{"colorText", bc.colorText, "#c9d1d9"},
+		{"colorTextSecondary", bc.colorTextSecondary, "#8b949e"},
+		{"colorBorder", bc.colorBorder, "#30363d"},
+		{"colorAccent", bc.colorAccent, "#58a6ff"},
+		{"colorPositive", bc.colorPositive, "#3fb950"},
+		{"colorNegative", bc.colorNegative, "#f85149"},
+		{"colorStar", bc.colorStar, "#e3b341"},
+	}
+
+	for _, tt := range tests {
+		if tt.got != tt.want {
+			t.Errorf("%s = %q, want %q", tt.name, tt.got, tt.want)
+		}
 	}
 }
