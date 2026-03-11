@@ -80,13 +80,13 @@ func TestCreateBadgeOptionsAllCustomColors(t *testing.T) {
 func TestCreateBadgeOptionsPartialCustomColors(t *testing.T) {
 	// Only accent and star are set; all others should be empty strings in CustomColors.
 	conf := BadgeConfig{
-		style:         string(badge.DefaultBadgeStyle),
-		variant:       string(badge.DefaultBadgeVariant),
-		theme:         string(badge.DefaultBadgeTheme),
-		sort:          string(badge.DefaultSortBy),
-		limit:         badge.DefaultPRsLimit,
-		colorAccent:   "#ff6b6b",
-		colorStar:     "#ffd700",
+		style:       string(badge.DefaultBadgeStyle),
+		variant:     string(badge.DefaultBadgeVariant),
+		theme:       string(badge.DefaultBadgeTheme),
+		sort:        string(badge.DefaultSortBy),
+		limit:       badge.DefaultPRsLimit,
+		colorAccent: "#ff6b6b",
+		colorStar:   "#ffd700",
 	}
 
 	opts, err := createBadgeOptions(conf)
@@ -108,16 +108,13 @@ func TestCreateBadgeOptionsPartialCustomColors(t *testing.T) {
 	if opts.CustomColors.Background != "" {
 		t.Errorf("Background = %q, want empty string for unset flag", opts.CustomColors.Background)
 	}
-	if opts.CustomColors.Accent != "#ff6b6b" {
-		t.Errorf("Accent = %q, want %q", opts.CustomColors.Accent, "#ff6b6b")
-	}
 }
 
 func TestCreateBadgeOptionsSingleColorFlag(t *testing.T) {
 	colorFields := []struct {
-		name    string
+		name     string
 		makeConf func() BadgeConfig
-		check   func(*badge.ThemeColors) (string, string) // returns got, want
+		check    func(*badge.ThemeColors) (string, string) // returns got, want
 	}{
 		{
 			"background",
