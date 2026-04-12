@@ -183,14 +183,25 @@ These flags control badge generation and styling. Used by the main command (with
 | Flag | Type | Default | Description |
 |-------|-----------|-------------|-------------|
 | --badge | boolean | false | Generate SVG Badge (main command only) |
+| --from-file | string | "" | Path to stats JSON file to generate badge from |
+| --data | string | "" | Stats as JSON string |
 | --badge-style | string | summary | Badge style: `summary`, `compact`, `detailed` |
 | --badge-variant | string | default | Badge variant: `default`, `text-based` |
 | --badge-theme | string | dark | Color theme: `dark`, `light`, `nord`, `dracula`, `gruvbox-light`, `gruvbox-dark`, etc... |
 | --badge-output | string | ./badge.svg | Output file path for generated badge |
 | --badge-sort | string | prs | Sort contributions by: `prs`, `stars`, `commits` |
 | --badge-limit | int | 5 | Number of contributions to display in detailed badge |
+| --badge-color-background | string | "" | Custom main background color (hex, e.g. `#1a1b26`) |
+| --badge-color-background-alt | string | "" | Custom alt background color (hex) |
+| --badge-color-text | string | "" | Custom primary text color (hex) |
+| --badge-color-text-secondary | string | "" | Custom secondary/label text color (hex) |
+| --badge-color-border | string | "" | Custom border/divider color (hex) |
+| --badge-color-accent | string | "" | Custom accent/brand color (hex) |
+| --badge-color-positive | string | "" | Custom positive/additions color (hex) |
+| --badge-color-negative | string | "" | Custom negative/deletions color (hex) |
+| --badge-color-star | string | "" | Custom star count color (hex) |
 
-
+> Custom color flags override individual colors from the selected theme. Unset flags retain the theme's color.
 
 
 ### Badge Generation

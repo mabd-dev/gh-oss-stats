@@ -209,7 +209,7 @@ const TextBasedDetailed = `
   {{range $i, $r := .TopContributions}}
   <g transform="translate(48, {{add 260 (mul $i 56)}})">
     <text class="repo-name">
-      {{$r.RepoName}}
+      @{{truncate 52 (printf "%s/%s" $r.Owner $r.RepoName)}}
       <tspan class="repo-stars"> ★ {{$r.Stars}}</tspan>
     </text>
 

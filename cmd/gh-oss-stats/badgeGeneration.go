@@ -3,10 +3,20 @@ package main
 import (
 	"fmt"
 	"os"
+	"regexp"
 
 	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats"
 	"github.com/mabd-dev/gh-oss-stats/pkg/ossstats/badge"
 )
+
+var hexColorRE = regexp.MustCompile(`^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$`)
+
+func validateHexColor(flag, value string) error {
+	if !hexColorRE.MatchString(value) {
+		return fmt.Errorf("invalid color for --%s: %q (expected hex format, e.g. #rgb, #rrggbb, #rrggbbaa)", flag, value)
+	}
+	return nil
+}
 
 func createBadgeOptions(conf BadgeConfig) (badge.BadgeOptions, error) {
 	badgeStyle, err := badge.BadgeStyleFromName(conf.style)
@@ -33,12 +43,53 @@ func createBadgeOptions(conf BadgeConfig) (badge.BadgeOptions, error) {
 		os.Exit(1)
 	}
 
+	colorFlags := []struct {
+		flag  string
+		value string
+	}{
+		{"badge-color-background", conf.colorBackground},
+		{"badge-color-background-alt", conf.colorBackgroundAlt},
+		{"badge-color-text", conf.colorText},
+		{"badge-color-text-secondary", conf.colorTextSecondary},
+		{"badge-color-border", conf.colorBorder},
+		{"badge-color-accent", conf.colorAccent},
+		{"badge-color-positive", conf.colorPositive},
+		{"badge-color-negative", conf.colorNegative},
+		{"badge-color-star", conf.colorStar},
+	}
+	for _, cf := range colorFlags {
+		if cf.value != "" {
+			if err := validateHexColor(cf.flag, cf.value); err != nil {
+				return badge.BadgeOptions{}, err
+			}
+		}
+	}
+
+	var customColors *badge.ThemeColors
+	if conf.colorBackground != "" || conf.colorBackgroundAlt != "" ||
+		conf.colorText != "" || conf.colorTextSecondary != "" ||
+		conf.colorBorder != "" || conf.colorAccent != "" ||
+		conf.colorPositive != "" || conf.colorNegative != "" || conf.colorStar != "" {
+		customColors = &badge.ThemeColors{
+			Background:    conf.colorBackground,
+			BackgroundAlt: conf.colorBackgroundAlt,
+			Text:          conf.colorText,
+			TextSecondary: conf.colorTextSecondary,
+			Border:        conf.colorBorder,
+			Accent:        conf.colorAccent,
+			Positive:      conf.colorPositive,
+			Negative:      conf.colorNegative,
+			Star:          conf.colorStar,
+		}
+	}
+
 	return badge.BadgeOptions{
-		Style:   badgeStyle,
-		Variant: badgeVariant,
-		Theme:   badgeTheme,
-		SortBy:  badgeSortBy,
-		Limit:   conf.limit,
+		Style:        badgeStyle,
+		Variant:      badgeVariant,
+		Theme:        badgeTheme,
+		SortBy:       badgeSortBy,
+		Limit:        conf.limit,
+		CustomColors: customColors,
 	}, nil
 }
 

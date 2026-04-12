@@ -49,6 +49,36 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 
 	// Get theme colors
 	colors := GetThemeColors(opts.Theme)
+	if opts.CustomColors != nil {
+		c := opts.CustomColors
+		if c.Background != "" {
+			colors.Background = c.Background
+		}
+		if c.BackgroundAlt != "" {
+			colors.BackgroundAlt = c.BackgroundAlt
+		}
+		if c.Text != "" {
+			colors.Text = c.Text
+		}
+		if c.TextSecondary != "" {
+			colors.TextSecondary = c.TextSecondary
+		}
+		if c.Border != "" {
+			colors.Border = c.Border
+		}
+		if c.Accent != "" {
+			colors.Accent = c.Accent
+		}
+		if c.Positive != "" {
+			colors.Positive = c.Positive
+		}
+		if c.Negative != "" {
+			colors.Negative = c.Negative
+		}
+		if c.Star != "" {
+			colors.Star = c.Star
+		}
+	}
 
 	// Prepare base template data
 	data := templateData{
@@ -74,11 +104,12 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 
 	// Parse and execute template with custom functions
 	tmpl, err := template.New("badge").Funcs(template.FuncMap{
-		"add": func(a, b int) int { return a + b },
-		"sub": func(a, b int) int { return a - b },
-		"mul": func(a, b int) int { return a * b },
-		"mod": func(a, b int) int { return a % b },
-		"div": func(a, b int) int { return a / b },
+		"add":      func(a, b int) int { return a + b },
+		"sub":      func(a, b int) int { return a - b },
+		"mul":      func(a, b int) int { return a * b },
+		"mod":      func(a, b int) int { return a % b },
+		"div":      func(a, b int) int { return a / b },
+		"truncate": truncate,
 	}).Parse(tmplStr)
 	if err != nil {
 		return "", fmt.Errorf("failed to parse template: %w", err)
@@ -174,4 +205,12 @@ func getTemplateStr(
 
 	err := fmt.Errorf("unsupported badge variant: %s, and style: %s combinations", variant, style)
 	return "", err
+}
+
+func truncate(maxLen int, s string) string {
+	runes := []rune(s)
+	if len(runes) <= maxLen {
+		return s
+	}
+	return string(runes[:maxLen-1]) + "…"
 }
