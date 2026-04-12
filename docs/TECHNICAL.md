@@ -183,6 +183,8 @@ These flags control badge generation and styling. Used by the main command (with
 | Flag | Type | Default | Description |
 |-------|-----------|-------------|-------------|
 | --badge | boolean | false | Generate SVG Badge (main command only) |
+| --from-file | string | "" | Path to stats JSON file to generate badge from |
+| --data | string | "" | Stats as JSON string |
 | --badge-style | string | summary | Badge style: `summary`, `compact`, `detailed` |
 | --badge-variant | string | default | Badge variant: `default`, `text-based` |
 | --badge-theme | string | dark | Color theme: `dark`, `light`, `nord`, `dracula`, `gruvbox-light`, `gruvbox-dark`, etc... |

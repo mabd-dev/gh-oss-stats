@@ -12,7 +12,7 @@ Track and display your merged PRs, commits, and contributions to external reposi
 - 🔍 **External Contribution Tracking** - Discovers all your merged PRs to repos you don't own
 - 📊 **Comprehensive Stats** - Total PRs, commits, lines of code, and repository stars
 - ⭐ **Smart Filtering** - Filter by minimum stars, exclude organizations
-- 🎭 18 **Color Themes** - Match your profile's aesthetic
+- 🎭 **18 Color Themes** - Match your profile's aesthetic
 - 📦 **Developer-Friendly** - Use as a Go library or standalone CLI, outputs JSON
 
 
@@ -72,9 +72,9 @@ jobs:
 
 ### Run it manually
 If you don't want to wait for the end of the week, you can run this action manually
-1. G to `your github repo`
+1. Go to your github repo
 2. Click `actions` tab
-3. On the left side, you shouls see your action named `Generate OSS Badge`, click on it
+3. On the left side, you should see your action named `Generate OSS Badge`, click on it
 4. Click on `run workflow` drop down, then click `run workflow`
 
 That is it. It will run and generate the badge for you.
