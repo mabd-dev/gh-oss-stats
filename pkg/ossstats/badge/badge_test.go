@@ -740,13 +740,17 @@ func TestRenderSVG_TextBasedDetailedTextTruncation(t *testing.T) {
 	tests := []struct {
 		name         string
 		repoName     string
+		owner        string
 		wantRepoName string
+		wantOwner    string
 		badgeVariant BadgeVariant
 	}{
 		{
 			name:         "both long names are truncated",
 			repoName:     "a-veryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-very-very-very-long-repository-name-here",
-			wantRepoName: "a-veryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-very-very-very-long-rep…",
+			owner:        "testowner",
+			wantRepoName: "@testowner/a-veryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-ver…",
+			wantOwner:    "@testowner",
 			badgeVariant: VariantTextBased,
 		},
 	}
@@ -762,6 +766,7 @@ func TestRenderSVG_TextBasedDetailedTextTruncation(t *testing.T) {
 				Contributions: []ossstats.Contribution{
 					{
 						RepoName:  tt.repoName,
+						Owner:     tt.owner,
 						Stars:     100,
 						PRsMerged: 1,
 					},
@@ -782,6 +787,9 @@ func TestRenderSVG_TextBasedDetailedTextTruncation(t *testing.T) {
 
 			if !strings.Contains(svg, tt.wantRepoName) {
 				t.Errorf("SVG missing expected repo name %q", tt.wantRepoName)
+			}
+			if !strings.Contains(svg, tt.wantOwner) {
+				t.Errorf("SVG missing expected owner %q", tt.wantOwner)
 			}
 		})
 	}
