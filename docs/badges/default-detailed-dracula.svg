@@ -155,8 +155,8 @@
       font-family="Inter, system-ui, -apple-system, sans-serif"
       font-size="16"
       font-weight="bold"
-      letter-spacing="0em">android-public</text>
 	  class="repo-name"
+      letter-spacing="0em">android-public</text>
     <!-- Owner -->
     <text
       x="48"
@@ -207,8 +207,8 @@
       font-family="Inter, system-ui, -apple-system, sans-serif"
       font-size="16"
       font-weight="bold"
-      letter-spacing="0em">Tomato</text>
 	  class="repo-name"
+      letter-spacing="0em">Tomato</text>
     <!-- Owner -->
     <text
       x="336"
@@ -259,8 +259,8 @@
       font-family="Inter, system-ui, -apple-system, sans-serif"
       font-size="16"
       font-weight="bold"
-      letter-spacing="0em">JetpackComposeTracker</text>
 	  class="repo-name"
+      letter-spacing="0em">JetpackComposeTracker</text>
     <!-- Owner -->
     <text
       x="624"
@@ -311,8 +311,8 @@
       font-family="Inter, system-ui, -apple-system, sans-serif"
       font-size="16"
       font-weight="bold"
-      letter-spacing="0em">nav3-recipes</text>
 	  class="repo-name"
+      letter-spacing="0em">nav3-recipes</text>
     <!-- Owner -->
     <text
       x="48"
@@ -363,8 +363,8 @@
       font-family="Inter, system-ui, -apple-system, sans-serif"
       font-size="16"
       font-weight="bold"
-      letter-spacing="0em">cahier</text>
 	  class="repo-name"
+      letter-spacing="0em">cahier</text>
     <!-- Owner -->
     <text
       x="336"
@@ -415,8 +415,8 @@
       font-family="Inter, system-ui, -apple-system, sans-serif"
       font-size="16"
       font-weight="bold"
-      letter-spacing="0em">Compose-Rolling-Number</text>
 	  class="repo-name"
+      letter-spacing="0em">Compose-Rolling-Number</text>
     <!-- Owner -->
     <text
       x="624"
