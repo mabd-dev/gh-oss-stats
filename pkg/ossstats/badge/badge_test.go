@@ -642,15 +642,6 @@ func TestTruncate(t *testing.T) {
 		},
 	}
 
-	// truncate is exercised via RenderSVG; test it inline with the same logic
-	truncate := func(maxLen int, s string) string {
-		runes := []rune(s)
-		if len(runes) <= maxLen {
-			return s
-		}
-		return string(runes[:maxLen-1]) + "…"
-	}
-
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := truncate(tt.maxLen, tt.input)
@@ -659,6 +650,7 @@ func TestTruncate(t *testing.T) {
 			}
 		})
 	}
+
 }
 
 func TestRenderSVG_DetailedTextTruncation(t *testing.T) {
@@ -697,13 +689,6 @@ func TestRenderSVG_DetailedTextTruncation(t *testing.T) {
 			wantRepoName: "a-very-long-repositor…",
 			wantOwner:    "@a-very-long-organization-…",
 		},
-		//  --- FAIL: TestRenderSVG_DetailedTextTruncation/long_repo_name_is_truncated (0.00s)
-		// 	badge_test.go:733: SVG missing expected repo name "this-repo-name-is-way…"
-		// --- FAIL: TestRenderSVG_DetailedTextTruncation/long_owner_name_is_truncated (0.00s)
-		// 	badge_test.go:736: SVG missing expected owner "@this-owner-name-is-way-to…"
-		// --- FAIL: TestRenderSVG_DetailedTextTruncation/both_long_names_are_truncated (0.00s)
-		// 	badge_test.go:733: SVG missing expected repo name "a-very-long-repositor…"
-		// 	badge_test.go:736: SVG missing expected owner "@a-very-long-organization-…"
 	}
 
 	for _, tt := range tests {

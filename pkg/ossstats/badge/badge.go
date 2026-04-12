@@ -104,18 +104,12 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 
 	// Parse and execute template with custom functions
 	tmpl, err := template.New("badge").Funcs(template.FuncMap{
-		"add": func(a, b int) int { return a + b },
-		"sub": func(a, b int) int { return a - b },
-		"mul": func(a, b int) int { return a * b },
-		"mod": func(a, b int) int { return a % b },
-		"div": func(a, b int) int { return a / b },
-		"truncate": func(maxLen int, s string) string {
-			runes := []rune(s)
-			if len(runes) <= maxLen {
-				return s
-			}
-			return string(runes[:maxLen-1]) + "…"
-		},
+		"add":      func(a, b int) int { return a + b },
+		"sub":      func(a, b int) int { return a - b },
+		"mul":      func(a, b int) int { return a * b },
+		"mod":      func(a, b int) int { return a % b },
+		"div":      func(a, b int) int { return a / b },
+		"truncate": truncate,
 	}).Parse(tmplStr)
 	if err != nil {
 		return "", fmt.Errorf("failed to parse template: %w", err)
@@ -211,4 +205,12 @@ func getTemplateStr(
 
 	err := fmt.Errorf("unsupported badge variant: %s, and style: %s combinations", variant, style)
 	return "", err
+}
+
+func truncate(maxLen int, s string) string {
+	runes := []rune(s)
+	if len(runes) <= maxLen {
+		return s
+	}
+	return string(runes[:maxLen-1]) + "…"
 }
