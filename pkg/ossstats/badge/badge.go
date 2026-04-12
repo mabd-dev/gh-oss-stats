@@ -109,6 +109,13 @@ func RenderSVG(stats *ossstats.Stats, opts BadgeOptions) (string, error) {
 		"mul": func(a, b int) int { return a * b },
 		"mod": func(a, b int) int { return a % b },
 		"div": func(a, b int) int { return a / b },
+		"truncate": func(maxLen int, s string) string {
+			runes := []rune(s)
+			if len(runes) <= maxLen {
+				return s
+			}
+			return string(runes[:maxLen-1]) + "…"
+		},
 	}).Parse(tmplStr)
 	if err != nil {
 		return "", fmt.Errorf("failed to parse template: %w", err)

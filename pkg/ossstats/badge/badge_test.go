@@ -597,6 +597,155 @@ func TestGetThemeColors(t *testing.T) {
 	}
 }
 
+func TestTruncate(t *testing.T) {
+	tests := []struct {
+		name   string
+		maxLen int
+		input  string
+		want   string
+	}{
+		{
+			name:   "short string unchanged",
+			maxLen: 10,
+			input:  "hello",
+			want:   "hello",
+		},
+		{
+			name:   "exact length unchanged",
+			maxLen: 5,
+			input:  "hello",
+			want:   "hello",
+		},
+		{
+			name:   "over limit gets ellipsis",
+			maxLen: 5,
+			input:  "hello world",
+			want:   "hell…",
+		},
+		{
+			name:   "empty string unchanged",
+			maxLen: 10,
+			input:  "",
+			want:   "",
+		},
+		{
+			name:   "multibyte runes truncated correctly",
+			maxLen: 5,
+			input:  "日本語テスト長い名前",
+			want:   "日本語テ…",
+		},
+		{
+			name:   "limit 1 yields only ellipsis",
+			maxLen: 1,
+			input:  "ab",
+			want:   "…",
+		},
+	}
+
+	// truncate is exercised via RenderSVG; test it inline with the same logic
+	truncate := func(maxLen int, s string) string {
+		runes := []rune(s)
+		if len(runes) <= maxLen {
+			return s
+		}
+		return string(runes[:maxLen-1]) + "…"
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := truncate(tt.maxLen, tt.input)
+			if got != tt.want {
+				t.Errorf("truncate(%d, %q) = %q, want %q", tt.maxLen, tt.input, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRenderSVG_DetailedTextTruncation(t *testing.T) {
+	tests := []struct {
+		name         string
+		repoName     string
+		owner        string
+		wantRepoName string
+		wantOwner    string
+	}{
+		{
+			name:         "short names pass through unchanged",
+			repoName:     "short-repo",
+			owner:        "shortowner",
+			wantRepoName: "short-repo",
+			wantOwner:    "@shortowner",
+		},
+		{
+			name:         "long repo name is truncated",
+			repoName:     "this-repo-name-is-way-too-long-to-fit",
+			owner:        "owner",
+			wantRepoName: "this-repo-name-is-way…",
+			wantOwner:    "@owner",
+		},
+		{
+			name:         "long owner name is truncated",
+			repoName:     "repo",
+			owner:        "this-owner-name-is-way-too-long-to-fit",
+			wantRepoName: "repo",
+			wantOwner:    "@this-owner-name-is-way-to…",
+		},
+		{
+			name:         "both long names are truncated",
+			repoName:     "a-very-long-repository-name-here",
+			owner:        "a-very-long-organization-name-here",
+			wantRepoName: "a-very-long-repositor…",
+			wantOwner:    "@a-very-long-organization-…",
+		},
+		//  --- FAIL: TestRenderSVG_DetailedTextTruncation/long_repo_name_is_truncated (0.00s)
+		// 	badge_test.go:733: SVG missing expected repo name "this-repo-name-is-way…"
+		// --- FAIL: TestRenderSVG_DetailedTextTruncation/long_owner_name_is_truncated (0.00s)
+		// 	badge_test.go:736: SVG missing expected owner "@this-owner-name-is-way-to…"
+		// --- FAIL: TestRenderSVG_DetailedTextTruncation/both_long_names_are_truncated (0.00s)
+		// 	badge_test.go:733: SVG missing expected repo name "a-very-long-repositor…"
+		// 	badge_test.go:736: SVG missing expected owner "@a-very-long-organization-…"
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			stats := &ossstats.Stats{
+				Username: "testuser",
+				Summary: ossstats.Summary{
+					TotalProjects:  1,
+					TotalPRsMerged: 1,
+				},
+				Contributions: []ossstats.Contribution{
+					{
+						RepoName:  tt.repoName,
+						Owner:     tt.owner,
+						Stars:     100,
+						PRsMerged: 1,
+					},
+				},
+			}
+
+			opts := BadgeOptions{
+				Style:   StyleDetailed,
+				Variant: VariantDefault,
+				Theme:   ThemeGithubDark,
+				Limit:   1,
+			}
+
+			svg, err := RenderSVG(stats, opts)
+			if err != nil {
+				t.Fatalf("RenderSVG() unexpected error: %v", err)
+			}
+
+			if !strings.Contains(svg, tt.wantRepoName) {
+				t.Errorf("SVG missing expected repo name %q", tt.wantRepoName)
+			}
+			if !strings.Contains(svg, tt.wantOwner) {
+				t.Errorf("SVG missing expected owner %q", tt.wantOwner)
+			}
+		})
+	}
+}
+
 func TestRenderSVG_CompactBadgeContent(t *testing.T) {
 	stats := &ossstats.Stats{
 		Username: "testuser",

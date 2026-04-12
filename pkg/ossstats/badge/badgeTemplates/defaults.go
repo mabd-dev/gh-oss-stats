@@ -262,7 +262,7 @@ const DefaultDetailed = `
       font-size="16"
       font-weight="bold"
 	  class="repo-name"
-      letter-spacing="0em">{{$r.RepoName}}</text>
+      letter-spacing="0em">{{truncate 26 $r.RepoName}}</text>
     <!-- Owner -->
     <text
       x="{{add $x 16}}"
@@ -270,7 +270,7 @@ const DefaultDetailed = `
       fill="{{$.Colors.TextSecondary}}"
       font-family="Inter, system-ui, -apple-system, sans-serif"
       font-size="12"
-      letter-spacing="0em">@{{$r.Owner}}</text>
+      letter-spacing="0em">@{{truncate 28 $r.Owner}}</text>
     <!-- Stats -->
     <text
       x="{{add $x 16}}"
