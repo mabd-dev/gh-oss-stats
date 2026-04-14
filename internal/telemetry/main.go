@@ -6,7 +6,6 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-	"strings"
 
 	analytics "github.com/mabd-dev/gh-oss-stats/internal/analytic"
 )
@@ -27,15 +26,13 @@ func Send(version string) {
 	}
 
 	isCI := os.Getenv("CI") != "" || os.Getenv("GITHUB_ACTIONS") != ""
-	fmt.Printf("isCI=%v\n", isCI)
-
 	if isCI {
 		sendTrackUsageEvent(true)
 		return
 	}
 
 	telemetryDisabled := os.Getenv("GH_OSS_STATS_TELEMETRY_DISABLED")
-	if strings.ToLower(telemetryDisabled) == "true" {
+	if telemetryDisabled == "1" {
 		fmt.Println("telemetry disabled")
 		return
 	}
@@ -53,7 +50,10 @@ func Send(version string) {
 }
 
 func PrintNotice() {
-	println("We send analytics data!")
+	fmt.Println("gh-oss-stats collects anonymous usage telemetry to help improve the tool.")
+	fmt.Println("No personal data or GitHub credentials are collected.")
+	fmt.Println("To disable: export GH_OSS_STATS_TELEMETRY_DISABLED=1")
+	fmt.Println("More info: https://github.com/mabd-dev/gh-oss-stats#telemetry")
 }
 
 func IsFirstRun() bool {
