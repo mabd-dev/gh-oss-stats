@@ -30,15 +30,15 @@ func Send(version string) {
 		return
 	}
 
-	isCI := os.Getenv("CI") != "" || os.Getenv("GITHUB_ACTIONS") != ""
-	if isCI {
-		sendTrackUsageEvent(telemetry.UserUUID, version, true)
-		return
-	}
-
 	telemetryDisabled := os.Getenv("GH_OSS_STATS_TELEMETRY_DISABLED")
 	if telemetryDisabled == "1" {
 		println("telemetry disabled")
+		return
+	}
+
+	isCI := os.Getenv("CI") != "" || os.Getenv("GITHUB_ACTIONS") != ""
+	if isCI {
+		sendTrackUsageEvent(telemetry.UserUUID, version, true)
 		return
 	}
 
@@ -59,20 +59,23 @@ func readOrCreateTelemetry() (*Telemetry, error) {
 		println("failed to read telemetry")
 		return nil, err
 	}
-	if t == nil {
-		userUUID := uuid.New().String()
-		telemetry := Telemetry{
-			NoticeShown: false,
-			UserUUID:    userUUID,
-		}
-		if err := storeTelemetry(telemetry); err != nil {
-			println("shit")
-			return nil, err
-		}
-		return &telemetry, nil
+
+	if t != nil {
+		return t, nil
 	}
 
-	return t, nil
+	// Create + save new telemetry file
+
+	userUUID := uuid.New().String()
+	telemetry := Telemetry{
+		NoticeShown: false,
+		UserUUID:    userUUID,
+	}
+	if err := storeTelemetry(telemetry); err != nil {
+		println("shit")
+		return nil, err
+	}
+	return &telemetry, nil
 }
 
 func readTelemetry() (*Telemetry, error) {
