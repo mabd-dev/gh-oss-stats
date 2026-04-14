@@ -25,10 +25,10 @@ func (analytics Analytics) Track(name string, params map[string]any) error {
 
 func (analytics Analytics) TrackToolUsage(os string, version string, ci bool) error {
 	params := map[string]any{
-		"os":      os,
-		"version": version,
-		"ci":      ci,
-		"project": "gh-oss-stats",
+		"os":           os,
+		"tool-version": version,
+		"ci":           ci,
+		"project":      "gh-oss-stats",
 	}
 	return analytics.Track("usage", params)
 }

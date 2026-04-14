@@ -3,9 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"runtime"
 
-	analytics "github.com/mabd-dev/gh-oss-stats/internal/analytic"
+	"github.com/mabd-dev/gh-oss-stats/internal/telemetry"
 )
 
 const version = "0.3.4"
@@ -14,7 +13,7 @@ func main() {
 	args := os.Args[1:]
 
 	if len(args) == 0 {
-		sendAnalyticsUsage()
+		telemetry.Send(version)
 		runMainCmd(args)
 		return
 	}
@@ -22,38 +21,16 @@ func main() {
 	// Route to sub-commands, or fallback to main command
 	switch args[0] {
 	case "badge":
-		sendAnalyticsUsage()
+		telemetry.Send(version)
 		runBadgeCmd(args[1:])
 	case "demo":
-		sendAnalyticsUsage()
+		telemetry.Send(version)
 		runDemoCmd(args[1:])
 	case "version":
 		fmt.Printf("gh-oss-stats v%s\n", version)
 		os.Exit(0)
 	default:
-		sendAnalyticsUsage()
+		telemetry.Send(version)
 		runMainCmd(args)
-	}
-}
-
-func sendAnalyticsUsage() {
-	// TODO: if first time, and no on CI tell the user we are collecting
-	//   + save that user has been told to not tell him again
-
-	isCI := os.Getenv("CI") != "" || os.Getenv("GITHUB_ACTIONS") != ""
-	firstTime := true
-
-	if firstTime && !isCI {
-		println("TODO: show data collection message")
-	}
-
-	analytics := analytics.CreateAnalytics()
-
-	err := analytics.TrackToolUsage(runtime.GOOS, version, isCI)
-	if err != nil {
-		print("error sending analytics, err=")
-		println(err)
-	} else {
-		println("analytics sent")
 	}
 }
