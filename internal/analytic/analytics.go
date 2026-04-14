@@ -8,18 +8,22 @@ import (
 )
 
 type Analytics struct {
-	Client *mixpanel.ApiClient
+	userUUID string
+	Client   *mixpanel.ApiClient
 }
 
-func CreateAnalytics() Analytics {
+func CreateAnalytics(userUUID string) Analytics {
 	mixpanelClient := mixpanel.NewApiClient(os.Getenv("MIXPANEL_PROJECT_TOKEN"))
-	return Analytics{Client: mixpanelClient}
+	return Analytics{
+		userUUID: userUUID,
+		Client:   mixpanelClient,
+	}
 }
 
 func (analytics Analytics) Track(name string, params map[string]any) error {
 	ctx := context.Background()
 	return analytics.Client.Track(ctx, []*mixpanel.Event{
-		analytics.Client.NewEvent(name, "", params),
+		analytics.Client.NewEvent(name, analytics.userUUID, params),
 	})
 }
 
