@@ -27,13 +27,12 @@ func Send(version string) {
 
 	isCI := os.Getenv("CI") != "" || os.Getenv("GITHUB_ACTIONS") != ""
 	if isCI {
-		sendTrackUsageEvent(true)
+		go sendTrackUsageEvent(true)
 		return
 	}
 
 	telemetryDisabled := os.Getenv("GH_OSS_STATS_TELEMETRY_DISABLED")
 	if telemetryDisabled == "1" {
-		fmt.Println("telemetry disabled")
 		return
 	}
 
@@ -46,7 +45,7 @@ func Send(version string) {
 		}
 	}
 
-	sendTrackUsageEvent(false)
+	go sendTrackUsageEvent(false)
 }
 
 func PrintNotice() {
