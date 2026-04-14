@@ -7,7 +7,10 @@ import (
 	"path/filepath"
 	"runtime"
 
+	"github.com/google/uuid"
+
 	analytics "github.com/mabd-dev/gh-oss-stats/internal/analytic"
+	"github.com/mabd-dev/gh-oss-stats/internal/utils"
 )
 
 var (
@@ -16,57 +19,89 @@ var (
 )
 
 type Telemetry struct {
-	NoticeShown bool `json:"noticeShown"`
+	NoticeShown bool   `json:"noticeShown"`
+	UserUUID    string `json:"userUUID"`
 }
 
 func Send(version string) {
-	sendTrackUsageEvent := func(isCI bool) error {
-		analytics := analytics.CreateAnalytics()
-		return analytics.TrackToolUsage(runtime.GOOS, version, isCI)
+	telemetry, err := readOrCreateTelemetry()
+	if err != nil {
+		fmt.Printf("failed to read/create telemetry, %v\n", err.Error())
+		return
 	}
 
 	isCI := os.Getenv("CI") != "" || os.Getenv("GITHUB_ACTIONS") != ""
 	if isCI {
-		go sendTrackUsageEvent(true)
+		sendTrackUsageEvent(telemetry.UserUUID, version, true)
 		return
 	}
 
 	telemetryDisabled := os.Getenv("GH_OSS_STATS_TELEMETRY_DISABLED")
 	if telemetryDisabled == "1" {
+		println("telemetry disabled")
 		return
 	}
 
-	firstRun := IsFirstRun()
-
-	if firstRun {
-		PrintNotice()
-		if err := MarkFirstRunDone(); err != nil {
+	if !telemetry.NoticeShown {
+		printNotice()
+		telemetry.NoticeShown = true
+		if err := storeTelemetry(*telemetry); err != nil {
 			println(err)
 		}
 	}
 
-	go sendTrackUsageEvent(false)
+	sendTrackUsageEvent(telemetry.UserUUID, version, false)
 }
 
-func PrintNotice() {
-	fmt.Println("gh-oss-stats collects anonymous usage telemetry to help improve the tool.")
-	fmt.Println("No personal data or GitHub credentials are collected.")
-	fmt.Println("To disable: export GH_OSS_STATS_TELEMETRY_DISABLED=1")
-	fmt.Println("More info: https://github.com/mabd-dev/gh-oss-stats#telemetry")
-}
-
-func IsFirstRun() bool {
-	configDir, _ := os.UserConfigDir()
-	markerPath := filepath.Join(configDir, toolName, telemetryFileName)
-	_, err := os.Stat(markerPath)
-	return os.IsNotExist(err)
-}
-
-func MarkFirstRunDone() error {
-	telemetry := Telemetry{
-		NoticeShown: true,
+func readOrCreateTelemetry() (*Telemetry, error) {
+	t, err := readTelemetry()
+	if err != nil {
+		println("failed to read telemetry")
+		return nil, err
 	}
-	jsonData, err := json.Marshal(telemetry)
+	if t == nil {
+		userUUID := uuid.New().String()
+		telemetry := Telemetry{
+			NoticeShown: false,
+			UserUUID:    userUUID,
+		}
+		if err := storeTelemetry(telemetry); err != nil {
+			println("shit")
+			return nil, err
+		}
+		return &telemetry, nil
+	}
+
+	return t, nil
+}
+
+func readTelemetry() (*Telemetry, error) {
+	configDir, _ := os.UserConfigDir()
+	telementryPath := filepath.Join(configDir, toolName, telemetryFileName)
+
+	exists, err := utils.FileExists(telementryPath)
+	if err != nil {
+		return nil, err
+	}
+	if !exists {
+		return nil, nil
+	}
+
+	data, err := os.ReadFile(telementryPath)
+	if err != nil {
+		return nil, err
+	}
+
+	var telemetry Telemetry
+	if err := json.Unmarshal(data, &telemetry); err != nil {
+		return nil, err
+	}
+
+	return &telemetry, nil
+}
+
+func storeTelemetry(t Telemetry) error {
+	jsonData, err := json.Marshal(t)
 	if err != nil {
 		return err
 	}
@@ -76,8 +111,24 @@ func MarkFirstRunDone() error {
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return err
 	}
-
 	filePath := filepath.Join(dir, telemetryFileName)
 
-	return os.WriteFile(filePath, jsonData, 0644)
+	return utils.WriteToFile(jsonData, filePath)
+}
+
+func printNotice() {
+	fmt.Println("gh-oss-stats collects anonymous usage telemetry to help improve the tool.")
+	fmt.Println("No personal data or GitHub credentials are collected.")
+	fmt.Println("To disable: export GH_OSS_STATS_TELEMETRY_DISABLED=1")
+	fmt.Println("More info: https://github.com/mabd-dev/gh-oss-stats#telemetry")
+}
+
+func sendTrackUsageEvent(userUUID string, version string, isCI bool) error {
+	analytics := analytics.CreateAnalytics(userUUID)
+	println("analytics sent")
+	err := analytics.TrackToolUsage(runtime.GOOS, version, isCI)
+	if err != nil {
+		fmt.Printf("failed to send analytics, userUUID=%v, error=%v\n", userUUID, err.Error())
+	}
+	return err
 }
