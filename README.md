@@ -131,6 +131,31 @@ For local development or custom integrations, see [docs/TECHNICAL.md](docs/TECHN
 
 📖 **Full technical documentation:** [docs/TECHNICAL.md](docs/TECHNICAL.md)
 
+***
+
+## Telemetry
+
+`gh-oss-stats` collects anonymous usage data to help understand how the tool 
+is used and improve it over time. You'll see a one-time notice about this on 
+first run.
+
+**What is collected:**
+- `os` — operating system (linux, windows, darwin)
+- `version` — tool version being used
+- `ci` — whether the tool is running in a CI environment
+
+Nothing personal is collected — no usernames, tokens, or file paths.
+Events are sent to a [mixpanel](https://mixpanel.com/home/) (a third-party analytics service) and visible only to the maintainer.
+
+### Disable telemetry
+
+Add this to your shell config (`~/.zshrc` or `~/.bashrc`):
+```sh
+export GH_OSS_STATS_TELEMETRY_DISABLED=1
+```
+
+***
+
 ## License
 
 See [LICENSE](LICENSE) file.
