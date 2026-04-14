@@ -26,13 +26,11 @@ type Telemetry struct {
 func Send(version string) {
 	telemetry, err := readOrCreateTelemetry()
 	if err != nil {
-		fmt.Printf("failed to read/create telemetry, %v\n", err.Error())
 		return
 	}
 
 	telemetryDisabled := os.Getenv("GH_OSS_STATS_TELEMETRY_DISABLED")
 	if telemetryDisabled == "1" {
-		println("telemetry disabled")
 		return
 	}
 
@@ -44,10 +42,9 @@ func Send(version string) {
 
 	if !telemetry.NoticeShown {
 		printNotice()
+
 		telemetry.NoticeShown = true
-		if err := storeTelemetry(*telemetry); err != nil {
-			println(err)
-		}
+		storeTelemetry(*telemetry)
 	}
 
 	sendTrackUsageEvent(telemetry.UserUUID, version, false)
@@ -56,7 +53,6 @@ func Send(version string) {
 func readOrCreateTelemetry() (*Telemetry, error) {
 	t, err := readTelemetry()
 	if err != nil {
-		println("failed to read telemetry")
 		return nil, err
 	}
 
@@ -72,7 +68,6 @@ func readOrCreateTelemetry() (*Telemetry, error) {
 		UserUUID:    userUUID,
 	}
 	if err := storeTelemetry(telemetry); err != nil {
-		println("shit")
 		return nil, err
 	}
 	return &telemetry, nil
@@ -128,10 +123,5 @@ func printNotice() {
 
 func sendTrackUsageEvent(userUUID string, version string, isCI bool) error {
 	analytics := analytics.CreateAnalytics(userUUID)
-	println("analytics sent")
-	err := analytics.TrackToolUsage(runtime.GOOS, version, isCI)
-	if err != nil {
-		fmt.Printf("failed to send analytics, userUUID=%v, error=%v\n", userUUID, err.Error())
-	}
-	return err
+	return analytics.TrackToolUsage(runtime.GOOS, version, isCI)
 }
