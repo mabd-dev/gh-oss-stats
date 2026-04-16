@@ -100,7 +100,7 @@ Customize your badge by passing inputs to the action:
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     badge-path: 'images/oss-badge.svg'
-    badge-style: 'detailed'      # summary, compact, or detailed
+    badge-style: 'detailed'       # summary, compact, or detailed
     badge-theme: 'nord'           # dark, light, nord, dracula, gruvbox-light, gruvbox-dark, etc...
     badge-variant: 'text-based'   # default or text-based
     min-stars: '100'              # Filter repos by minimum stars
