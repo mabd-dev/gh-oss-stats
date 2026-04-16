@@ -99,7 +99,7 @@ func readTelemetry() (*Telemetry, error) {
 }
 
 func storeTelemetry(t Telemetry) error {
-	jsonData, err := json.Marshal(t)
+	jsonData, err := json.MarshalIndent(t, "", "    ")
 	if err != nil {
 		return err
 	}
