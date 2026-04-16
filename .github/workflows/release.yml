@@ -34,9 +34,9 @@ jobs:
         run: |
           echo "Building gh-oss-stats ..."
           mkdir -p dist
-          GOOS=linux  GOARCH=amd64  go build -o dist/gh-oss-stats-linux-amd64  -ldflags="-X github.com/mabd-dev/gh-oss-stats/internal/analytics/analytics.mixpanelToken=${{ secrets.MIXPANEL_TOKEN }}" ./cmd/gh-oss-stats
-          GOOS=linux  GOARCH=arm64  go build -o dist/gh-oss-stats-linux-arm64  -ldflags="-X github.com/mabd-dev/gh-oss-stats/internal/analytics/analytics.mixpanelToken=${{ secrets.MIXPANEL_TOKEN }}" ./cmd/gh-oss-stats
-          GOOS=darwin GOARCH=arm64  go build -o dist/gh-oss-stats-darwin-arm64 -ldflags="-X github.com/mabd-dev/gh-oss-stats/internal/analytics/analytics.mixpanelToken=${{ secrets.MIXPANEL_TOKEN }}" ./cmd/gh-oss-stats
+          GOOS=linux  GOARCH=amd64  go build -o dist/gh-oss-stats-linux-amd64  -ldflags="-X github.com/mabd-dev/gh-oss-stats/internal/analytics.mixpanelToken=${{ secrets.MIXPANEL_TOKEN }}" ./cmd/gh-oss-stats
+          GOOS=linux  GOARCH=arm64  go build -o dist/gh-oss-stats-linux-arm64  -ldflags="-X github.com/mabd-dev/gh-oss-stats/internal/analytics.mixpanelToken=${{ secrets.MIXPANEL_TOKEN }}" ./cmd/gh-oss-stats
+          GOOS=darwin GOARCH=arm64  go build -o dist/gh-oss-stats-darwin-arm64 -ldflags="-X github.com/mabd-dev/gh-oss-stats/internal/analytics.mixpanelToken=${{ secrets.MIXPANEL_TOKEN }}" ./cmd/gh-oss-stats
 
       - name: Trigger pkg.go.dev indexing
         run: |
