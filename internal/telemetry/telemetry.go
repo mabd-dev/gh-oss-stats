@@ -24,13 +24,13 @@ type Telemetry struct {
 }
 
 func Send(version string) {
-	telemetry, err := readOrCreateTelemetry()
-	if err != nil {
+	telemetryDisabled := os.Getenv("GH_OSS_STATS_TELEMETRY_DISABLED")
+	if telemetryDisabled == "1" {
 		return
 	}
 
-	telemetryDisabled := os.Getenv("GH_OSS_STATS_TELEMETRY_DISABLED")
-	if telemetryDisabled == "1" {
+	telemetry, err := readOrCreateTelemetry()
+	if err != nil {
 		return
 	}
 
@@ -79,9 +79,9 @@ func readTelemetry() (*Telemetry, error) {
 		return nil, err
 	}
 
-	telementryPath := filepath.Join(configDir, toolName, telemetryFileName)
+	telemetryPath := filepath.Join(configDir, toolName, telemetryFileName)
 
-	exists, err := utils.FileExists(telementryPath)
+	exists, err := utils.FileExists(telemetryPath)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func readTelemetry() (*Telemetry, error) {
 		return nil, nil
 	}
 
-	data, err := os.ReadFile(telementryPath)
+	data, err := os.ReadFile(telemetryPath)
 	if err != nil {
 		return nil, err
 	}
