@@ -18,6 +18,8 @@ var (
 	telemetryFileName = "telemetry.json"
 )
 
+var mixpanelToken = "dev-token"
+
 type Telemetry struct {
 	NoticeShown bool   `json:"noticeShown"`
 	UserUUID    string `json:"userUUID"`
