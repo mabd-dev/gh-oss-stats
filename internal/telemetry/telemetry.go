@@ -76,7 +76,11 @@ func readOrCreateTelemetry() (*Telemetry, error) {
 }
 
 func readTelemetry() (*Telemetry, error) {
-	configDir, _ := os.UserConfigDir()
+	configDir, err := os.UserConfigDir()
+	if err != nil {
+		return nil, err
+	}
+
 	telementryPath := filepath.Join(configDir, toolName, telemetryFileName)
 
 	exists, err := utils.FileExists(telementryPath)
@@ -106,7 +110,11 @@ func storeTelemetry(t Telemetry) error {
 		return err
 	}
 
-	configDir, _ := os.UserConfigDir()
+	configDir, err := os.UserConfigDir()
+	if err != nil {
+		return err
+	}
+
 	dir := filepath.Join(configDir, toolName)
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return err
