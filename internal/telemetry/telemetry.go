@@ -9,7 +9,7 @@ import (
 
 	"github.com/google/uuid"
 
-	analytics "github.com/mabd-dev/gh-oss-stats/internal/analytic"
+	analytics "github.com/mabd-dev/gh-oss-stats/internal/analytics"
 	"github.com/mabd-dev/gh-oss-stats/internal/utils"
 )
 
@@ -17,8 +17,6 @@ var (
 	toolName          = "gh-oss-stats"
 	telemetryFileName = "telemetry.json"
 )
-
-var mixpanelToken = "dev-token"
 
 type Telemetry struct {
 	NoticeShown bool   `json:"noticeShown"`

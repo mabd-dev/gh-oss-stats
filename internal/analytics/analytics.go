@@ -2,10 +2,12 @@ package analytics
 
 import (
 	"context"
-	"os"
+	"fmt"
 
 	"github.com/mixpanel/mixpanel-go"
 )
+
+var mixpanelToken = "dev-token"
 
 type Analytics struct {
 	userUUID string
@@ -13,7 +15,8 @@ type Analytics struct {
 }
 
 func CreateAnalytics(userUUID string) Analytics {
-	mixpanelClient := mixpanel.NewApiClient(os.Getenv("MIXPANEL_PROJECT_TOKEN"))
+	fmt.Printf("creaeting analytics, token=%v\n", mixpanelToken)
+	mixpanelClient := mixpanel.NewApiClient(mixpanelToken)
 	return Analytics{
 		userUUID: userUUID,
 		Client:   mixpanelClient,
