@@ -6,7 +6,7 @@ import (
 	"github.com/mixpanel/mixpanel-go"
 )
 
-var mixpanelToken = "dev-token"
+var mixpanelToken = ""
 
 type Analytics struct {
 	userUUID string
