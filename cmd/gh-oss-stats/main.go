@@ -7,7 +7,7 @@ import (
 	"github.com/mabd-dev/gh-oss-stats/internal/telemetry"
 )
 
-const version = "0.3.4"
+const version = "0.3.5"
 
 func main() {
 	args := os.Args[1:]
