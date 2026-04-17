@@ -26,7 +26,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go-version }}
-          cache: false
+          cache: true
 
       - name: Download dependencies
         run: go mod download
@@ -35,7 +35,7 @@ jobs:
         run: go mod verify
 
       - name: Run tests
-        run: go test -v -coverprofile=coverage.out -covermode=atomic ./...
+        run: go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
 
       - name: Display coverage
         run: go tool cover -func=coverage.out
