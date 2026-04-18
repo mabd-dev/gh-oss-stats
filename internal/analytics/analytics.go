@@ -28,12 +28,18 @@ func (analytics Analytics) Track(name string, params map[string]any) error {
 	})
 }
 
-func (analytics Analytics) TrackToolUsage(os string, version string, ci bool) error {
+func (analytics Analytics) TrackToolUsage(
+	os string,
+	version string,
+	ci bool,
+	command string,
+) error {
 	params := map[string]any{
 		"os":           os,
 		"tool-version": version,
 		"ci":           ci,
 		"project":      "gh-oss-stats",
+		"command":      command,
 	}
 	return analytics.Track("usage", params)
 }

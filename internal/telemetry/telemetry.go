@@ -23,7 +23,7 @@ type Telemetry struct {
 	UserUUID    string `json:"userUUID"`
 }
 
-func Send(version string) {
+func Send(version string, command string) {
 	telemetryDisabled := os.Getenv("GH_OSS_STATS_TELEMETRY_DISABLED")
 	if telemetryDisabled == "1" {
 		return
@@ -36,7 +36,7 @@ func Send(version string) {
 
 	isCI := os.Getenv("CI") != "" || os.Getenv("GITHUB_ACTIONS") != ""
 	if isCI {
-		sendTrackUsageEvent(telemetry.UserUUID, version, true)
+		sendTrackUsageEvent(telemetry.UserUUID, version, true, command)
 		return
 	}
 
@@ -47,7 +47,7 @@ func Send(version string) {
 		storeTelemetry(*telemetry)
 	}
 
-	sendTrackUsageEvent(telemetry.UserUUID, version, false)
+	sendTrackUsageEvent(telemetry.UserUUID, version, false, command)
 }
 
 func readOrCreateTelemetry() (*Telemetry, error) {
@@ -129,7 +129,12 @@ func printNotice() {
 	fmt.Println("More info: https://github.com/mabd-dev/gh-oss-stats#telemetry")
 }
 
-func sendTrackUsageEvent(userUUID string, version string, isCI bool) error {
+func sendTrackUsageEvent(
+	userUUID string,
+	version string,
+	isCI bool,
+	command string,
+) error {
 	analytics := analytics.CreateAnalytics(userUUID)
-	return analytics.TrackToolUsage(runtime.GOOS, version, isCI)
+	return analytics.TrackToolUsage(runtime.GOOS, version, isCI, command)
 }
