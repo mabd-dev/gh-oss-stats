@@ -143,6 +143,7 @@ first run.
 - `os` — operating system (linux, windows, darwin)
 - `version` — tool version being used
 - `ci` — whether the tool is running in a CI environment
+- `command` — subommand used ("", "badge", "demo", etc...)
 
 Nothing personal is collected — no usernames, tokens, or file paths.
 Events are sent to a [mixpanel](https://mixpanel.com/home/) (a third-party analytics service) and visible only to the maintainer.
