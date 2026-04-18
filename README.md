@@ -100,7 +100,7 @@ Customize your badge by passing inputs to the action:
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     badge-path: 'images/oss-badge.svg'
-    badge-style: 'detailed'      # summary, compact, or detailed
+    badge-style: 'detailed'       # summary, compact, or detailed
     badge-theme: 'nord'           # dark, light, nord, dracula, gruvbox-light, gruvbox-dark, etc...
     badge-variant: 'text-based'   # default or text-based
     min-stars: '100'              # Filter repos by minimum stars
@@ -130,6 +130,32 @@ For local development or custom integrations, see [docs/TECHNICAL.md](docs/TECHN
 - **Custom Workflows:** Build your own automation beyond badges
 
 📖 **Full technical documentation:** [docs/TECHNICAL.md](docs/TECHNICAL.md)
+
+***
+
+## Telemetry
+
+`gh-oss-stats` collects anonymous usage data to help understand how the tool 
+is used and improve it over time. You'll see a one-time notice about this on 
+first run.
+
+**What is collected:**
+- `os` — operating system (linux, windows, darwin)
+- `version` — tool version being used
+- `ci` — whether the tool is running in a CI environment
+- `command` — subommand used ("", "badge", "demo", etc...)
+
+Nothing personal is collected — no usernames, tokens, or file paths.
+Events are sent to a [mixpanel](https://mixpanel.com/home/) (a third-party analytics service) and visible only to the maintainer.
+
+### Disable telemetry
+
+Add this to your shell config (`~/.zshrc` or `~/.bashrc`):
+```sh
+export GH_OSS_STATS_TELEMETRY_DISABLED=1
+```
+
+***
 
 ## License
 

@@ -1,0 +1,140 @@
+package telemetry
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"runtime"
+
+	"github.com/google/uuid"
+
+	analytics "github.com/mabd-dev/gh-oss-stats/internal/analytics"
+	"github.com/mabd-dev/gh-oss-stats/internal/utils"
+)
+
+var (
+	toolName          = "gh-oss-stats"
+	telemetryFileName = "telemetry.json"
+)
+
+type Telemetry struct {
+	NoticeShown bool   `json:"noticeShown"`
+	UserUUID    string `json:"userUUID"`
+}
+
+func Send(version string, command string) {
+	telemetryDisabled := os.Getenv("GH_OSS_STATS_TELEMETRY_DISABLED")
+	if telemetryDisabled == "1" {
+		return
+	}
+
+	telemetry, err := readOrCreateTelemetry()
+	if err != nil {
+		return
+	}
+
+	isCI := os.Getenv("CI") != "" || os.Getenv("GITHUB_ACTIONS") != ""
+	if isCI {
+		sendTrackUsageEvent(telemetry.UserUUID, version, true, command)
+		return
+	}
+
+	if !telemetry.NoticeShown {
+		printNotice()
+
+		telemetry.NoticeShown = true
+		storeTelemetry(*telemetry)
+	}
+
+	sendTrackUsageEvent(telemetry.UserUUID, version, false, command)
+}
+
+func readOrCreateTelemetry() (*Telemetry, error) {
+	t, err := readTelemetry()
+	if err != nil {
+		return nil, err
+	}
+
+	if t != nil {
+		return t, nil
+	}
+
+	// Create + save new telemetry file
+
+	userUUID := uuid.New().String()
+	telemetry := Telemetry{
+		NoticeShown: false,
+		UserUUID:    userUUID,
+	}
+	if err := storeTelemetry(telemetry); err != nil {
+		return nil, err
+	}
+	return &telemetry, nil
+}
+
+func readTelemetry() (*Telemetry, error) {
+	configDir, err := os.UserConfigDir()
+	if err != nil {
+		return nil, err
+	}
+
+	telemetryPath := filepath.Join(configDir, toolName, telemetryFileName)
+
+	exists, err := utils.FileExists(telemetryPath)
+	if err != nil {
+		return nil, err
+	}
+	if !exists {
+		return nil, nil
+	}
+
+	data, err := os.ReadFile(telemetryPath)
+	if err != nil {
+		return nil, err
+	}
+
+	var telemetry Telemetry
+	if err := json.Unmarshal(data, &telemetry); err != nil {
+		return nil, err
+	}
+
+	return &telemetry, nil
+}
+
+func storeTelemetry(t Telemetry) error {
+	jsonData, err := json.MarshalIndent(t, "", "    ")
+	if err != nil {
+		return err
+	}
+
+	configDir, err := os.UserConfigDir()
+	if err != nil {
+		return err
+	}
+
+	dir := filepath.Join(configDir, toolName)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return err
+	}
+	filePath := filepath.Join(dir, telemetryFileName)
+
+	return utils.WriteToFile(jsonData, filePath)
+}
+
+func printNotice() {
+	fmt.Println("gh-oss-stats collects anonymous usage telemetry to help improve the tool.")
+	fmt.Println("No personal data or GitHub credentials are collected.")
+	fmt.Println("To disable: export GH_OSS_STATS_TELEMETRY_DISABLED=1")
+	fmt.Println("More info: https://github.com/mabd-dev/gh-oss-stats#telemetry")
+}
+
+func sendTrackUsageEvent(
+	userUUID string,
+	version string,
+	isCI bool,
+	command string,
+) error {
+	analytics := analytics.CreateAnalytics(userUUID)
+	return analytics.TrackToolUsage(runtime.GOOS, version, isCI, command)
+}
